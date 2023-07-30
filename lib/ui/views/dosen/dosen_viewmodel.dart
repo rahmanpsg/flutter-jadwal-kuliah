@@ -6,21 +6,19 @@ import 'package:jadwal_kuliah/ui/dialogs/form/form_dialog.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class MatakuliahViewModel extends BaseViewModel {
-  final log = getLogger('MatakuliahViewModel');
+class DosenViewModel extends BaseViewModel {
+  final log = getLogger('DosenViewModel');
 
   final _dialogService = locator<DialogService>();
 
-  String get table => 'Matakuliah';
+  String get table => 'Dosen';
 
   final columns = [
     '#',
-    'Kode',
+    'NBM',
     'Nama',
-    'SKS',
-    'Semester',
-    'Program Studi',
-    'Fakultas',
+    'Alamat',
+    'Nomor Telepon',
     'Aksi',
   ];
 
@@ -34,26 +32,18 @@ class MatakuliahViewModel extends BaseViewModel {
       data: FormDialogData(
         formDialogItems: [
           FormDialogItem(
-            label: 'Kode',
+            label: 'NBM',
+            keyboardType: TextInputType.number,
           ),
           FormDialogItem(
             label: 'Nama',
           ),
           FormDialogItem(
-            label: 'SKS',
-            keyboardType: TextInputType.number,
+            label: 'Alamat',
           ),
           FormDialogItem(
-            label: 'Semester',
-            keyboardType: TextInputType.number,
-          ),
-          FormDialogItem(
-            label: 'Program Studi',
-            isDropdown: true,
-          ),
-          FormDialogItem(
-            label: 'Fakultas',
-            isDropdown: true,
+            label: 'Nomor Telepon',
+            keyboardType: TextInputType.phone,
           ),
         ],
       ),

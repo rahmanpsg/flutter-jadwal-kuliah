@@ -31,12 +31,6 @@ class DashboardViewDesktop extends ViewModelWidget<DashboardViewModel> {
             ),
             selectedLabelTextStyle: Theme.of(context).textTheme.bodyMedium,
             unselectedLabelTextStyle: Theme.of(context).textTheme.bodyMedium,
-            destinations: viewModel.items
-                .map((item) => NavigationRailDestination(
-                      icon: Icon(item['icon']),
-                      label: Text(item['label']),
-                    ))
-                .toList(),
             leading: Padding(
               padding: const EdgeInsets.symmetric(vertical: 32),
               child: Column(
@@ -50,16 +44,29 @@ class DashboardViewDesktop extends ViewModelWidget<DashboardViewModel> {
                 ],
               ),
             ),
+            destinations: viewModel.items
+                .map(
+                  (item) => NavigationRailDestination(
+                    icon: Tooltip(
+                      message: item.label,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(item.icon),
+                    ),
+                    label: Text(item.label),
+                  ),
+                )
+                .toList(),
           ),
-          Expanded(
+          const Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(
+              padding: EdgeInsets.symmetric(
                 vertical: 8.0,
                 horizontal: 16.0,
               ),
-              child: NestedRouter(
-                navigatorKey: viewModel.navigatorKey,
-              ),
+              child: NestedRouter(),
             ),
           ),
         ],

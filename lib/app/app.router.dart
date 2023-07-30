@@ -5,27 +5,34 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i8;
-import 'package:stacked/stacked.dart' as _i7;
-import 'package:stacked_services/stacked_services.dart' as _i6;
+import 'package:flutter/material.dart' as _i15;
+import 'package:stacked/stacked.dart' as _i14;
+import 'package:stacked_services/stacked_services.dart' as _i13;
 
 import '../ui/views/dashboard/dashboard_view.dart' as _i2;
+import '../ui/views/dosen/dosen_view.dart' as _i7;
+import '../ui/views/fakultas/fakultas_view.dart' as _i8;
 import '../ui/views/home/home_view.dart' as _i4;
+import '../ui/views/kelas/kelas_view.dart' as _i10;
 import '../ui/views/matakuliah/matakuliah_view.dart' as _i5;
+import '../ui/views/pengampu/pengampu_view.dart' as _i11;
+import '../ui/views/pengaturan/pengaturan_view.dart' as _i12;
+import '../ui/views/program_studi/program_studi_view.dart' as _i6;
+import '../ui/views/ruangan/ruangan_view.dart' as _i9;
 import '../ui/views/startup/startup_view.dart' as _i1;
 import '../ui/views/unknown/unknown_view.dart' as _i3;
 
 final stackedRouter =
-    StackedRouterWeb(navigatorKey: _i6.StackedService.navigatorKey);
+    StackedRouterWeb(navigatorKey: _i13.StackedService.navigatorKey);
 
-class StackedRouterWeb extends _i7.RootStackRouter {
-  StackedRouterWeb({_i8.GlobalKey<_i8.NavigatorState>? navigatorKey})
+class StackedRouterWeb extends _i14.RootStackRouter {
+  StackedRouterWeb({_i15.GlobalKey<_i15.NavigatorState>? navigatorKey})
       : super(navigatorKey);
 
   @override
-  final Map<String, _i7.PageFactory> pagesMap = {
+  final Map<String, _i14.PageFactory> pagesMap = {
     StartupViewRoute.name: (routeData) {
-      return _i7.CustomPage<dynamic>(
+      return _i14.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.StartupView(),
         opaque: true,
@@ -33,7 +40,7 @@ class StackedRouterWeb extends _i7.RootStackRouter {
       );
     },
     DashboardViewRoute.name: (routeData) {
-      return _i7.CustomPage<dynamic>(
+      return _i14.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i2.DashboardView(),
         opaque: true,
@@ -41,7 +48,7 @@ class StackedRouterWeb extends _i7.RootStackRouter {
       );
     },
     UnknownViewRoute.name: (routeData) {
-      return _i7.CustomPage<dynamic>(
+      return _i14.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i3.UnknownView(),
         opaque: true,
@@ -49,7 +56,7 @@ class StackedRouterWeb extends _i7.RootStackRouter {
       );
     },
     HomeViewRoute.name: (routeData) {
-      return _i7.CustomPage<dynamic>(
+      return _i14.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i4.HomeView(),
         opaque: true,
@@ -57,9 +64,65 @@ class StackedRouterWeb extends _i7.RootStackRouter {
       );
     },
     MatakuliahViewRoute.name: (routeData) {
-      return _i7.CustomPage<dynamic>(
+      return _i14.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i5.MatakuliahView(),
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    ProgramStudiViewRoute.name: (routeData) {
+      return _i14.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i6.ProgramStudiView(),
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    DosenViewRoute.name: (routeData) {
+      return _i14.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i7.DosenView(),
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    FakultasViewRoute.name: (routeData) {
+      return _i14.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i8.FakultasView(),
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    RuanganViewRoute.name: (routeData) {
+      return _i14.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i9.RuanganView(),
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    KelasViewRoute.name: (routeData) {
+      return _i14.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i10.KelasView(),
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    PengampuViewRoute.name: (routeData) {
+      return _i14.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i11.PengampuView(),
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    PengaturanViewRoute.name: (routeData) {
+      return _i14.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i12.PengaturanView(),
         opaque: true,
         barrierDismissible: false,
       );
@@ -67,39 +130,74 @@ class StackedRouterWeb extends _i7.RootStackRouter {
   };
 
   @override
-  List<_i7.RouteConfig> get routes => [
-        _i7.RouteConfig(
+  List<_i14.RouteConfig> get routes => [
+        _i14.RouteConfig(
           StartupViewRoute.name,
           path: '/',
         ),
-        _i7.RouteConfig(
+        _i14.RouteConfig(
           DashboardViewRoute.name,
           path: '/dashboard-view',
           children: [
-            _i7.RouteConfig(
+            _i14.RouteConfig(
               '#redirect',
               path: '',
               parent: DashboardViewRoute.name,
               redirectTo: 'home',
               fullMatch: true,
             ),
-            _i7.RouteConfig(
+            _i14.RouteConfig(
               HomeViewRoute.name,
               path: '',
               parent: DashboardViewRoute.name,
             ),
-            _i7.RouteConfig(
+            _i14.RouteConfig(
               MatakuliahViewRoute.name,
               path: 'matakuliah-view',
               parent: DashboardViewRoute.name,
             ),
+            _i14.RouteConfig(
+              ProgramStudiViewRoute.name,
+              path: 'program-studi-view',
+              parent: DashboardViewRoute.name,
+            ),
+            _i14.RouteConfig(
+              DosenViewRoute.name,
+              path: 'dosen-view',
+              parent: DashboardViewRoute.name,
+            ),
+            _i14.RouteConfig(
+              FakultasViewRoute.name,
+              path: 'fakultas-view',
+              parent: DashboardViewRoute.name,
+            ),
+            _i14.RouteConfig(
+              RuanganViewRoute.name,
+              path: 'ruangan-view',
+              parent: DashboardViewRoute.name,
+            ),
+            _i14.RouteConfig(
+              KelasViewRoute.name,
+              path: 'kelas-view',
+              parent: DashboardViewRoute.name,
+            ),
+            _i14.RouteConfig(
+              PengampuViewRoute.name,
+              path: 'pengampu-view',
+              parent: DashboardViewRoute.name,
+            ),
+            _i14.RouteConfig(
+              PengaturanViewRoute.name,
+              path: 'pengaturan-view',
+              parent: DashboardViewRoute.name,
+            ),
           ],
         ),
-        _i7.RouteConfig(
+        _i14.RouteConfig(
           UnknownViewRoute.name,
           path: '/404',
         ),
-        _i7.RouteConfig(
+        _i14.RouteConfig(
           '*#redirect',
           path: '*',
           redirectTo: '/404',
@@ -110,7 +208,7 @@ class StackedRouterWeb extends _i7.RootStackRouter {
 
 /// generated route for
 /// [_i1.StartupView]
-class StartupViewRoute extends _i7.PageRouteInfo<void> {
+class StartupViewRoute extends _i14.PageRouteInfo<void> {
   const StartupViewRoute()
       : super(
           StartupViewRoute.name,
@@ -122,8 +220,8 @@ class StartupViewRoute extends _i7.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.DashboardView]
-class DashboardViewRoute extends _i7.PageRouteInfo<void> {
-  const DashboardViewRoute({List<_i7.PageRouteInfo>? children})
+class DashboardViewRoute extends _i14.PageRouteInfo<void> {
+  const DashboardViewRoute({List<_i14.PageRouteInfo>? children})
       : super(
           DashboardViewRoute.name,
           path: '/dashboard-view',
@@ -135,7 +233,7 @@ class DashboardViewRoute extends _i7.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.UnknownView]
-class UnknownViewRoute extends _i7.PageRouteInfo<void> {
+class UnknownViewRoute extends _i14.PageRouteInfo<void> {
   const UnknownViewRoute()
       : super(
           UnknownViewRoute.name,
@@ -147,7 +245,7 @@ class UnknownViewRoute extends _i7.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.HomeView]
-class HomeViewRoute extends _i7.PageRouteInfo<void> {
+class HomeViewRoute extends _i14.PageRouteInfo<void> {
   const HomeViewRoute()
       : super(
           HomeViewRoute.name,
@@ -159,7 +257,7 @@ class HomeViewRoute extends _i7.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.MatakuliahView]
-class MatakuliahViewRoute extends _i7.PageRouteInfo<void> {
+class MatakuliahViewRoute extends _i14.PageRouteInfo<void> {
   const MatakuliahViewRoute()
       : super(
           MatakuliahViewRoute.name,
@@ -169,9 +267,93 @@ class MatakuliahViewRoute extends _i7.PageRouteInfo<void> {
   static const String name = 'MatakuliahView';
 }
 
-extension RouterStateExtension on _i6.RouterService {
+/// generated route for
+/// [_i6.ProgramStudiView]
+class ProgramStudiViewRoute extends _i14.PageRouteInfo<void> {
+  const ProgramStudiViewRoute()
+      : super(
+          ProgramStudiViewRoute.name,
+          path: 'program-studi-view',
+        );
+
+  static const String name = 'ProgramStudiView';
+}
+
+/// generated route for
+/// [_i7.DosenView]
+class DosenViewRoute extends _i14.PageRouteInfo<void> {
+  const DosenViewRoute()
+      : super(
+          DosenViewRoute.name,
+          path: 'dosen-view',
+        );
+
+  static const String name = 'DosenView';
+}
+
+/// generated route for
+/// [_i8.FakultasView]
+class FakultasViewRoute extends _i14.PageRouteInfo<void> {
+  const FakultasViewRoute()
+      : super(
+          FakultasViewRoute.name,
+          path: 'fakultas-view',
+        );
+
+  static const String name = 'FakultasView';
+}
+
+/// generated route for
+/// [_i9.RuanganView]
+class RuanganViewRoute extends _i14.PageRouteInfo<void> {
+  const RuanganViewRoute()
+      : super(
+          RuanganViewRoute.name,
+          path: 'ruangan-view',
+        );
+
+  static const String name = 'RuanganView';
+}
+
+/// generated route for
+/// [_i10.KelasView]
+class KelasViewRoute extends _i14.PageRouteInfo<void> {
+  const KelasViewRoute()
+      : super(
+          KelasViewRoute.name,
+          path: 'kelas-view',
+        );
+
+  static const String name = 'KelasView';
+}
+
+/// generated route for
+/// [_i11.PengampuView]
+class PengampuViewRoute extends _i14.PageRouteInfo<void> {
+  const PengampuViewRoute()
+      : super(
+          PengampuViewRoute.name,
+          path: 'pengampu-view',
+        );
+
+  static const String name = 'PengampuView';
+}
+
+/// generated route for
+/// [_i12.PengaturanView]
+class PengaturanViewRoute extends _i14.PageRouteInfo<void> {
+  const PengaturanViewRoute()
+      : super(
+          PengaturanViewRoute.name,
+          path: 'pengaturan-view',
+        );
+
+  static const String name = 'PengaturanView';
+}
+
+extension RouterStateExtension on _i13.RouterService {
   Future<dynamic> navigateToStartupView(
-      {void Function(_i7.NavigationFailure)? onFailure}) async {
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const StartupViewRoute(),
       onFailure: onFailure,
@@ -179,7 +361,7 @@ extension RouterStateExtension on _i6.RouterService {
   }
 
   Future<dynamic> navigateToDashboardView(
-      {void Function(_i7.NavigationFailure)? onFailure}) async {
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const DashboardViewRoute(),
       onFailure: onFailure,
@@ -187,7 +369,7 @@ extension RouterStateExtension on _i6.RouterService {
   }
 
   Future<dynamic> navigateToUnknownView(
-      {void Function(_i7.NavigationFailure)? onFailure}) async {
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const UnknownViewRoute(),
       onFailure: onFailure,
@@ -195,7 +377,7 @@ extension RouterStateExtension on _i6.RouterService {
   }
 
   Future<dynamic> navigateToHomeView(
-      {void Function(_i7.NavigationFailure)? onFailure}) async {
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const HomeViewRoute(),
       onFailure: onFailure,
@@ -203,15 +385,71 @@ extension RouterStateExtension on _i6.RouterService {
   }
 
   Future<dynamic> navigateToMatakuliahView(
-      {void Function(_i7.NavigationFailure)? onFailure}) async {
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const MatakuliahViewRoute(),
       onFailure: onFailure,
     );
   }
 
+  Future<dynamic> navigateToProgramStudiView(
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
+    return navigateTo(
+      const ProgramStudiViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> navigateToDosenView(
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
+    return navigateTo(
+      const DosenViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> navigateToFakultasView(
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
+    return navigateTo(
+      const FakultasViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> navigateToRuanganView(
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
+    return navigateTo(
+      const RuanganViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> navigateToKelasView(
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
+    return navigateTo(
+      const KelasViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> navigateToPengampuView(
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
+    return navigateTo(
+      const PengampuViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> navigateToPengaturanView(
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
+    return navigateTo(
+      const PengaturanViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
   Future<dynamic> replaceWithStartupView(
-      {void Function(_i7.NavigationFailure)? onFailure}) async {
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const StartupViewRoute(),
       onFailure: onFailure,
@@ -219,7 +457,7 @@ extension RouterStateExtension on _i6.RouterService {
   }
 
   Future<dynamic> replaceWithDashboardView(
-      {void Function(_i7.NavigationFailure)? onFailure}) async {
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const DashboardViewRoute(),
       onFailure: onFailure,
@@ -227,7 +465,7 @@ extension RouterStateExtension on _i6.RouterService {
   }
 
   Future<dynamic> replaceWithUnknownView(
-      {void Function(_i7.NavigationFailure)? onFailure}) async {
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const UnknownViewRoute(),
       onFailure: onFailure,
@@ -235,7 +473,7 @@ extension RouterStateExtension on _i6.RouterService {
   }
 
   Future<dynamic> replaceWithHomeView(
-      {void Function(_i7.NavigationFailure)? onFailure}) async {
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const HomeViewRoute(),
       onFailure: onFailure,
@@ -243,9 +481,65 @@ extension RouterStateExtension on _i6.RouterService {
   }
 
   Future<dynamic> replaceWithMatakuliahView(
-      {void Function(_i7.NavigationFailure)? onFailure}) async {
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const MatakuliahViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> replaceWithProgramStudiView(
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
+    return replaceWith(
+      const ProgramStudiViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> replaceWithDosenView(
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
+    return replaceWith(
+      const DosenViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> replaceWithFakultasView(
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
+    return replaceWith(
+      const FakultasViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> replaceWithRuanganView(
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
+    return replaceWith(
+      const RuanganViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> replaceWithKelasView(
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
+    return replaceWith(
+      const KelasViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> replaceWithPengampuView(
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
+    return replaceWith(
+      const PengampuViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> replaceWithPengaturanView(
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
+    return replaceWith(
+      const PengaturanViewRoute(),
       onFailure: onFailure,
     );
   }

@@ -5,15 +5,15 @@ import 'package:responsive_table/responsive_table.dart';
 import 'package:stacked/stacked.dart';
 import 'package:unicons/unicons.dart';
 
-import 'matakuliah_viewmodel.dart';
+import 'dosen_viewmodel.dart';
 
-class MatakuliahView extends StackedView<MatakuliahViewModel> {
-  const MatakuliahView({super.key});
+class DosenView extends StackedView<DosenViewModel> {
+  const DosenView({Key? key}) : super(key: key);
 
   @override
   Widget builder(
     BuildContext context,
-    MatakuliahViewModel viewModel,
+    DosenViewModel viewModel,
     Widget? child,
   ) {
     return Card(
@@ -40,17 +40,9 @@ class MatakuliahView extends StackedView<MatakuliahViewModel> {
               child: Column(
                 children: [
                   ResponsiveDatatable(
-                    // autoHeight: false,
-                    // isLoading: true,
                     headerDecoration: const BoxDecoration(
                       color: kcSecondaryColor,
                     ),
-                    // dropContainer: (value) {
-                    //   return Container(
-                    //     color: kcSecondaryColor,
-                    //     child: Text(value.toString()),
-                    //   );
-                    // },
                     headerTextStyle:
                         Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: kcWhite,
@@ -64,15 +56,6 @@ class MatakuliahView extends StackedView<MatakuliahViewModel> {
                         )
                         .toList(),
                     source: [],
-                    // footers: [
-                    //   Container(
-                    //     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    //     child: Text(
-                    //       "Rows per page: ",
-                    //       style: Theme.of(context).textTheme.bodyMedium,
-                    //     ),
-                    //   )
-                    // ],
                   ),
                   // if empty
                   SizedBox(
@@ -95,14 +78,14 @@ class MatakuliahView extends StackedView<MatakuliahViewModel> {
   }
 
   @override
-  MatakuliahViewModel viewModelBuilder(
+  DosenViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      MatakuliahViewModel();
+      DosenViewModel();
 
   @override
   void onViewModelReady(
-    MatakuliahViewModel viewModel,
+    DosenViewModel viewModel,
   ) {
     viewModel.init();
     super.onViewModelReady(viewModel);

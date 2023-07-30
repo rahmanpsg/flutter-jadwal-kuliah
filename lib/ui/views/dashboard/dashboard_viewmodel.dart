@@ -1,6 +1,7 @@
 import 'package:jadwal_kuliah/app/app.locator.dart';
 import 'package:jadwal_kuliah/app/app.logger.dart';
 import 'package:jadwal_kuliah/app/app.router.dart';
+import 'package:jadwal_kuliah/models/dashboard_item_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:unicons/unicons.dart';
@@ -10,55 +11,52 @@ class DashboardViewModel extends IndexTrackingViewModel {
 
   final _routerService = locator<RouterService>();
 
-  final navigatorKey = StackedService.nestedNavigationKey(1);
-
-  final List<Map<String, dynamic>> items = [
-    {
-      'icon': UniconsLine.apps,
-      'label': 'Home',
-      'route': const HomeViewRoute(),
-    },
-    {
-      'icon': UniconsLine.book_alt,
-      'label': 'Matakuliah',
-      'route': const MatakuliahViewRoute(),
-    },
-    {
-      'icon': UniconsLine.user_nurse,
-      'label': 'Dosen',
-    },
-    {
-      'icon': UniconsLine.graduation_cap,
-      'label': 'Program Studi',
-    },
-    {
-      'icon': UniconsLine.university,
-      'label': 'Fakultas',
-    },
-    {
-      'icon': UniconsLine.table,
-      'label': 'Ruangan',
-    },
-    {
-      'icon': UniconsLine.square_full,
-      'label': 'Kelas',
-    },
-    {
-      'icon': UniconsLine.sitemap,
-      'label': 'Pengampu',
-    },
-    {
-      'icon': UniconsLine.play,
-      'label': 'Buat Jadwal',
-    },
-    {
-      'icon': UniconsLine.setting,
-      'label': 'Pengaturan',
-    },
-    // {
-    //   'icon': UniconsLine.book_reader,
-    //   'label': 'Deteksi',
-    // },
+  final List<DashboardItemModel> items = [
+    DashboardItemModel(
+      icon: UniconsLine.apps,
+      label: 'Home',
+      route: const HomeViewRoute(),
+    ),
+    DashboardItemModel(
+      icon: UniconsLine.book_alt,
+      label: 'Matakuliah',
+      route: const MatakuliahViewRoute(),
+    ),
+    DashboardItemModel(
+      icon: UniconsLine.user_nurse,
+      label: 'Dosen',
+      route: const DosenViewRoute(),
+    ),
+    DashboardItemModel(
+      icon: UniconsLine.graduation_cap,
+      label: 'Program Studi',
+      route: const ProgramStudiViewRoute(),
+    ),
+    DashboardItemModel(
+      icon: UniconsLine.university,
+      label: 'Fakultas',
+      route: const FakultasViewRoute(),
+    ),
+    DashboardItemModel(
+      icon: UniconsLine.table,
+      label: 'Ruangan',
+      route: const RuanganViewRoute(),
+    ),
+    DashboardItemModel(
+      icon: UniconsLine.square_full,
+      label: 'Kelas',
+      route: const KelasViewRoute(),
+    ),
+    DashboardItemModel(
+      icon: UniconsLine.sitemap,
+      label: 'Pengampu',
+      route: const PengampuViewRoute(),
+    ),
+    DashboardItemModel(
+      icon: UniconsLine.setting,
+      label: 'Pengaturan',
+      route: const PengaturanViewRoute(),
+    ),
   ];
 
   DashboardViewModel() {
@@ -70,6 +68,6 @@ class DashboardViewModel extends IndexTrackingViewModel {
 
     setIndex(idx);
 
-    _routerService.navigateTo(items[idx]['route']);
+    _routerService.navigateTo(items[idx].route);
   }
 }

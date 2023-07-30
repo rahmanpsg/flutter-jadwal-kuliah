@@ -7,6 +7,14 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:jadwal_kuliah/ui/views/dashboard/dashboard_view.dart';
 import 'package:jadwal_kuliah/ui/views/matakuliah/matakuliah_view.dart';
+import 'package:jadwal_kuliah/ui/views/program_studi/program_studi_view.dart';
+import 'package:jadwal_kuliah/ui/views/dosen/dosen_view.dart';
+import 'package:jadwal_kuliah/ui/views/fakultas/fakultas_view.dart';
+import 'package:jadwal_kuliah/ui/views/ruangan/ruangan_view.dart';
+import 'package:jadwal_kuliah/ui/views/kelas/kelas_view.dart';
+import 'package:jadwal_kuliah/ui/views/pengampu/pengampu_view.dart';
+import 'package:jadwal_kuliah/ui/views/pengaturan/pengaturan_view.dart';
+import 'package:jadwal_kuliah/ui/dialogs/form/form_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -16,8 +24,15 @@ import 'package:jadwal_kuliah/ui/views/matakuliah/matakuliah_view.dart';
       RedirectRoute(path: '', redirectTo: 'home'),
       CustomRoute(page: HomeView, initial: true),
       CustomRoute(page: MatakuliahView),
-    ]),
+      CustomRoute(page: ProgramStudiView),
+      CustomRoute(page: DosenView),
+      CustomRoute(page: FakultasView),
+      CustomRoute(page: RuanganView),
+      CustomRoute(page: KelasView),
+      CustomRoute(page: PengampuView),
+      CustomRoute(page: PengaturanView),
 // @stacked-route
+    ]),
 
     CustomRoute(page: UnknownView, path: '/404'),
 
@@ -36,7 +51,8 @@ import 'package:jadwal_kuliah/ui/views/matakuliah/matakuliah_view.dart';
   ],
   dialogs: [
     StackedDialog(classType: InfoAlertDialog),
-    // @stacked-dialog
+    StackedDialog(classType: FormDialog),
+// @stacked-dialog
   ],
   logger: StackedLogger(),
 )

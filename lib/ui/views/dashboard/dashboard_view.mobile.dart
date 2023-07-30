@@ -13,7 +13,7 @@ class DashboardViewMobile extends ViewModelWidget<DashboardViewModel> {
     return Scaffold(
       appBar: AppBar(
           title: Text(
-            viewModel.items[viewModel.currentIndex]['label'],
+            viewModel.items[viewModel.currentIndex].label,
             style: ktRegularTextStyle.copyWith(
               color: kcFontColorDark,
             ),
@@ -43,8 +43,8 @@ class DashboardViewMobile extends ViewModelWidget<DashboardViewModel> {
                   (item) => ListTile(
                     selected:
                         viewModel.currentIndex == viewModel.items.indexOf(item),
-                    leading: Icon(item['icon']),
-                    title: Text(item['label']),
+                    leading: Icon(item.icon),
+                    title: Text(item.label),
                     onTap: () {
                       viewModel.handleNavigation(viewModel.items.indexOf(item));
                       Navigator.pop(context);
@@ -55,7 +55,7 @@ class DashboardViewMobile extends ViewModelWidget<DashboardViewModel> {
           ],
         ),
       ),
-      body: NestedRouter(navigatorKey: viewModel.navigatorKey),
+      body: const NestedRouter(),
     );
   }
 }

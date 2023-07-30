@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:jadwal_kuliah/app/app.dialogs.dart';
 import 'package:jadwal_kuliah/app/app.locator.dart';
 import 'package:jadwal_kuliah/app/app.logger.dart';
@@ -6,21 +5,17 @@ import 'package:jadwal_kuliah/ui/dialogs/form/form_dialog.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class MatakuliahViewModel extends BaseViewModel {
-  final log = getLogger('MatakuliahViewModel');
+class RuanganViewModel extends BaseViewModel {
+  final log = getLogger('RuanganViewModel');
 
   final _dialogService = locator<DialogService>();
 
-  String get table => 'Matakuliah';
+  String get table => 'Ruangan';
 
   final columns = [
     '#',
-    'Kode',
     'Nama',
-    'SKS',
-    'Semester',
     'Program Studi',
-    'Fakultas',
     'Aksi',
   ];
 
@@ -34,25 +29,10 @@ class MatakuliahViewModel extends BaseViewModel {
       data: FormDialogData(
         formDialogItems: [
           FormDialogItem(
-            label: 'Kode',
-          ),
-          FormDialogItem(
             label: 'Nama',
           ),
           FormDialogItem(
-            label: 'SKS',
-            keyboardType: TextInputType.number,
-          ),
-          FormDialogItem(
-            label: 'Semester',
-            keyboardType: TextInputType.number,
-          ),
-          FormDialogItem(
             label: 'Program Studi',
-            isDropdown: true,
-          ),
-          FormDialogItem(
-            label: 'Fakultas',
             isDropdown: true,
           ),
         ],

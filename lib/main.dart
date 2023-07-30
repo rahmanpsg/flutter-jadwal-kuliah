@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_portal/flutter_portal.dart';
 import 'package:jadwal_kuliah/ui/common/app_themes.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:jadwal_kuliah/app/app.bottomsheets.dart';
@@ -30,13 +31,14 @@ class MainApp extends StatelessWidget {
         darkTheme: AppThemes.lightTheme,
         // darkTheme: AppThemes.darkTheme,
         lightTheme: AppThemes.lightTheme,
-        builder: (context, regularTheme, darkTheme, themeMode) =>
-            MaterialApp.router(
-          theme: regularTheme,
-          darkTheme: darkTheme,
-          themeMode: themeMode,
-          routerDelegate: stackedRouter.delegate(),
-          routeInformationParser: stackedRouter.defaultRouteParser(),
+        builder: (context, regularTheme, darkTheme, themeMode) => Portal(
+          child: MaterialApp.router(
+            theme: regularTheme,
+            darkTheme: darkTheme,
+            themeMode: themeMode,
+            routerDelegate: stackedRouter.delegate(),
+            routeInformationParser: stackedRouter.defaultRouteParser(),
+          ),
         ),
       ),
     ).animate().fadeIn(
