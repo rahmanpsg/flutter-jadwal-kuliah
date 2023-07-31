@@ -45,4 +45,12 @@ class FormDialogModel extends BaseViewModel {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    for (var field in formDialogData.formDialogItems) {
+      field.controller.dispose();
+    }
+    super.dispose();
+  }
 }

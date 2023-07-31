@@ -35,40 +35,78 @@ class FakultasView extends StackedView<FakultasViewModel> {
               label: Text('Tambah ${viewModel.table}'),
             ),
             const SizedBox(height: 16),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Column(
-                children: [
-                  ResponsiveDatatable(
-                    headerDecoration: const BoxDecoration(
-                      color: kcSecondaryColor,
-                    ),
-                    headerTextStyle:
-                        Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: kcWhite,
-                            ),
-                    headers: viewModel.columns
-                        .map(
-                          (column) => DatatableHeader(
-                            text: column,
-                            value: column,
+            Expanded(
+              child: Card(
+                elevation: 1,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Column(
+                    children: [
+                      ResponsiveDatatable(
+                        isLoading: viewModel.isBusy,
+                        headerDecoration: const BoxDecoration(
+                          color: kcSecondaryColor,
+                        ),
+                        headerTextStyle:
+                            Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: kcWhite,
+                                ),
+                        headers: viewModel.columns
+                            .map(
+                              (column) => DatatableHeader(
+                                text: column,
+                                value: column.toLowerCase(),
+                                sourceBuilder: column == 'Aksi'
+                                    ? (value, row) {
+                                        return Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            IconButton(
+                                              onPressed: () =>
+                                                  viewModel.onEdit(value),
+                                              icon: const Icon(
+                                                UniconsLine.edit,
+                                                color: kcTertiaryColor,
+                                              ),
+                                            ),
+                                            IconButton(
+                                              onPressed: () =>
+                                                  viewModel.onDelete(value),
+                                              icon: const Icon(
+                                                UniconsLine.trash,
+                                                color: kcDangerColor,
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      }
+                                    : null,
+                              ),
+                            )
+                            .toList(),
+                        source: viewModel.source,
+                        selecteds: [],
+                        expanded: List.filled(viewModel.items.length, false),
+                      ),
+                      if (viewModel.items.isEmpty) ...[
+                        SizedBox(
+                          height: screenHeightFraction(
+                            context,
+                            dividedBy: 2,
+                            offsetBy: 200,
                           ),
+                        ),
+                        const Align(
+                          alignment: Alignment.center,
+                          child: Text('Tidak ada data'),
                         )
-                        .toList(),
-                    source: [],
+                      ],
+                    ],
                   ),
-                  // if empty
-                  SizedBox(
-                      height: screenHeightFraction(
-                    context,
-                    dividedBy: 2,
-                    offsetBy: 200,
-                  )),
-                  const Align(
-                    alignment: Alignment.center,
-                    child: Text('Tidak ada data'),
-                  ),
-                ],
+                ),
               ),
             ),
           ],

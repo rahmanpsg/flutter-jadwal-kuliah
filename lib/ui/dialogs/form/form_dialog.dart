@@ -66,7 +66,6 @@ class FormDialog extends StackedView<FormDialogModel> {
       child: Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Form(
@@ -140,6 +139,12 @@ class FormDialog extends StackedView<FormDialogModel> {
                                       ),
                                     ),
                                   ),
+                            onFieldSubmitted: (v) {
+                              if (index ==
+                                  request.data!.formDialogItems.length - 1) {
+                                viewModel.onSubmit();
+                              }
+                            },
                           )
                         ],
                       );

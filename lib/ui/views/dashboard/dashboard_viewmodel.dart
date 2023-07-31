@@ -38,7 +38,7 @@ class DashboardViewModel extends IndexTrackingViewModel {
       route: const FakultasViewRoute(),
     ),
     DashboardItemModel(
-      icon: UniconsLine.table,
+      icon: UniconsLine.building,
       label: 'Ruangan',
       route: const RuanganViewRoute(),
     ),

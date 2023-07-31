@@ -7,6 +7,7 @@ import 'package:jadwal_kuliah/app/app.dialogs.dart';
 import 'package:jadwal_kuliah/app/app.locator.dart';
 import 'package:jadwal_kuliah/app/app.router.dart';
 import 'package:stacked_themes/stacked_themes.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -17,6 +18,12 @@ Future<void> main() async {
   setupDialogUi();
   setupBottomSheetUi();
   await ThemeManager.initialise();
+
+  await Supabase.initialize(
+    url: const String.fromEnvironment('SUPABASE_URL'),
+    anonKey: const String.fromEnvironment('SUPABASE_ANON_KEY'),
+  );
+
   runApp(const MainApp());
 }
 

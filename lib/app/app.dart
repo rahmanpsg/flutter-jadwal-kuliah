@@ -15,6 +15,7 @@ import 'package:jadwal_kuliah/ui/views/kelas/kelas_view.dart';
 import 'package:jadwal_kuliah/ui/views/pengampu/pengampu_view.dart';
 import 'package:jadwal_kuliah/ui/views/pengaturan/pengaturan_view.dart';
 import 'package:jadwal_kuliah/ui/dialogs/form/form_dialog.dart';
+import 'package:jadwal_kuliah/services/fakultas_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -43,7 +44,8 @@ import 'package:jadwal_kuliah/ui/dialogs/form/form_dialog.dart';
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: RouterService),
-    // @stacked-service
+    LazySingleton(classType: FakultasService),
+// @stacked-service
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),

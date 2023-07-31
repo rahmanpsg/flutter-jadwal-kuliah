@@ -102,7 +102,8 @@ class AppThemes {
     ),
     cardColor: kcBackgroundColor,
     cardTheme: CardTheme(
-      elevation: 0,
+      elevation: 2,
+      surfaceTintColor: kcWhite,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
