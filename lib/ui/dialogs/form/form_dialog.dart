@@ -6,17 +6,25 @@ import 'package:jadwal_kuliah/ui/common/app_texts.dart';
 import 'package:jadwal_kuliah/ui/widgets/custom_textfield_outline.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_hooks/stacked_hooks.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:unicons/unicons.dart';
 
 import 'form_dialog_model.dart';
 
-class FormDialogItem {
+class FormDialogData<T> {
+  final List<FormDialogItem<T>> formDialogItems;
+
+  FormDialogData({required this.formDialogItems});
+}
+
+class FormDialogItem<T> {
   final TextEditingController controller;
   final String label;
   final String? hint;
   final Function()? onTap;
   final bool isDropdown;
+  final List<ItemModel<T>>? dropdownItems;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
 
@@ -26,15 +34,12 @@ class FormDialogItem {
     this.hint,
     this.onTap,
     this.isDropdown = false,
+    this.dropdownItems,
     this.keyboardType,
     this.inputFormatters,
-  }) : controller = controller ?? TextEditingController();
-}
-
-class FormDialogData {
-  final List<FormDialogItem> formDialogItems;
-
-  FormDialogData({required this.formDialogItems});
+  })  : controller = controller ?? TextEditingController(),
+        assert(!isDropdown || dropdownItems != null,
+            'Dropdown items are required when isDropdown is true');
 }
 
 class FormDialog extends StackedView<FormDialogModel> {
@@ -97,57 +102,7 @@ class FormDialog extends StackedView<FormDialogModel> {
                       final field =
                           request.data!.formDialogItems.elementAt(index);
 
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(field.label,
-                              style: Theme.of(context).textTheme.bodySmall),
-                          const SizedBox(height: 8),
-                          CustomTextFieldOutline(
-                            controller: field.controller,
-                            hintText: field.hint,
-                            onTap: () async {
-                              final ItemModel? response =
-                                  await field.onTap?.call();
-
-                              if (response == null) return;
-
-                              field.controller.text = response.label;
-
-                              viewModel.mapResponse.putIfAbsent(
-                                  field.label, () => response.value);
-
-                              viewModel.rebuildUi();
-                            },
-                            keyboardType: field.keyboardType,
-                            inputFormatters: field.inputFormatters,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Silahkan ${field.isDropdown ? 'pilih' : 'masukkan'} ${field.label.toLowerCase()}';
-                              }
-                              return null;
-                            },
-                            readOnly: field.isDropdown,
-                            suffixIcon: !field.isDropdown
-                                ? null
-                                : const IntrinsicWidth(
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.arrow_drop_down_rounded,
-                                      ),
-                                    ),
-                                  ),
-                            onFieldSubmitted: (v) {
-                              if (index ==
-                                  request.data!.formDialogItems.length - 1) {
-                                viewModel.onSubmit();
-                              }
-                            },
-                          )
-                        ],
-                      );
+                      return _FieldHook(field: field, request: request);
                     },
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 16)),
@@ -199,5 +154,87 @@ class FormDialog extends StackedView<FormDialogModel> {
   void onViewModelReady(FormDialogModel viewModel) {
     viewModel.init(request.data!);
     super.onViewModelReady(viewModel);
+  }
+}
+
+class _FieldHook extends StackedHookView<FormDialogModel> {
+  const _FieldHook({
+    required this.field,
+    required this.request,
+  });
+
+  final FormDialogItem field;
+  final DialogRequest<FormDialogData> request;
+
+  @override
+  Widget builder(BuildContext context, FormDialogModel viewModel) {
+    final index = request.data!.formDialogItems.indexOf(field);
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(field.label, style: Theme.of(context).textTheme.bodySmall),
+        const SizedBox(height: 8),
+        CustomTextFieldOutline(
+          controller: field.controller,
+          hintText: field.hint,
+          onTap: () async {
+            final ItemModel? response = await field.onTap?.call();
+
+            if (response == null) return;
+
+            field.controller.text = response.label;
+
+            viewModel.mapResponse
+                .putIfAbsent(field.label, () => response.value);
+
+            viewModel.rebuildUi();
+          },
+          keyboardType: field.keyboardType,
+          inputFormatters: field.inputFormatters,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Silahkan ${field.isDropdown ? 'pilih' : 'masukkan'} ${field.label.toLowerCase()}';
+            }
+            return null;
+          },
+          readOnly: field.isDropdown,
+          suffixIcon: !field.isDropdown
+              ? null
+              : PopupMenuButton(
+                  itemBuilder: (BuildContext context) {
+                    return field.dropdownItems!.map((ItemModel item) {
+                      return PopupMenuItem(
+                        onTap: () {
+                          field.controller.text = item.label;
+
+                          viewModel.mapResponse
+                              .putIfAbsent(field.label, () => item.value);
+
+                          viewModel.rebuildUi();
+                        },
+                        value: item,
+                        child: Text(item.label),
+                      );
+                    }).toList();
+                  },
+                  child: const IntrinsicWidth(
+                    child: Center(
+                      child: Icon(
+                        Icons.arrow_drop_down_rounded,
+                      ),
+                    ),
+                  ),
+                ),
+          onFieldSubmitted: (v) {
+            if (index == request.data!.formDialogItems.length - 1) {
+              viewModel.onSubmit();
+            }
+          },
+        )
+      ],
+    );
   }
 }

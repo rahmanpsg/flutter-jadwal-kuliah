@@ -8,7 +8,9 @@ import 'dart:ui' as _i9;
 
 import 'package:flutter/material.dart' as _i6;
 import 'package:jadwal_kuliah/models/fakultas_model.dart' as _i13;
+import 'package:jadwal_kuliah/models/program_studi_model.dart' as _i15;
 import 'package:jadwal_kuliah/services/fakultas_service.dart' as _i12;
+import 'package:jadwal_kuliah/services/program_studi_service.dart' as _i14;
 import 'package:logger/src/logger.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:stacked/stacked.dart' as _i2;
@@ -622,6 +624,109 @@ class MockFakultasService extends _i1.Mock implements _i12.FakultasService {
         Invocation.method(
           #delete,
           [fakultas],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  void listenToReactiveValues(List<dynamic>? reactiveValues) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #listenToReactiveValues,
+          [reactiveValues],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void addListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void removeListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [ProgramStudiService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockProgramStudiService extends _i1.Mock
+    implements _i14.ProgramStudiService {
+  @override
+  _i3.Logger get log => (super.noSuchMethod(
+        Invocation.getter(#log),
+        returnValue: _FakeLogger_3(
+          this,
+          Invocation.getter(#log),
+        ),
+        returnValueForMissingStub: _FakeLogger_3(
+          this,
+          Invocation.getter(#log),
+        ),
+      ) as _i3.Logger);
+  @override
+  List<_i15.ProgramStudiModel> get items => (super.noSuchMethod(
+        Invocation.getter(#items),
+        returnValue: <_i15.ProgramStudiModel>[],
+        returnValueForMissingStub: <_i15.ProgramStudiModel>[],
+      ) as List<_i15.ProgramStudiModel>);
+  @override
+  int get listenersCount => (super.noSuchMethod(
+        Invocation.getter(#listenersCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+  @override
+  _i5.Future<void> syncData() => (super.noSuchMethod(
+        Invocation.method(
+          #syncData,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<List<_i15.ProgramStudiModel>> gets() => (super.noSuchMethod(
+        Invocation.method(
+          #gets,
+          [],
+        ),
+        returnValue: _i5.Future<List<_i15.ProgramStudiModel>>.value(
+            <_i15.ProgramStudiModel>[]),
+        returnValueForMissingStub:
+            _i5.Future<List<_i15.ProgramStudiModel>>.value(
+                <_i15.ProgramStudiModel>[]),
+      ) as _i5.Future<List<_i15.ProgramStudiModel>>);
+  @override
+  _i5.Future<void> save(_i15.ProgramStudiModel? model) => (super.noSuchMethod(
+        Invocation.method(
+          #save,
+          [model],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> delete(_i15.ProgramStudiModel? model) => (super.noSuchMethod(
+        Invocation.method(
+          #delete,
+          [model],
         ),
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),

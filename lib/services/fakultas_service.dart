@@ -10,6 +10,7 @@ class FakultasService with ListenableServiceMixin {
 
   final log = getLogger('FakultasService');
 
+  static const String tableName = 'fakultas';
   final _supabase = Supabase.instance.client;
 
   final _items = ReactiveList<FakultasModel>();
@@ -24,7 +25,7 @@ class FakultasService with ListenableServiceMixin {
   /// Get all data
   Future<List<FakultasModel>> gets() async {
     try {
-      final response = await _supabase.from('fakultas').select<PostgrestList>();
+      final response = await _supabase.from(tableName).select<PostgrestList>();
 
       if (response.isEmpty) {
         return [];
@@ -47,7 +48,7 @@ class FakultasService with ListenableServiceMixin {
   /// Save or update data
   Future<void> save(FakultasModel fakultas) async {
     try {
-      await _supabase.from('fakultas').upsert(fakultas.toJson());
+      await _supabase.from(tableName).upsert(fakultas.toJson());
 
       final index = _items.indexWhere((element) => element.id == fakultas.id);
 
@@ -65,7 +66,7 @@ class FakultasService with ListenableServiceMixin {
   /// Delete data
   Future<void> delete(FakultasModel fakultas) async {
     try {
-      await _supabase.from('fakultas').delete().eq('id', fakultas.id);
+      await _supabase.from(tableName).delete().eq('id', fakultas.id);
 
       _items.remove(fakultas);
     } catch (e) {

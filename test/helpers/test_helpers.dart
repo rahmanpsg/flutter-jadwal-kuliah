@@ -3,6 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:jadwal_kuliah/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:jadwal_kuliah/services/fakultas_service.dart';
+import 'package:jadwal_kuliah/services/program_studi_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -12,6 +13,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<FakultasService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<ProgramStudiService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -19,6 +21,7 @@ void registerServices() {
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
   getAndRegisterFakultasService();
+  getAndRegisterProgramStudiService();
 // @stacked-mock-register
 }
 
@@ -76,6 +79,13 @@ MockFakultasService getAndRegisterFakultasService() {
   _removeRegistrationIfExists<FakultasService>();
   final service = MockFakultasService();
   locator.registerSingleton<FakultasService>(service);
+  return service;
+}
+
+MockProgramStudiService getAndRegisterProgramStudiService() {
+  _removeRegistrationIfExists<ProgramStudiService>();
+  final service = MockProgramStudiService();
+  locator.registerSingleton<ProgramStudiService>(service);
   return service;
 }
 // @stacked-mock-create

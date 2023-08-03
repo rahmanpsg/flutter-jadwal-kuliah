@@ -12,7 +12,7 @@ _$_DosenModel _$$_DosenModelFromJson(Map<String, dynamic> json) =>
       nbm: json['nbm'] as String,
       nama: json['nama'] as String,
       alamat: json['alamat'] as String?,
-      nomorTelepon: json['nomorTelepon'] as String?,
+      nomorTelepon: json['nomor_telepon'] as String?,
     );
 
 Map<String, dynamic> _$$_DosenModelToJson(_$_DosenModel instance) =>
@@ -21,5 +21,5 @@ Map<String, dynamic> _$$_DosenModelToJson(_$_DosenModel instance) =>
       'nbm': instance.nbm,
       'nama': instance.nama,
       'alamat': instance.alamat,
-      'nomorTelepon': instance.nomorTelepon,
+      'nomor_telepon': instance.nomorTelepon,
     };

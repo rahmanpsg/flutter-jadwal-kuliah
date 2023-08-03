@@ -30,7 +30,6 @@ class FakultasViewModel extends ReactiveViewModel {
       .map(
         (entry) => {
           '#': entry.key + 1,
-          'id': entry.value.id,
           'fakultas': entry.value.nama,
           'aksi': entry.value,
         },

@@ -13,9 +13,11 @@ dependencies:
   flutter_animate: ^4.1.1+1
   flutter_portal: ^1.1.4
   freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.1
   responsive_builder: ^0.7.0
   responsive_table: ^0.2.0+2
   stacked: ^3.4.0
+  stacked_hooks: ^0.2.3
   stacked_services: ^1.1.0
   stacked_themes: ^0.3.12
   supabase_flutter: ^1.10.10

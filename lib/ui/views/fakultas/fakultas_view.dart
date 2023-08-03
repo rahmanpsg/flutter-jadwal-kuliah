@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:jadwal_kuliah/extensions/string_extension.dart';
 import 'package:jadwal_kuliah/ui/common/app_colors.dart';
 import 'package:jadwal_kuliah/ui/common/ui_helpers.dart';
+import 'package:jadwal_kuliah/ui/widgets/custom_actions_table_button.dart';
 import 'package:responsive_table/responsive_table.dart';
 import 'package:stacked/stacked.dart';
 import 'package:unicons/unicons.dart';
@@ -55,32 +57,13 @@ class FakultasView extends StackedView<FakultasViewModel> {
                             .map(
                               (column) => DatatableHeader(
                                 text: column,
-                                value: column.toLowerCase(),
+                                value: column.toSnakeCase(),
                                 sourceBuilder: column == 'Aksi'
                                     ? (value, row) {
-                                        return Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            IconButton(
-                                              onPressed: () =>
-                                                  viewModel.onEdit(value),
-                                              icon: const Icon(
-                                                UniconsLine.edit,
-                                                color: kcTertiaryColor,
-                                              ),
-                                            ),
-                                            IconButton(
-                                              onPressed: () =>
-                                                  viewModel.onDelete(value),
-                                              icon: const Icon(
-                                                UniconsLine.trash,
-                                                color: kcDangerColor,
-                                              ),
-                                            ),
-                                          ],
+                                        return CustomActionsTableButton(
+                                          onEdit: () => viewModel.onEdit(value),
+                                          onDelete: () =>
+                                              viewModel.onDelete(value),
                                         );
                                       }
                                     : null,

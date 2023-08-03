@@ -23,4 +23,8 @@ class FakultasModel with _$FakultasModel {
         id: const Uuid().v4(),
         nama: nama,
       );
+
+  /// Convert [FakultasModel] to [String]
+  static String toId(FakultasModel? fakultas) =>
+      fakultas?.id ?? const Uuid().v4();
 }

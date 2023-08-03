@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jadwal_kuliah/ui/common/app_colors.dart';
 import 'package:jadwal_kuliah/ui/widgets/custom_stats.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 import 'package:unicons/unicons.dart';
 
@@ -53,7 +52,7 @@ class HomeView extends StackedView<HomeViewModel> {
                 ),
                 CustomStats(
                   text: 'Total Program Studi',
-                  total: '10',
+                  total: viewModel.totalProgramStudi.toString(),
                   iconData: UniconsLine.graduation_cap,
                   color: kcGreenColor,
                 ),
@@ -131,4 +130,10 @@ class HomeView extends StackedView<HomeViewModel> {
     BuildContext context,
   ) =>
       HomeViewModel();
+
+  @override
+  void onViewModelReady(HomeViewModel viewModel) {
+    viewModel.init();
+    super.onViewModelReady(viewModel);
+  }
 }

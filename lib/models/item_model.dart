@@ -1,6 +1,9 @@
-class ItemModel {
+class ItemModel<T> {
   final String label;
-  final String value;
+  final T value;
 
-  ItemModel({required this.label, required this.value});
+  ItemModel({
+    required this.label,
+    required this.value,
+  });
 }
