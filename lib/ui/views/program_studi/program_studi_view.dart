@@ -37,52 +37,61 @@ class ProgramStudiView extends StackedView<ProgramStudiViewModel> {
               label: Text('Tambah ${viewModel.table}'),
             ),
             const SizedBox(height: 16),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Column(
-                children: [
-                  ResponsiveDatatable(
-                    isLoading: viewModel.isBusy,
-                    headerDecoration: const BoxDecoration(
-                      color: kcSecondaryColor,
-                    ),
-                    headerTextStyle:
-                        Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: kcWhite,
-                            ),
-                    headers: viewModel.columns
-                        .map(
-                          (column) => DatatableHeader(
-                            text: column,
-                            value: column.toSnakeCase(),
-                            sourceBuilder: column == 'Aksi'
-                                ? (value, row) {
-                                    return CustomActionsTableButton(
-                                      onEdit: () => viewModel.onEdit(value),
-                                      onDelete: () => viewModel.onDelete(value),
-                                    );
-                                  }
-                                : null,
-                          ),
+            Expanded(
+              child: Card(
+                elevation: 1,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Column(
+                    children: [
+                      ResponsiveDatatable(
+                        isLoading: viewModel.isBusy,
+                        headerDecoration: const BoxDecoration(
+                          color: kcSecondaryColor,
+                        ),
+                        headerTextStyle:
+                            Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: kcWhite,
+                                ),
+                        headers: viewModel.columns
+                            .map(
+                              (column) => DatatableHeader(
+                                text: column,
+                                value: column.toSnakeCase(),
+                                sourceBuilder: column == 'Aksi'
+                                    ? (value, row) {
+                                        return CustomActionsTableButton(
+                                          onEdit: () => viewModel.onEdit(value),
+                                          onDelete: () =>
+                                              viewModel.onDelete(value),
+                                        );
+                                      }
+                                    : null,
+                              ),
+                            )
+                            .toList(),
+                        source: viewModel.source,
+                        selecteds: [],
+                        expanded: List.filled(
+                          viewModel.items.length,
+                          false,
+                        ),
+                      ),
+                      if (viewModel.items.isEmpty) ...[
+                        SizedBox(
+                            height: screenHeightFraction(
+                          context,
+                          dividedBy: 2,
+                          offsetBy: 200,
+                        )),
+                        const Align(
+                          alignment: Alignment.center,
+                          child: Text('Tidak ada data'),
                         )
-                        .toList(),
-                    source: viewModel.source,
-                    selecteds: [],
-                    expanded: List.filled(viewModel.items.length, false),
+                      ],
+                    ],
                   ),
-                  if (viewModel.items.isEmpty) ...[
-                    SizedBox(
-                        height: screenHeightFraction(
-                      context,
-                      dividedBy: 2,
-                      offsetBy: 200,
-                    )),
-                    const Align(
-                      alignment: Alignment.center,
-                      child: Text('Tidak ada data'),
-                    )
-                  ],
-                ],
+                ),
               ),
             ),
           ],

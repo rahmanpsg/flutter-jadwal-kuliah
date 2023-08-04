@@ -7,8 +7,10 @@ import 'dart:async' as _i5;
 import 'dart:ui' as _i9;
 
 import 'package:flutter/material.dart' as _i6;
+import 'package:jadwal_kuliah/models/dosen_model.dart' as _i17;
 import 'package:jadwal_kuliah/models/fakultas_model.dart' as _i13;
 import 'package:jadwal_kuliah/models/program_studi_model.dart' as _i15;
+import 'package:jadwal_kuliah/services/dosen_service.dart' as _i16;
 import 'package:jadwal_kuliah/services/fakultas_service.dart' as _i12;
 import 'package:jadwal_kuliah/services/program_studi_service.dart' as _i14;
 import 'package:logger/src/logger.dart' as _i3;
@@ -724,6 +726,107 @@ class MockProgramStudiService extends _i1.Mock
       ) as _i5.Future<void>);
   @override
   _i5.Future<void> delete(_i15.ProgramStudiModel? model) => (super.noSuchMethod(
+        Invocation.method(
+          #delete,
+          [model],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  void listenToReactiveValues(List<dynamic>? reactiveValues) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #listenToReactiveValues,
+          [reactiveValues],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void addListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void removeListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [DosenService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockDosenService extends _i1.Mock implements _i16.DosenService {
+  @override
+  _i3.Logger get log => (super.noSuchMethod(
+        Invocation.getter(#log),
+        returnValue: _FakeLogger_3(
+          this,
+          Invocation.getter(#log),
+        ),
+        returnValueForMissingStub: _FakeLogger_3(
+          this,
+          Invocation.getter(#log),
+        ),
+      ) as _i3.Logger);
+  @override
+  List<_i17.DosenModel> get items => (super.noSuchMethod(
+        Invocation.getter(#items),
+        returnValue: <_i17.DosenModel>[],
+        returnValueForMissingStub: <_i17.DosenModel>[],
+      ) as List<_i17.DosenModel>);
+  @override
+  int get listenersCount => (super.noSuchMethod(
+        Invocation.getter(#listenersCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+  @override
+  _i5.Future<void> syncData() => (super.noSuchMethod(
+        Invocation.method(
+          #syncData,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<List<_i17.DosenModel>> gets() => (super.noSuchMethod(
+        Invocation.method(
+          #gets,
+          [],
+        ),
+        returnValue:
+            _i5.Future<List<_i17.DosenModel>>.value(<_i17.DosenModel>[]),
+        returnValueForMissingStub:
+            _i5.Future<List<_i17.DosenModel>>.value(<_i17.DosenModel>[]),
+      ) as _i5.Future<List<_i17.DosenModel>>);
+  @override
+  _i5.Future<void> save(_i17.DosenModel? model) => (super.noSuchMethod(
+        Invocation.method(
+          #save,
+          [model],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> delete(_i17.DosenModel? model) => (super.noSuchMethod(
         Invocation.method(
           #delete,
           [model],

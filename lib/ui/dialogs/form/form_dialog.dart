@@ -27,6 +27,7 @@ class FormDialogItem<T> {
   final List<ItemModel<T>>? dropdownItems;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
+  final bool isRequired;
 
   FormDialogItem({
     TextEditingController? controller,
@@ -37,6 +38,7 @@ class FormDialogItem<T> {
     this.dropdownItems,
     this.keyboardType,
     this.inputFormatters,
+    this.isRequired = true,
   })  : controller = controller ?? TextEditingController(),
         assert(!isDropdown || dropdownItems != null,
             'Dropdown items are required when isDropdown is true');
@@ -195,8 +197,10 @@ class _FieldHook extends StackedHookView<FormDialogModel> {
           keyboardType: field.keyboardType,
           inputFormatters: field.inputFormatters,
           validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Silahkan ${field.isDropdown ? 'pilih' : 'masukkan'} ${field.label.toLowerCase()}';
+            if (field.isRequired) {
+              if (value == null || value.isEmpty) {
+                return 'Silahkan ${field.isDropdown ? 'pilih' : 'masukkan'} ${field.label.toLowerCase()}';
+              }
             }
             return null;
           },

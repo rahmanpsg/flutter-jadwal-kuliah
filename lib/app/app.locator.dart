@@ -11,6 +11,7 @@ import 'package:stacked_services/src/dialog/dialog_service.dart';
 import 'package:stacked_services/src/navigation/router_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
+import '../services/dosen_service.dart';
 import '../services/fakultas_service.dart';
 import '../services/program_studi_service.dart';
 import 'app.router.dart';
@@ -32,6 +33,7 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => RouterService());
   locator.registerLazySingleton(() => FakultasService());
   locator.registerLazySingleton(() => ProgramStudiService());
+  locator.registerLazySingleton(() => DosenService());
   if (stackedRouter == null) {
     throw Exception(
         'Stacked is building to use the Router (Navigator 2.0) navigation but no stackedRouter is supplied. Pass the stackedRouter to the setupLocator function in main.dart');

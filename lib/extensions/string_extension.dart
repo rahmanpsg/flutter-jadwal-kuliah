@@ -10,4 +10,9 @@ extension StringExtension on String {
   String toSnakeCase() {
     return split(' ').map((str) => str.toLowerCase()).join('_');
   }
+
+  String? toNull() {
+    if (isEmpty) return null;
+    return this;
+  }
 }

@@ -10,14 +10,14 @@ import 'package:stacked/stacked.dart' as _i14;
 import 'package:stacked_services/stacked_services.dart' as _i13;
 
 import '../ui/views/dashboard/dashboard_view.dart' as _i2;
-import '../ui/views/dosen/dosen_view.dart' as _i7;
+import '../ui/views/dosen/dosen_view.dart' as _i6;
 import '../ui/views/fakultas/fakultas_view.dart' as _i8;
 import '../ui/views/home/home_view.dart' as _i4;
 import '../ui/views/kelas/kelas_view.dart' as _i10;
 import '../ui/views/matakuliah/matakuliah_view.dart' as _i5;
 import '../ui/views/pengampu/pengampu_view.dart' as _i11;
 import '../ui/views/pengaturan/pengaturan_view.dart' as _i12;
-import '../ui/views/program_studi/program_studi_view.dart' as _i6;
+import '../ui/views/program_studi/program_studi_view.dart' as _i7;
 import '../ui/views/ruangan/ruangan_view.dart' as _i9;
 import '../ui/views/startup/startup_view.dart' as _i1;
 import '../ui/views/unknown/unknown_view.dart' as _i3;
@@ -71,18 +71,18 @@ class StackedRouterWeb extends _i14.RootStackRouter {
         barrierDismissible: false,
       );
     },
-    ProgramStudiViewRoute.name: (routeData) {
+    DosenViewRoute.name: (routeData) {
       return _i14.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i6.ProgramStudiView(),
+        child: const _i6.DosenView(),
         opaque: true,
         barrierDismissible: false,
       );
     },
-    DosenViewRoute.name: (routeData) {
+    ProgramStudiViewRoute.name: (routeData) {
       return _i14.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i7.DosenView(),
+        child: const _i7.ProgramStudiView(),
         opaque: true,
         barrierDismissible: false,
       );
@@ -157,13 +157,13 @@ class StackedRouterWeb extends _i14.RootStackRouter {
               parent: DashboardViewRoute.name,
             ),
             _i14.RouteConfig(
-              ProgramStudiViewRoute.name,
-              path: 'program-studi-view',
+              DosenViewRoute.name,
+              path: 'dosen-view',
               parent: DashboardViewRoute.name,
             ),
             _i14.RouteConfig(
-              DosenViewRoute.name,
-              path: 'dosen-view',
+              ProgramStudiViewRoute.name,
+              path: 'program-studi-view',
               parent: DashboardViewRoute.name,
             ),
             _i14.RouteConfig(
@@ -268,19 +268,7 @@ class MatakuliahViewRoute extends _i14.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.ProgramStudiView]
-class ProgramStudiViewRoute extends _i14.PageRouteInfo<void> {
-  const ProgramStudiViewRoute()
-      : super(
-          ProgramStudiViewRoute.name,
-          path: 'program-studi-view',
-        );
-
-  static const String name = 'ProgramStudiView';
-}
-
-/// generated route for
-/// [_i7.DosenView]
+/// [_i6.DosenView]
 class DosenViewRoute extends _i14.PageRouteInfo<void> {
   const DosenViewRoute()
       : super(
@@ -289,6 +277,18 @@ class DosenViewRoute extends _i14.PageRouteInfo<void> {
         );
 
   static const String name = 'DosenView';
+}
+
+/// generated route for
+/// [_i7.ProgramStudiView]
+class ProgramStudiViewRoute extends _i14.PageRouteInfo<void> {
+  const ProgramStudiViewRoute()
+      : super(
+          ProgramStudiViewRoute.name,
+          path: 'program-studi-view',
+        );
+
+  static const String name = 'ProgramStudiView';
 }
 
 /// generated route for
@@ -392,18 +392,18 @@ extension RouterStateExtension on _i13.RouterService {
     );
   }
 
-  Future<dynamic> navigateToProgramStudiView(
-      {void Function(_i14.NavigationFailure)? onFailure}) async {
-    return navigateTo(
-      const ProgramStudiViewRoute(),
-      onFailure: onFailure,
-    );
-  }
-
   Future<dynamic> navigateToDosenView(
       {void Function(_i14.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const DosenViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> navigateToProgramStudiView(
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
+    return navigateTo(
+      const ProgramStudiViewRoute(),
       onFailure: onFailure,
     );
   }
@@ -488,18 +488,18 @@ extension RouterStateExtension on _i13.RouterService {
     );
   }
 
-  Future<dynamic> replaceWithProgramStudiView(
-      {void Function(_i14.NavigationFailure)? onFailure}) async {
-    return replaceWith(
-      const ProgramStudiViewRoute(),
-      onFailure: onFailure,
-    );
-  }
-
   Future<dynamic> replaceWithDosenView(
       {void Function(_i14.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const DosenViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> replaceWithProgramStudiView(
+      {void Function(_i14.NavigationFailure)? onFailure}) async {
+    return replaceWith(
+      const ProgramStudiViewRoute(),
       onFailure: onFailure,
     );
   }

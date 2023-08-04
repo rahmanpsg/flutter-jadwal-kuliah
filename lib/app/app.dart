@@ -17,6 +17,7 @@ import 'package:jadwal_kuliah/ui/views/pengaturan/pengaturan_view.dart';
 import 'package:jadwal_kuliah/ui/dialogs/form/form_dialog.dart';
 import 'package:jadwal_kuliah/services/fakultas_service.dart';
 import 'package:jadwal_kuliah/services/program_studi_service.dart';
+import 'package:jadwal_kuliah/services/dosen_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -26,8 +27,8 @@ import 'package:jadwal_kuliah/services/program_studi_service.dart';
       RedirectRoute(path: '', redirectTo: 'home'),
       CustomRoute(page: HomeView, initial: true),
       CustomRoute(page: MatakuliahView),
-      CustomRoute(page: ProgramStudiView),
       CustomRoute(page: DosenView),
+      CustomRoute(page: ProgramStudiView),
       CustomRoute(page: FakultasView),
       CustomRoute(page: RuanganView),
       CustomRoute(page: KelasView),
@@ -47,6 +48,7 @@ import 'package:jadwal_kuliah/services/program_studi_service.dart';
     LazySingleton(classType: RouterService),
     LazySingleton(classType: FakultasService),
     LazySingleton(classType: ProgramStudiService),
+    LazySingleton(classType: DosenService),
 // @stacked-service
   ],
   bottomsheets: [

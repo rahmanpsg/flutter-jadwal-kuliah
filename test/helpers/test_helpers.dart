@@ -4,6 +4,7 @@ import 'package:jadwal_kuliah/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:jadwal_kuliah/services/fakultas_service.dart';
 import 'package:jadwal_kuliah/services/program_studi_service.dart';
+import 'package:jadwal_kuliah/services/dosen_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -14,6 +15,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<FakultasService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ProgramStudiService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<DosenService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -22,6 +24,7 @@ void registerServices() {
   getAndRegisterDialogService();
   getAndRegisterFakultasService();
   getAndRegisterProgramStudiService();
+  getAndRegisterDosenService();
 // @stacked-mock-register
 }
 
@@ -86,6 +89,13 @@ MockProgramStudiService getAndRegisterProgramStudiService() {
   _removeRegistrationIfExists<ProgramStudiService>();
   final service = MockProgramStudiService();
   locator.registerSingleton<ProgramStudiService>(service);
+  return service;
+}
+
+MockDosenService getAndRegisterDosenService() {
+  _removeRegistrationIfExists<DosenService>();
+  final service = MockDosenService();
+  locator.registerSingleton<DosenService>(service);
   return service;
 }
 // @stacked-mock-create

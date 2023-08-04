@@ -1,15 +1,20 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jadwal_kuliah/app/app.dialogs.dart';
 import 'package:jadwal_kuliah/app/app.locator.dart';
 import 'package:jadwal_kuliah/app/app.logger.dart';
+import 'package:jadwal_kuliah/extensions/string_extension.dart';
+import 'package:jadwal_kuliah/models/dosen_model.dart';
+import 'package:jadwal_kuliah/services/dosen_service.dart';
 import 'package:jadwal_kuliah/ui/dialogs/form/form_dialog.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class DosenViewModel extends BaseViewModel {
+class DosenViewModel extends ReactiveViewModel {
   final log = getLogger('DosenViewModel');
 
   final _dialogService = locator<DialogService>();
+  final _dosenService = locator<DosenService>();
 
   String get table => 'Dosen';
 
@@ -22,7 +27,30 @@ class DosenViewModel extends BaseViewModel {
     'Aksi',
   ];
 
-  void init() async {}
+  List<DosenModel> get items => _dosenService.items;
+
+  List<Map<String, dynamic>> get source => items
+      .asMap()
+      .entries
+      .map(
+        (entry) => {
+          '#': entry.key + 1,
+          'nbm': entry.value.nbm,
+          'nama': entry.value.nama,
+          'alamat': entry.value.alamat?.toNull() ?? '-',
+          'nomor_telepon': entry.value.nomorTelepon?.toNull() ?? '-',
+          'aksi': entry.value,
+        },
+      )
+      .toList();
+
+  void init() async {
+    setBusy(true);
+
+    if (items.isEmpty) await _dosenService.syncData();
+
+    setBusy(false);
+  }
 
   void onAdd() async {
     final response = await _dialogService.showCustomDialog(
@@ -34,16 +62,24 @@ class DosenViewModel extends BaseViewModel {
           FormDialogItem(
             label: 'NBM',
             keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
           ),
           FormDialogItem(
             label: 'Nama',
           ),
           FormDialogItem(
             label: 'Alamat',
+            isRequired: false,
           ),
           FormDialogItem(
             label: 'Nomor Telepon',
             keyboardType: TextInputType.phone,
+            isRequired: false,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
           ),
         ],
       ),
@@ -52,5 +88,129 @@ class DosenViewModel extends BaseViewModel {
     if (response?.confirmed == false) return;
 
     log.i(response?.data);
+
+    final dosen = DosenModel.create(
+      nbm: response?.data['NBM'],
+      nama: response?.data['Nama'],
+      alamat: response?.data['Alamat'],
+      nomorTelepon: response?.data['Nomor Telepon'],
+    );
+
+    log.d("Dosen: $dosen");
+
+    setBusy(true);
+
+    try {
+      await _dosenService.save(dosen);
+    } catch (e) {
+      log.e(e);
+
+      _dialogService.showDialog(
+        title: 'Error',
+        description: e.toString(),
+        dialogPlatform: DialogPlatform.Material,
+      );
+    }
+
+    setBusy(false);
   }
+
+  void onEdit(DosenModel value) async {
+    final response = await _dialogService.showCustomDialog(
+      variant: DialogType.form,
+      title: 'Ubah Data $table',
+      data: FormDialogData(
+        formDialogItems: [
+          FormDialogItem(
+            controller: TextEditingController(text: value.nbm),
+            label: 'NBM',
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+          ),
+          FormDialogItem(
+            controller: TextEditingController(text: value.nama),
+            label: 'Nama',
+          ),
+          FormDialogItem(
+            controller: TextEditingController(text: value.alamat),
+            label: 'Alamat',
+            isRequired: false,
+          ),
+          FormDialogItem(
+            controller: TextEditingController(text: value.nomorTelepon),
+            label: 'Nomor Telepon',
+            keyboardType: TextInputType.phone,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+            isRequired: false,
+          ),
+        ],
+      ),
+    );
+
+    if (response?.confirmed == false) return;
+
+    log.i(response?.data);
+
+    final dosen = value.copyWith(
+      nbm: response?.data['NBM'],
+      nama: response?.data['Nama'],
+      alamat: response?.data['Alamat'],
+      nomorTelepon: response?.data['Nomor Telepon'],
+    );
+
+    log.d("dosen: $dosen");
+
+    setBusy(true);
+
+    try {
+      await _dosenService.save(dosen);
+    } catch (e) {
+      log.e(e);
+
+      _dialogService.showDialog(
+        title: 'Error',
+        description: e.toString(),
+        dialogPlatform: DialogPlatform.Material,
+      );
+    }
+
+    setBusy(false);
+  }
+
+  void onDelete(value) async {
+    final response = await _dialogService.showDialog(
+      title: 'Hapus Data $table',
+      description: 'Apakah anda yakin ingin menghapus data ini?',
+      cancelTitle: 'Tidak',
+      buttonTitle: 'Ya',
+      dialogPlatform: DialogPlatform.Material,
+    );
+
+    if (response?.confirmed == false) return;
+
+    log.i(response?.data);
+
+    setBusy(true);
+
+    try {
+      await _dosenService.delete(value);
+    } catch (e) {
+      log.e(e);
+
+      _dialogService.showDialog(
+        title: 'Error',
+        description: e.toString(),
+        dialogPlatform: DialogPlatform.Material,
+      );
+    }
+
+    setBusy(false);
+  }
+
+  @override
+  List<ListenableServiceMixin> get listenableServices => [_dosenService];
 }

@@ -150,13 +150,14 @@ class __$$_DosenModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DosenModel implements _DosenModel {
+class _$_DosenModel extends _DosenModel {
   const _$_DosenModel(
       {required this.id,
       required this.nbm,
       required this.nama,
       this.alamat,
-      this.nomorTelepon});
+      this.nomorTelepon})
+      : super._();
 
   factory _$_DosenModel.fromJson(Map<String, dynamic> json) =>
       _$$_DosenModelFromJson(json);
@@ -209,13 +210,14 @@ class _$_DosenModel implements _DosenModel {
   }
 }
 
-abstract class _DosenModel implements DosenModel {
+abstract class _DosenModel extends DosenModel {
   const factory _DosenModel(
       {required final String id,
       required final String nbm,
       required final String nama,
       final String? alamat,
       final String? nomorTelepon}) = _$_DosenModel;
+  const _DosenModel._() : super._();
 
   factory _DosenModel.fromJson(Map<String, dynamic> json) =
       _$_DosenModel.fromJson;
