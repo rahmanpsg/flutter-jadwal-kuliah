@@ -47,7 +47,7 @@ class DosenViewModel extends ReactiveViewModel {
   void init() async {
     setBusy(true);
 
-    if (items.isEmpty) await _dosenService.syncData();
+    await _dosenService.syncData();
 
     setBusy(false);
   }

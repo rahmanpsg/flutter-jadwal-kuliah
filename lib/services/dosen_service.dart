@@ -18,8 +18,14 @@ class DosenService with ListenableServiceMixin {
   /// List of all data
   List<DosenModel> get items => _items.toSet().toList();
 
+  bool _isSync = false;
+
   Future<void> syncData() async {
+    if (_isSync) return;
+
     await gets();
+
+    _isSync = true;
   }
 
   /// Get all data

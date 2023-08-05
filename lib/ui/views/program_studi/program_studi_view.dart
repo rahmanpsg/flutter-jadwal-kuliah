@@ -72,10 +72,7 @@ class ProgramStudiView extends StackedView<ProgramStudiViewModel> {
                             .toList(),
                         source: viewModel.source,
                         selecteds: [],
-                        expanded: List.filled(
-                          viewModel.items.length,
-                          false,
-                        ),
+                        expanded: List.filled(viewModel.items.length, false),
                       ),
                       if (viewModel.items.isEmpty) ...[
                         SizedBox(

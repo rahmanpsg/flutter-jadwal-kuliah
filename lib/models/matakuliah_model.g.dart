@@ -14,7 +14,6 @@ _$_MatakuliahModel _$$_MatakuliahModelFromJson(Map<String, dynamic> json) =>
       sks: json['sks'] as int,
       semester: json['semester'] as int,
       idProgramStudi: json['id_program_studi'] as String,
-      idFakultas: json['id_fakultas'] as String,
     );
 
 Map<String, dynamic> _$$_MatakuliahModelToJson(_$_MatakuliahModel instance) =>
@@ -25,5 +24,4 @@ Map<String, dynamic> _$$_MatakuliahModelToJson(_$_MatakuliahModel instance) =>
       'sks': instance.sks,
       'semester': instance.semester,
       'id_program_studi': instance.idProgramStudi,
-      'id_fakultas': instance.idFakultas,
     };

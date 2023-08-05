@@ -45,7 +45,7 @@ class ProgramStudiViewModel extends ReactiveViewModel {
   void init() async {
     setBusy(true);
 
-    if (items.isEmpty) await _programStudiService.syncData();
+    await _programStudiService.syncData();
 
     setBusy(false);
   }

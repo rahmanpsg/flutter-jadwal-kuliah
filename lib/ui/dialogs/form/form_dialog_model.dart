@@ -34,7 +34,22 @@ class FormDialogModel extends BaseViewModel {
 
     // assign the values to the mapResponse
     for (var field in formDialogData.formDialogItems) {
-      if (field.isDropdown) continue;
+      if (field.isDropdown) {
+        if (mapResponse.containsKey(field.label) == false) {
+          mapResponse[field.label] = field.dropdownItems
+              ?.firstWhere((element) => element.label == field.controller.text)
+              .value;
+        }
+        continue;
+      }
+
+      if (field.isChipInput) {
+        if (mapResponse.containsKey(field.label) == false) {
+          mapResponse[field.label] = field.chipItems;
+        }
+
+        continue;
+      }
       mapResponse[field.label] = field.controller.text;
     }
 

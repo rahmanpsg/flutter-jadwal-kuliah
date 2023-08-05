@@ -1,3 +1,4 @@
+import 'package:chips_input/chips_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jadwal_kuliah/models/item_model.dart';
@@ -28,6 +29,8 @@ class FormDialogItem<T> {
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final bool isRequired;
+  final bool isChipInput;
+  final List<ItemModel<T>>? chipItems;
 
   FormDialogItem({
     TextEditingController? controller,
@@ -39,9 +42,13 @@ class FormDialogItem<T> {
     this.keyboardType,
     this.inputFormatters,
     this.isRequired = true,
+    this.isChipInput = false,
+    this.chipItems,
   })  : controller = controller ?? TextEditingController(),
         assert(!isDropdown || dropdownItems != null,
-            'Dropdown items are required when isDropdown is true');
+            'Dropdown items are required when isDropdown is true'),
+        assert(!isChipInput || chipItems != null,
+            'Chip items are required when isChipInput is true');
 }
 
 class FormDialog extends StackedView<FormDialogModel> {
@@ -172,6 +179,13 @@ class _FieldHook extends StackedHookView<FormDialogModel> {
   Widget builder(BuildContext context, FormDialogModel viewModel) {
     final index = request.data!.formDialogItems.indexOf(field);
 
+    OutlineInputBorder outlineInputBorder = OutlineInputBorder(
+      borderSide: const BorderSide(
+        color: kcBackgroundColor,
+      ),
+      borderRadius: BorderRadius.circular(12),
+    );
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -179,65 +193,131 @@ class _FieldHook extends StackedHookView<FormDialogModel> {
       children: [
         Text(field.label, style: Theme.of(context).textTheme.bodySmall),
         const SizedBox(height: 8),
-        CustomTextFieldOutline(
-          controller: field.controller,
-          hintText: field.hint,
-          onTap: () async {
-            final ItemModel? response = await field.onTap?.call();
+        if (!field.isChipInput)
+          CustomTextFieldOutline(
+            controller: field.controller,
+            hintText: field.hint,
+            onTap: () async {
+              final ItemModel? response = await field.onTap?.call();
 
-            if (response == null) return;
+              if (response == null) return;
 
-            field.controller.text = response.label;
+              field.controller.text = response.label;
 
-            viewModel.mapResponse
-                .putIfAbsent(field.label, () => response.value);
+              viewModel.mapResponse
+                  .putIfAbsent(field.label, () => response.value);
 
-            viewModel.rebuildUi();
-          },
-          keyboardType: field.keyboardType,
-          inputFormatters: field.inputFormatters,
-          validator: (value) {
-            if (field.isRequired) {
-              if (value == null || value.isEmpty) {
-                return 'Silahkan ${field.isDropdown ? 'pilih' : 'masukkan'} ${field.label.toLowerCase()}';
+              viewModel.rebuildUi();
+            },
+            keyboardType: field.keyboardType,
+            inputFormatters: field.inputFormatters,
+            validator: (value) {
+              if (field.isRequired) {
+                if (value == null || value.isEmpty) {
+                  return 'Silahkan ${field.isDropdown ? 'pilih' : 'masukkan'} ${field.label.toLowerCase()}';
+                }
               }
-            }
-            return null;
-          },
-          readOnly: field.isDropdown,
-          suffixIcon: !field.isDropdown
-              ? null
-              : PopupMenuButton(
-                  itemBuilder: (BuildContext context) {
-                    return field.dropdownItems!.map((ItemModel item) {
-                      return PopupMenuItem(
-                        onTap: () {
-                          field.controller.text = item.label;
+              return null;
+            },
+            readOnly: field.isDropdown,
+            suffixIcon: !field.isDropdown
+                ? null
+                : PopupMenuButton(
+                    itemBuilder: (BuildContext context) {
+                      return field.dropdownItems!.map((ItemModel item) {
+                        return PopupMenuItem(
+                          onTap: () {
+                            field.controller.text = item.label;
 
-                          viewModel.mapResponse
-                              .putIfAbsent(field.label, () => item.value);
+                            viewModel.mapResponse
+                                .putIfAbsent(field.label, () => item.value);
 
-                          viewModel.rebuildUi();
-                        },
-                        value: item,
-                        child: Text(item.label),
-                      );
-                    }).toList();
-                  },
-                  child: const IntrinsicWidth(
-                    child: Center(
-                      child: Icon(
-                        Icons.arrow_drop_down_rounded,
+                            viewModel.rebuildUi();
+                          },
+                          value: item,
+                          child: Text(item.label),
+                        );
+                      }).toList();
+                    },
+                    child: const IntrinsicWidth(
+                      child: Center(
+                        child: Icon(
+                          Icons.arrow_drop_down_rounded,
+                        ),
                       ),
                     ),
                   ),
+            onFieldSubmitted: (v) {
+              if (index == request.data!.formDialogItems.length - 1) {
+                viewModel.onSubmit();
+              }
+            },
+          )
+        else
+          ChipsInput<ItemModel>(
+            initialValue: field.chipItems ?? [],
+            findSuggestions: (String query) {
+              final results = field.chipItems!.where((item) {
+                return item.value.toLowerCase().contains(query.toLowerCase());
+              }).toList();
+
+              if (results.isEmpty) {
+                return [
+                  ItemModel(
+                    label: query.toUpperCase(),
+                    value: query.toUpperCase(),
+                  ),
+                ];
+              }
+
+              return results;
+            },
+            inputFormatters: field.inputFormatters,
+            keyboardType: field.keyboardType,
+            onChanged: (data) {
+              viewModel.mapResponse[field.label] = data;
+
+              viewModel.rebuildUi();
+            },
+            decoration: InputDecoration(
+              fillColor: kcBackgroundColor,
+              filled: true,
+              hintText: field.hint,
+              enabledBorder: outlineInputBorder,
+              disabledBorder: outlineInputBorder,
+              focusedBorder: outlineInputBorder.copyWith(
+                borderSide: const BorderSide(
+                  color: kcPrimaryColor,
+                  width: 1.5,
                 ),
-          onFieldSubmitted: (v) {
-            if (index == request.data!.formDialogItems.length - 1) {
-              viewModel.onSubmit();
-            }
-          },
-        )
+              ),
+              errorBorder: outlineInputBorder.copyWith(
+                borderSide: const BorderSide(
+                  color: kcDangerColor,
+                ),
+              ),
+              focusedErrorBorder: outlineInputBorder.copyWith(
+                borderSide: const BorderSide(
+                  color: kcDangerColor,
+                  width: 1.5,
+                ),
+              ),
+            ),
+            chipBuilder: (context, state, ItemModel item) {
+              return InputChip(
+                key: ObjectKey(item),
+                label: Text(item.label),
+                onDeleted: () => state.deleteChip(item),
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              );
+            },
+            suggestionBuilder: (context, ItemModel item) {
+              return ListTile(
+                key: ObjectKey(item),
+                title: Text(item.label),
+              );
+            },
+          )
       ],
     );
   }

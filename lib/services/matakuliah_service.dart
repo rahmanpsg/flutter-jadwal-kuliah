@@ -1,22 +1,22 @@
 import 'package:jadwal_kuliah/app/app.logger.dart';
-import 'package:jadwal_kuliah/models/fakultas_model.dart';
+import 'package:jadwal_kuliah/models/matakuliah_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class FakultasService with ListenableServiceMixin {
-  FakultasService() {
+class MatakuliahService with ListenableServiceMixin {
+  MatakuliahService() {
     listenToReactiveValues([items]);
   }
 
-  final log = getLogger('FakultasService');
+  final log = getLogger('MatakuliahService');
 
-  static const String tableName = 'fakultas';
+  static const String tableName = 'matakuliah';
   final _supabase = Supabase.instance.client;
 
-  final _items = ReactiveList<FakultasModel>();
+  final _items = ReactiveList<MatakuliahModel>();
 
   /// List of all data
-  List<FakultasModel> get items => _items.toSet().toList();
+  List<MatakuliahModel> get items => _items.toSet().toList();
 
   bool _isSync = false;
 
@@ -29,15 +29,17 @@ class FakultasService with ListenableServiceMixin {
   }
 
   /// Get all data
-  Future<List<FakultasModel>> gets() async {
+  Future<List<MatakuliahModel>> gets() async {
     try {
       final response = await _supabase.from(tableName).select<PostgrestList>();
+
+      log.d("response: $response");
 
       if (response.isEmpty) {
         return [];
       }
 
-      final list = response.map((e) => FakultasModel.fromJson(e)).toList();
+      final list = response.map((e) => MatakuliahModel.fromJson(e)).toList();
 
       _items.clear();
 
@@ -52,16 +54,16 @@ class FakultasService with ListenableServiceMixin {
   }
 
   /// Save or update data
-  Future<void> save(FakultasModel fakultas) async {
+  Future<void> save(MatakuliahModel model) async {
     try {
-      await _supabase.from(tableName).upsert(fakultas.toJson());
+      await _supabase.from(tableName).upsert(model.toJson());
 
-      final index = _items.indexWhere((element) => element.id == fakultas.id);
+      final index = _items.indexWhere((element) => element.id == model.id);
 
       if (index >= 0) {
-        _items[index] = fakultas;
+        _items[index] = model;
       } else {
-        _items.add(fakultas);
+        _items.add(model);
       }
     } catch (e) {
       log.e(e);
@@ -70,11 +72,11 @@ class FakultasService with ListenableServiceMixin {
   }
 
   /// Delete data
-  Future<void> delete(FakultasModel fakultas) async {
+  Future<void> delete(MatakuliahModel model) async {
     try {
-      await _supabase.from(tableName).delete().eq('id', fakultas.id);
+      await _supabase.from(tableName).delete().eq('id', model.id);
 
-      _items.remove(fakultas);
+      _items.remove(model);
     } catch (e) {
       log.e(e);
       throw 'Gagal menghapus data';

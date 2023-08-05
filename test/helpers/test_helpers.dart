@@ -5,6 +5,9 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:jadwal_kuliah/services/fakultas_service.dart';
 import 'package:jadwal_kuliah/services/program_studi_service.dart';
 import 'package:jadwal_kuliah/services/dosen_service.dart';
+import 'package:jadwal_kuliah/services/matakuliah_service.dart';
+import 'package:jadwal_kuliah/services/ruangan_service.dart';
+import 'package:jadwal_kuliah/services/kelas_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -16,6 +19,9 @@ import 'test_helpers.mocks.dart';
   MockSpec<FakultasService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ProgramStudiService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DosenService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<MatakuliahService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<RuanganService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<KelasService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -25,6 +31,9 @@ void registerServices() {
   getAndRegisterFakultasService();
   getAndRegisterProgramStudiService();
   getAndRegisterDosenService();
+  getAndRegisterMatakuliahService();
+  getAndRegisterRuanganService();
+  getAndRegisterKelasService();
 // @stacked-mock-register
 }
 
@@ -96,6 +105,27 @@ MockDosenService getAndRegisterDosenService() {
   _removeRegistrationIfExists<DosenService>();
   final service = MockDosenService();
   locator.registerSingleton<DosenService>(service);
+  return service;
+}
+
+MockMatakuliahService getAndRegisterMatakuliahService() {
+  _removeRegistrationIfExists<MatakuliahService>();
+  final service = MockMatakuliahService();
+  locator.registerSingleton<MatakuliahService>(service);
+  return service;
+}
+
+MockRuanganService getAndRegisterRuanganService() {
+  _removeRegistrationIfExists<RuanganService>();
+  final service = MockRuanganService();
+  locator.registerSingleton<RuanganService>(service);
+  return service;
+}
+
+MockKelasService getAndRegisterKelasService() {
+  _removeRegistrationIfExists<KelasService>();
+  final service = MockKelasService();
+  locator.registerSingleton<KelasService>(service);
   return service;
 }
 // @stacked-mock-create

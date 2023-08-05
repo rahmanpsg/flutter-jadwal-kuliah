@@ -74,17 +74,18 @@ class DosenView extends StackedView<DosenViewModel> {
                         selecteds: [],
                         expanded: List.filled(viewModel.items.length, false),
                       ),
-                      // if empty
-                      SizedBox(
-                          height: screenHeightFraction(
-                        context,
-                        dividedBy: 2,
-                        offsetBy: 200,
-                      )),
-                      const Align(
-                        alignment: Alignment.center,
-                        child: Text('Tidak ada data'),
-                      ),
+                      if (viewModel.items.isEmpty) ...[
+                        SizedBox(
+                            height: screenHeightFraction(
+                          context,
+                          dividedBy: 2,
+                          offsetBy: 200,
+                        )),
+                        const Align(
+                          alignment: Alignment.center,
+                          child: Text('Tidak ada data'),
+                        ),
+                      ]
                     ],
                   ),
                 ),

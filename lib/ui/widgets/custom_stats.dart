@@ -1,10 +1,11 @@
+import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:jadwal_kuliah/ui/common/app_colors.dart';
 import 'package:jadwal_kuliah/ui/common/app_texts.dart';
 
 class CustomStats extends StatelessWidget {
   final String text;
-  final String total;
+  final num total;
   final IconData iconData;
   final Color color;
 
@@ -45,9 +46,10 @@ class CustomStats extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    SelectableText(
-                      total,
-                      style: ktBoldTextStyle.copyWith(
+                    AnimatedFlipCounter(
+                      duration: const Duration(milliseconds: 500),
+                      value: total,
+                      textStyle: ktBoldTextStyle.copyWith(
                         fontSize: 32,
                         color: kcPrimaryColor,
                       ),

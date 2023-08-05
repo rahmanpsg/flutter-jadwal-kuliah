@@ -26,7 +26,6 @@ mixin _$MatakuliahModel {
   int get sks => throw _privateConstructorUsedError;
   int get semester => throw _privateConstructorUsedError;
   String get idProgramStudi => throw _privateConstructorUsedError;
-  String get idFakultas => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,8 +45,7 @@ abstract class $MatakuliahModelCopyWith<$Res> {
       String nama,
       int sks,
       int semester,
-      String idProgramStudi,
-      String idFakultas});
+      String idProgramStudi});
 }
 
 /// @nodoc
@@ -69,7 +67,6 @@ class _$MatakuliahModelCopyWithImpl<$Res, $Val extends MatakuliahModel>
     Object? sks = null,
     Object? semester = null,
     Object? idProgramStudi = null,
-    Object? idFakultas = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -96,10 +93,6 @@ class _$MatakuliahModelCopyWithImpl<$Res, $Val extends MatakuliahModel>
           ? _value.idProgramStudi
           : idProgramStudi // ignore: cast_nullable_to_non_nullable
               as String,
-      idFakultas: null == idFakultas
-          ? _value.idFakultas
-          : idFakultas // ignore: cast_nullable_to_non_nullable
-              as String,
     ) as $Val);
   }
 }
@@ -118,8 +111,7 @@ abstract class _$$_MatakuliahModelCopyWith<$Res>
       String nama,
       int sks,
       int semester,
-      String idProgramStudi,
-      String idFakultas});
+      String idProgramStudi});
 }
 
 /// @nodoc
@@ -139,7 +131,6 @@ class __$$_MatakuliahModelCopyWithImpl<$Res>
     Object? sks = null,
     Object? semester = null,
     Object? idProgramStudi = null,
-    Object? idFakultas = null,
   }) {
     return _then(_$_MatakuliahModel(
       id: null == id
@@ -166,25 +157,21 @@ class __$$_MatakuliahModelCopyWithImpl<$Res>
           ? _value.idProgramStudi
           : idProgramStudi // ignore: cast_nullable_to_non_nullable
               as String,
-      idFakultas: null == idFakultas
-          ? _value.idFakultas
-          : idFakultas // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_MatakuliahModel implements _MatakuliahModel {
+class _$_MatakuliahModel extends _MatakuliahModel {
   const _$_MatakuliahModel(
       {required this.id,
       required this.kode,
       required this.nama,
       required this.sks,
       required this.semester,
-      required this.idProgramStudi,
-      required this.idFakultas});
+      required this.idProgramStudi})
+      : super._();
 
   factory _$_MatakuliahModel.fromJson(Map<String, dynamic> json) =>
       _$$_MatakuliahModelFromJson(json);
@@ -201,12 +188,10 @@ class _$_MatakuliahModel implements _MatakuliahModel {
   final int semester;
   @override
   final String idProgramStudi;
-  @override
-  final String idFakultas;
 
   @override
   String toString() {
-    return 'MatakuliahModel(id: $id, kode: $kode, nama: $nama, sks: $sks, semester: $semester, idProgramStudi: $idProgramStudi, idFakultas: $idFakultas)';
+    return 'MatakuliahModel(id: $id, kode: $kode, nama: $nama, sks: $sks, semester: $semester, idProgramStudi: $idProgramStudi)';
   }
 
   @override
@@ -221,15 +206,13 @@ class _$_MatakuliahModel implements _MatakuliahModel {
             (identical(other.semester, semester) ||
                 other.semester == semester) &&
             (identical(other.idProgramStudi, idProgramStudi) ||
-                other.idProgramStudi == idProgramStudi) &&
-            (identical(other.idFakultas, idFakultas) ||
-                other.idFakultas == idFakultas));
+                other.idProgramStudi == idProgramStudi));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, kode, nama, sks, semester, idProgramStudi, idFakultas);
+  int get hashCode =>
+      Object.hash(runtimeType, id, kode, nama, sks, semester, idProgramStudi);
 
   @JsonKey(ignore: true)
   @override
@@ -245,15 +228,15 @@ class _$_MatakuliahModel implements _MatakuliahModel {
   }
 }
 
-abstract class _MatakuliahModel implements MatakuliahModel {
+abstract class _MatakuliahModel extends MatakuliahModel {
   const factory _MatakuliahModel(
       {required final String id,
       required final String kode,
       required final String nama,
       required final int sks,
       required final int semester,
-      required final String idProgramStudi,
-      required final String idFakultas}) = _$_MatakuliahModel;
+      required final String idProgramStudi}) = _$_MatakuliahModel;
+  const _MatakuliahModel._() : super._();
 
   factory _MatakuliahModel.fromJson(Map<String, dynamic> json) =
       _$_MatakuliahModel.fromJson;
@@ -270,8 +253,6 @@ abstract class _MatakuliahModel implements MatakuliahModel {
   int get semester;
   @override
   String get idProgramStudi;
-  @override
-  String get idFakultas;
   @override
   @JsonKey(ignore: true)
   _$$_MatakuliahModelCopyWith<_$_MatakuliahModel> get copyWith =>

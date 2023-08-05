@@ -39,7 +39,7 @@ class FakultasViewModel extends ReactiveViewModel {
   void init() async {
     setBusy(true);
 
-    if (items.isEmpty) await _fakultasService.syncData();
+    await _fakultasService.syncData();
 
     setBusy(false);
   }
