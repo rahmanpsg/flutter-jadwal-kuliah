@@ -34,6 +34,7 @@ class HomeViewModel extends BaseViewModel {
       _dosenService.syncData(),
       _matakuliahService.syncData(),
       _ruanganService.syncData(),
+      _kelasService.syncData(),
     ]);
 
     setBusy(false);

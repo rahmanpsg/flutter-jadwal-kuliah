@@ -32,7 +32,13 @@ class MatakuliahViewModel extends ReactiveViewModel {
     'Aksi',
   ];
 
-  List<MatakuliahModel> get items => _matakuliahService.items;
+  bool _isFiltered = false;
+
+  final List<MatakuliahModel> _filteredItems = [];
+
+  List<MatakuliahModel> get _items => _matakuliahService.items;
+
+  List<MatakuliahModel> get items => _isFiltered ? _filteredItems : _items;
 
   List<Map<String, dynamic>> get source => items
       .asMap()
@@ -59,6 +65,26 @@ class MatakuliahViewModel extends ReactiveViewModel {
     await _matakuliahService.syncData();
 
     setBusy(false);
+  }
+
+  void onSearch(String value) {
+    if (value.isEmpty) {
+      _isFiltered = false;
+      notifyListeners();
+      return;
+    }
+
+    _isFiltered = true;
+    _filteredItems.clear();
+
+    for (var item in _items) {
+      if (item.kode.toLowerCase().contains(value.toLowerCase()) ||
+          item.nama.toLowerCase().contains(value.toLowerCase())) {
+        _filteredItems.add(item);
+      }
+    }
+
+    notifyListeners();
   }
 
   void onAdd() async {

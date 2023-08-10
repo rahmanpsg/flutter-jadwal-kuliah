@@ -3,6 +3,7 @@ import 'package:jadwal_kuliah/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:jadwal_kuliah/ui/views/home/home_view.dart';
 import 'package:jadwal_kuliah/ui/views/startup/startup_view.dart';
 import 'package:jadwal_kuliah/ui/views/unknown/unknown_view.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:jadwal_kuliah/ui/views/dashboard/dashboard_view.dart';
@@ -26,17 +27,45 @@ import 'package:jadwal_kuliah/services/kelas_service.dart';
 @StackedApp(
   routes: [
     CustomRoute(page: StartupView, initial: true),
-    CustomRoute(page: DashboardView, maintainState: true, children: [
+    CustomRoute(page: DashboardView, children: [
       RedirectRoute(path: '', redirectTo: 'home'),
-      CustomRoute(page: HomeView, initial: true),
-      CustomRoute(page: MatakuliahView),
-      CustomRoute(page: DosenView),
-      CustomRoute(page: ProgramStudiView),
-      CustomRoute(page: FakultasView),
-      CustomRoute(page: RuanganView),
-      CustomRoute(page: KelasView),
-      CustomRoute(page: PengampuView),
-      CustomRoute(page: PengaturanView),
+      CustomRoute(
+        page: HomeView,
+        initial: true,
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+      ),
+      CustomRoute(
+        page: MatakuliahView,
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+      ),
+      CustomRoute(
+        page: DosenView,
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+      ),
+      CustomRoute(
+        page: ProgramStudiView,
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+      ),
+      CustomRoute(
+        page: FakultasView,
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+      ),
+      CustomRoute(
+        page: RuanganView,
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+      ),
+      CustomRoute(
+        page: KelasView,
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+      ),
+      CustomRoute(
+        page: PengampuView,
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+      ),
+      CustomRoute(
+        page: PengaturanView,
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+      ),
 // @stacked-route
     ]),
 

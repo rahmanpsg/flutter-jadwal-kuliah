@@ -59,6 +59,7 @@ class StackedRouterWeb extends _i14.RootStackRouter {
       return _i14.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i4.HomeView(),
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -67,6 +68,7 @@ class StackedRouterWeb extends _i14.RootStackRouter {
       return _i14.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i5.MatakuliahView(),
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -75,6 +77,7 @@ class StackedRouterWeb extends _i14.RootStackRouter {
       return _i14.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i6.DosenView(),
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -83,6 +86,7 @@ class StackedRouterWeb extends _i14.RootStackRouter {
       return _i14.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i7.ProgramStudiView(),
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -91,6 +95,7 @@ class StackedRouterWeb extends _i14.RootStackRouter {
       return _i14.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i8.FakultasView(),
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -99,6 +104,7 @@ class StackedRouterWeb extends _i14.RootStackRouter {
       return _i14.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i9.RuanganView(),
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -107,6 +113,7 @@ class StackedRouterWeb extends _i14.RootStackRouter {
       return _i14.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i10.KelasView(),
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -115,6 +122,7 @@ class StackedRouterWeb extends _i14.RootStackRouter {
       return _i14.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i11.PengampuView(),
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -123,6 +131,7 @@ class StackedRouterWeb extends _i14.RootStackRouter {
       return _i14.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i12.PengaturanView(),
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );

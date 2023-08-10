@@ -27,7 +27,13 @@ class DosenViewModel extends ReactiveViewModel {
     'Aksi',
   ];
 
-  List<DosenModel> get items => _dosenService.items;
+  bool _isFiltered = false;
+
+  final List<DosenModel> _filteredItems = [];
+
+  List<DosenModel> get _items => _dosenService.items;
+
+  List<DosenModel> get items => _isFiltered ? _filteredItems : _items;
 
   List<Map<String, dynamic>> get source => items
       .asMap()
@@ -50,6 +56,30 @@ class DosenViewModel extends ReactiveViewModel {
     await _dosenService.syncData();
 
     setBusy(false);
+  }
+
+  void onSearch(String value) {
+    if (value.isEmpty) {
+      _isFiltered = false;
+      notifyListeners();
+      return;
+    }
+
+    _isFiltered = true;
+
+    _filteredItems.clear();
+
+    for (var item in _items) {
+      if (item.nbm.toLowerCase().contains(value.toLowerCase()) ||
+          item.nama.toLowerCase().contains(value.toLowerCase()) ||
+          item.alamat?.toLowerCase().contains(value.toLowerCase()) == true ||
+          item.nomorTelepon?.toLowerCase().contains(value.toLowerCase()) ==
+              true) {
+        _filteredItems.add(item);
+      }
+    }
+
+    notifyListeners();
   }
 
   void onAdd() async {

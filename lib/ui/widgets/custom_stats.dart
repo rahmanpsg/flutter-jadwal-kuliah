@@ -1,5 +1,6 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:jadwal_kuliah/ui/common/app_colors.dart';
 import 'package:jadwal_kuliah/ui/common/app_texts.dart';
 
@@ -44,7 +45,9 @@ class CustomStats extends StatelessWidget {
                         color: kcPrimaryColor,
                         fontSize: 18,
                       ),
-                    ),
+                    )
+                        .animate()
+                        .fadeIn(delay: const Duration(milliseconds: 300)),
                     const SizedBox(height: 16),
                     AnimatedFlipCounter(
                       duration: const Duration(milliseconds: 500),
@@ -53,7 +56,10 @@ class CustomStats extends StatelessWidget {
                         fontSize: 32,
                         color: kcPrimaryColor,
                       ),
-                    ),
+                    )
+                        .animate()
+                        .fadeIn(delay: const Duration(milliseconds: 500))
+                        .scaleXY(),
                   ],
                 ),
               ),
@@ -74,7 +80,7 @@ class CustomStats extends StatelessWidget {
               color: Colors.white,
               size: 20,
             ),
-          ),
+          ).animate().fadeIn().scaleX(),
         )
       ],
     );

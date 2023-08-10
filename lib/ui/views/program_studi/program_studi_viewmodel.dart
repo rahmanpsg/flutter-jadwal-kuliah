@@ -27,7 +27,13 @@ class ProgramStudiViewModel extends ReactiveViewModel {
     'Aksi',
   ];
 
-  List<ProgramStudiModel> get items => _programStudiService.items;
+  bool _isFiltered = false;
+
+  final List<ProgramStudiModel> _filteredItems = [];
+
+  List<ProgramStudiModel> get _items => _programStudiService.items;
+
+  List<ProgramStudiModel> get items => _isFiltered ? _filteredItems : _items;
 
   List<Map<String, dynamic>> get source => items
       .asMap()
@@ -48,6 +54,26 @@ class ProgramStudiViewModel extends ReactiveViewModel {
     await _programStudiService.syncData();
 
     setBusy(false);
+  }
+
+  void onSearch(String value) {
+    if (value.isEmpty) {
+      _isFiltered = false;
+      notifyListeners();
+      return;
+    }
+
+    _isFiltered = true;
+
+    _filteredItems.clear();
+
+    for (var item in _items) {
+      if (item.nama.toLowerCase().contains(value.toLowerCase())) {
+        _filteredItems.add(item);
+      }
+    }
+
+    notifyListeners();
   }
 
   void onAdd() async {
