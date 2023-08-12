@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:chips_input/chips_input.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jadwal_kuliah/models/item_model.dart';
@@ -136,7 +138,7 @@ class FormDialog extends StackedView<FormDialogModel> {
                         foregroundColor: kcWhite,
                       ),
                       icon: const Icon(UniconsLine.times),
-                      label: Text(request.secondaryButtonTitle ?? 'Cancel'),
+                      label: Text(request.secondaryButtonTitle ?? 'Batal'),
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -167,25 +169,48 @@ class FormDialog extends StackedView<FormDialogModel> {
 }
 
 class _FieldHook extends StackedHookView<FormDialogModel> {
+  final FormDialogItem field;
+  final DialogRequest<FormDialogData> request;
+
   const _FieldHook({
     required this.field,
     required this.request,
   });
 
-  final FormDialogItem field;
-  final DialogRequest<FormDialogData> request;
+  OutlineInputBorder get outlineInputBorder => OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: kcBackgroundColor,
+        ),
+        borderRadius: BorderRadius.circular(12),
+      );
+
+  InputDecoration get inputDecoration => InputDecoration(
+        fillColor: kcBackgroundColor,
+        filled: true,
+        hintText: field.hint,
+        enabledBorder: outlineInputBorder,
+        disabledBorder: outlineInputBorder,
+        focusedBorder: outlineInputBorder.copyWith(
+          borderSide: const BorderSide(
+            color: kcPrimaryColor,
+            width: 1.5,
+          ),
+        ),
+        errorBorder: outlineInputBorder.copyWith(
+          borderSide: const BorderSide(
+            color: kcDangerColor,
+          ),
+        ),
+        focusedErrorBorder: outlineInputBorder.copyWith(
+          borderSide: const BorderSide(
+            color: kcDangerColor,
+            width: 1.5,
+          ),
+        ),
+      );
 
   @override
   Widget builder(BuildContext context, FormDialogModel viewModel) {
-    final index = request.data!.formDialogItems.indexOf(field);
-
-    OutlineInputBorder outlineInputBorder = OutlineInputBorder(
-      borderSide: const BorderSide(
-        color: kcBackgroundColor,
-      ),
-      borderRadius: BorderRadius.circular(12),
-    );
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -193,67 +218,7 @@ class _FieldHook extends StackedHookView<FormDialogModel> {
       children: [
         Text(field.label, style: Theme.of(context).textTheme.bodySmall),
         const SizedBox(height: 8),
-        if (!field.isChipInput)
-          CustomTextFieldOutline(
-            controller: field.controller,
-            hintText: field.hint,
-            onTap: () async {
-              final ItemModel? response = await field.onTap?.call();
-
-              if (response == null) return;
-
-              field.controller.text = response.label;
-
-              viewModel.mapResponse
-                  .putIfAbsent(field.label, () => response.value);
-
-              viewModel.rebuildUi();
-            },
-            keyboardType: field.keyboardType,
-            inputFormatters: field.inputFormatters,
-            validator: (value) {
-              if (field.isRequired) {
-                if (value == null || value.isEmpty) {
-                  return 'Silahkan ${field.isDropdown ? 'pilih' : 'masukkan'} ${field.label.toLowerCase()}';
-                }
-              }
-              return null;
-            },
-            readOnly: field.isDropdown,
-            suffixIcon: !field.isDropdown
-                ? null
-                : PopupMenuButton(
-                    itemBuilder: (BuildContext context) {
-                      return field.dropdownItems!.map((ItemModel item) {
-                        return PopupMenuItem(
-                          onTap: () {
-                            field.controller.text = item.label;
-
-                            viewModel.mapResponse
-                                .putIfAbsent(field.label, () => item.value);
-
-                            viewModel.rebuildUi();
-                          },
-                          value: item,
-                          child: Text(item.label),
-                        );
-                      }).toList();
-                    },
-                    child: const IntrinsicWidth(
-                      child: Center(
-                        child: Icon(
-                          Icons.arrow_drop_down_rounded,
-                        ),
-                      ),
-                    ),
-                  ),
-            onFieldSubmitted: (v) {
-              if (index == request.data!.formDialogItems.length - 1) {
-                viewModel.onSubmit();
-              }
-            },
-          )
-        else
+        if (field.isChipInput)
           ChipsInput<ItemModel>(
             initialValue: field.chipItems ?? [],
             findSuggestions: (String query) {
@@ -279,36 +244,42 @@ class _FieldHook extends StackedHookView<FormDialogModel> {
 
               viewModel.rebuildUi();
             },
-            decoration: InputDecoration(
-              fillColor: kcBackgroundColor,
-              filled: true,
-              hintText: field.hint,
-              enabledBorder: outlineInputBorder,
-              disabledBorder: outlineInputBorder,
-              focusedBorder: outlineInputBorder.copyWith(
-                borderSide: const BorderSide(
-                  color: kcPrimaryColor,
-                  width: 1.5,
-                ),
-              ),
-              errorBorder: outlineInputBorder.copyWith(
-                borderSide: const BorderSide(
-                  color: kcDangerColor,
-                ),
-              ),
-              focusedErrorBorder: outlineInputBorder.copyWith(
-                borderSide: const BorderSide(
-                  color: kcDangerColor,
-                  width: 1.5,
-                ),
-              ),
-            ),
+            decoration: inputDecoration,
             chipBuilder: (context, state, ItemModel item) {
-              return InputChip(
-                key: ObjectKey(item),
-                label: Text(item.label),
-                onDeleted: () => state.deleteChip(item),
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              return Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 4,
+                  horizontal: 8,
+                ),
+                decoration: BoxDecoration(
+                  color: kcSecondaryColor,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: kcPrimaryColor,
+                    width: 1.5,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      item.label,
+                      style: ktRegularTextStyle.copyWith(
+                        fontSize: 14,
+                        color: kcWhite,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    InkWell(
+                      onTap: () => state.deleteChip(item),
+                      child: const Icon(
+                        UniconsLine.times,
+                        size: 14,
+                        color: kcWhite,
+                      ),
+                    ),
+                  ],
+                ),
               );
             },
             suggestionBuilder: (context, ItemModel item) {
@@ -316,6 +287,58 @@ class _FieldHook extends StackedHookView<FormDialogModel> {
                 key: ObjectKey(item),
                 title: Text(item.label),
               );
+            },
+          )
+        else if (field.isDropdown)
+          DropdownSearch<ItemModel>(
+            items: field.dropdownItems ?? [],
+            itemAsString: (item) => item.label,
+            dropdownButtonProps: const DropdownButtonProps(
+              icon: Icon(UniconsLine.angle_down),
+            ),
+            dropdownDecoratorProps: DropDownDecoratorProps(
+              dropdownSearchDecoration: inputDecoration,
+            ),
+            onChanged: (value) {
+              viewModel.mapResponse[field.label] = value?.value;
+            },
+            selectedItem: field.dropdownItems?.firstWhereOrNull(
+              (element) => element.label == field.controller.text,
+            ),
+            validator: field.isRequired
+                ? (value) {
+                    if (value == null) {
+                      return 'Silahkan pilih ${field.label.toLowerCase()}';
+                    }
+                    return null;
+                  }
+                : null,
+          )
+        else
+          CustomTextFieldOutline(
+            controller: field.controller,
+            hintText: field.hint,
+            onTap: () async {
+              final ItemModel? response = await field.onTap?.call();
+
+              if (response == null) return;
+
+              field.controller.text = response.label;
+
+              viewModel.mapResponse
+                  .putIfAbsent(field.label, () => response.value);
+
+              viewModel.rebuildUi();
+            },
+            keyboardType: field.keyboardType,
+            inputFormatters: field.inputFormatters,
+            validator: (value) {
+              if (field.isRequired) {
+                if (value == null || value.isEmpty) {
+                  return 'Silahkan ${field.isDropdown ? 'pilih' : 'masukkan'} ${field.label.toLowerCase()}';
+                }
+              }
+              return null;
             },
           )
       ],

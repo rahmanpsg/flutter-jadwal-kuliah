@@ -9,10 +9,12 @@ import 'package:stacked_services/stacked_services.dart';
 import 'app.locator.dart';
 import '../ui/dialogs/form/form_dialog.dart';
 import '../ui/dialogs/info_alert/info_alert_dialog.dart';
+import '../ui/dialogs/pengampu_form/pengampu_form_dialog.dart';
 
 enum DialogType {
   infoAlert,
   form,
+  pengampuForm,
 }
 
 void setupDialogUi() {
@@ -23,6 +25,8 @@ void setupDialogUi() {
         InfoAlertDialog(request: request, completer: completer),
     DialogType.form: (context, request, completer) =>
         FormDialog(request: request, completer: completer),
+    DialogType.pengampuForm: (context, request, completer) =>
+        PengampuFormDialog(request: request, completer: completer),
   };
 
   dialogService.registerCustomDialogBuilders(builders);

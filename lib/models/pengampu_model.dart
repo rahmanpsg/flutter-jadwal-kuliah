@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -13,6 +15,9 @@ class PengampuModel with _$PengampuModel {
     required final String idMatakuliah,
     required final String idDosen,
     required final String tahunAkademik,
+    @JsonKey(
+      includeToJson: false,
+    )
     required final List<PengampuKelasModel> kelas,
   }) = _PengampuModel;
 
@@ -40,6 +45,7 @@ class PengampuKelasModel with _$PengampuKelasModel {
 
   const factory PengampuKelasModel({
     required final String id,
+    required final String idPengampu,
     required final String idKelas,
     required final String kelas,
   }) = _PengampuKelasModel;
@@ -48,11 +54,13 @@ class PengampuKelasModel with _$PengampuKelasModel {
       _$PengampuKelasModelFromJson(json);
 
   factory PengampuKelasModel.create({
+    required String idPengampu,
     required String idKelas,
     required String kelas,
   }) =>
       PengampuKelasModel(
         id: const Uuid().v4(),
+        idPengampu: idPengampu,
         idKelas: idKelas,
         kelas: kelas,
       );

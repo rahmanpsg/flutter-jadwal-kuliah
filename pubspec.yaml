@@ -10,6 +10,7 @@ dependencies:
   animated_flip_counter: ^0.2.6
   chips_input: ^0.1.0
   collection: ^1.0.0
+  dropdown_search: ^5.0.6
   equatable: ^2.0.5
   flutter:
     sdk: flutter

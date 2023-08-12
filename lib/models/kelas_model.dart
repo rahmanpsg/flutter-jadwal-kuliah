@@ -39,4 +39,19 @@ class KelasModel with _$KelasModel {
         jenis: jenis,
         idProgramStudi: idProgramStudi,
       );
+
+  int get semester {
+    final now = DateTime.now();
+    final tahun = now.year;
+    final bulan = now.month;
+
+    final tahunAngkatan = this.tahunAngkatan;
+    final semester = tahun - tahunAngkatan;
+
+    if (bulan >= 2 && bulan <= 7) {
+      return semester * 2;
+    } else {
+      return (semester * 2) + 1;
+    }
+  }
 }

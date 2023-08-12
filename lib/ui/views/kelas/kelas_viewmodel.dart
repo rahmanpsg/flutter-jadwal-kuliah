@@ -27,6 +27,7 @@ class KelasViewModel extends ReactiveViewModel {
     '#',
     'Nama',
     'Tahun Angkatan',
+    'Semester',
     'Jenis',
     'Program Studi',
     'Aksi',
@@ -48,6 +49,7 @@ class KelasViewModel extends ReactiveViewModel {
           '#': entry.key + 1,
           'nama': entry.value.nama.join(', '),
           'tahun_angkatan': entry.value.tahunAngkatan,
+          'semester': entry.value.semester,
           'jenis': entry.value.jenis.toString(),
           'program_studi': entry.value.idProgramStudi != null
               ? _programStudiService
@@ -115,6 +117,7 @@ class KelasViewModel extends ReactiveViewModel {
             keyboardType: TextInputType.number,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
+              YearInputFormatter(),
             ],
           ),
           FormDialogItem(
@@ -208,8 +211,14 @@ class KelasViewModel extends ReactiveViewModel {
             label: 'Jenis',
             isDropdown: true,
             dropdownItems: [
-              ItemModel(label: 'Reguler', value: KelasType.reguler),
-              ItemModel(label: 'Non Reguler', value: KelasType.nonReguler),
+              const ItemModel(
+                label: 'Reguler',
+                value: KelasType.reguler,
+              ),
+              const ItemModel(
+                label: 'Non Reguler',
+                value: KelasType.nonReguler,
+              ),
             ],
           ),
           FormDialogItem(
@@ -269,7 +278,35 @@ class KelasViewModel extends ReactiveViewModel {
     setBusy(false);
   }
 
-  void onDelete(KelasModel value) async {}
+  void onDelete(KelasModel value) async {
+    final response = await _dialogService.showDialog(
+      title: 'Hapus Data $table',
+      description: 'Apakah anda yakin ingin menghapus data ini?',
+      cancelTitle: 'Tidak',
+      buttonTitle: 'Ya',
+      dialogPlatform: DialogPlatform.Material,
+    );
+
+    if (response?.confirmed == false) return;
+
+    log.i(response?.data);
+
+    setBusy(true);
+
+    try {
+      await _kelasService.delete(value);
+    } catch (e) {
+      log.e(e);
+
+      _dialogService.showDialog(
+        title: 'Error',
+        description: e.toString(),
+        dialogPlatform: DialogPlatform.Material,
+      );
+    }
+
+    setBusy(false);
+  }
 
   @override
   List<ListenableServiceMixin> get listenableServices => [_kelasService];

@@ -31,7 +31,14 @@ class PengampuService with ListenableServiceMixin {
   /// Get all data
   Future<List<PengampuModel>> gets() async {
     try {
-      final response = await _supabase.from(tableName).select<PostgrestList>();
+      final response = await _supabase
+          .from(tableName)
+          .select<PostgrestList>(
+            '*, kelas:pengampu_kelas(*)',
+          )
+          .order('tahun_akademik', ascending: true)
+          .order('id_matakuliah', ascending: true)
+          .order('id_dosen', ascending: true);
 
       log.d("response: $response");
 
@@ -39,20 +46,8 @@ class PengampuService with ListenableServiceMixin {
         return [];
       }
 
-      final list = <PengampuModel>[];
-
-      for (var json in response) {
-        json['kelas'] = await _supabase
-            .from('pengampu_kelas')
-            .select()
-            .eq('id_pengampu', json['id']);
-
-        log.d("json: $json");
-
-        final pengampu = PengampuModel.fromJson(json);
-
-        list.add(pengampu);
-      }
+      final list =
+          response.map((json) => PengampuModel.fromJson(json)).toList();
 
       _items.clear();
 
@@ -70,6 +65,15 @@ class PengampuService with ListenableServiceMixin {
   Future<void> save(PengampuModel model) async {
     try {
       await _supabase.from(tableName).upsert(model.toJson());
+
+      await _supabase
+          .from('pengampu_kelas')
+          .delete()
+          .eq('id_pengampu', model.id);
+
+      await _supabase
+          .from('pengampu_kelas')
+          .upsert(model.kelas.map((kelas) => kelas.toJson()).toList());
 
       final index = _items.indexWhere((element) => element.id == model.id);
 

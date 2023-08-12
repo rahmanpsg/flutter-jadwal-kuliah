@@ -23,6 +23,7 @@ import 'package:jadwal_kuliah/services/matakuliah_service.dart';
 import 'package:jadwal_kuliah/services/ruangan_service.dart';
 import 'package:jadwal_kuliah/services/kelas_service.dart';
 import 'package:jadwal_kuliah/services/pengampu_service.dart';
+import 'package:jadwal_kuliah/ui/dialogs/pengampu_form/pengampu_form_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -95,6 +96,7 @@ import 'package:jadwal_kuliah/services/pengampu_service.dart';
   dialogs: [
     StackedDialog(classType: InfoAlertDialog),
     StackedDialog(classType: FormDialog),
+    StackedDialog(classType: PengampuFormDialog),
 // @stacked-dialog
   ],
   logger: StackedLogger(),

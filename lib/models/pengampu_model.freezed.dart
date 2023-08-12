@@ -24,6 +24,7 @@ mixin _$PengampuModel {
   String get idMatakuliah => throw _privateConstructorUsedError;
   String get idDosen => throw _privateConstructorUsedError;
   String get tahunAkademik => throw _privateConstructorUsedError;
+  @JsonKey(includeToJson: false)
   List<PengampuKelasModel> get kelas => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,7 +44,7 @@ abstract class $PengampuModelCopyWith<$Res> {
       String idMatakuliah,
       String idDosen,
       String tahunAkademik,
-      List<PengampuKelasModel> kelas});
+      @JsonKey(includeToJson: false) List<PengampuKelasModel> kelas});
 }
 
 /// @nodoc
@@ -103,7 +104,7 @@ abstract class _$$_PengampuModelCopyWith<$Res>
       String idMatakuliah,
       String idDosen,
       String tahunAkademik,
-      List<PengampuKelasModel> kelas});
+      @JsonKey(includeToJson: false) List<PengampuKelasModel> kelas});
 }
 
 /// @nodoc
@@ -156,6 +157,7 @@ class _$_PengampuModel extends _PengampuModel {
       required this.idMatakuliah,
       required this.idDosen,
       required this.tahunAkademik,
+      @JsonKey(includeToJson: false)
       required final List<PengampuKelasModel> kelas})
       : _kelas = kelas,
         super._();
@@ -173,6 +175,7 @@ class _$_PengampuModel extends _PengampuModel {
   final String tahunAkademik;
   final List<PengampuKelasModel> _kelas;
   @override
+  @JsonKey(includeToJson: false)
   List<PengampuKelasModel> get kelas {
     if (_kelas is EqualUnmodifiableListView) return _kelas;
     // ignore: implicit_dynamic_type
@@ -223,6 +226,7 @@ abstract class _PengampuModel extends PengampuModel {
       required final String idMatakuliah,
       required final String idDosen,
       required final String tahunAkademik,
+      @JsonKey(includeToJson: false)
       required final List<PengampuKelasModel> kelas}) = _$_PengampuModel;
   const _PengampuModel._() : super._();
 
@@ -238,6 +242,7 @@ abstract class _PengampuModel extends PengampuModel {
   @override
   String get tahunAkademik;
   @override
+  @JsonKey(includeToJson: false)
   List<PengampuKelasModel> get kelas;
   @override
   @JsonKey(ignore: true)
@@ -252,6 +257,7 @@ PengampuKelasModel _$PengampuKelasModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$PengampuKelasModel {
   String get id => throw _privateConstructorUsedError;
+  String get idPengampu => throw _privateConstructorUsedError;
   String get idKelas => throw _privateConstructorUsedError;
   String get kelas => throw _privateConstructorUsedError;
 
@@ -267,7 +273,7 @@ abstract class $PengampuKelasModelCopyWith<$Res> {
           PengampuKelasModel value, $Res Function(PengampuKelasModel) then) =
       _$PengampuKelasModelCopyWithImpl<$Res, PengampuKelasModel>;
   @useResult
-  $Res call({String id, String idKelas, String kelas});
+  $Res call({String id, String idPengampu, String idKelas, String kelas});
 }
 
 /// @nodoc
@@ -284,6 +290,7 @@ class _$PengampuKelasModelCopyWithImpl<$Res, $Val extends PengampuKelasModel>
   @override
   $Res call({
     Object? id = null,
+    Object? idPengampu = null,
     Object? idKelas = null,
     Object? kelas = null,
   }) {
@@ -291,6 +298,10 @@ class _$PengampuKelasModelCopyWithImpl<$Res, $Val extends PengampuKelasModel>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      idPengampu: null == idPengampu
+          ? _value.idPengampu
+          : idPengampu // ignore: cast_nullable_to_non_nullable
               as String,
       idKelas: null == idKelas
           ? _value.idKelas
@@ -312,7 +323,7 @@ abstract class _$$_PengampuKelasModelCopyWith<$Res>
       __$$_PengampuKelasModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String idKelas, String kelas});
+  $Res call({String id, String idPengampu, String idKelas, String kelas});
 }
 
 /// @nodoc
@@ -327,6 +338,7 @@ class __$$_PengampuKelasModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? idPengampu = null,
     Object? idKelas = null,
     Object? kelas = null,
   }) {
@@ -334,6 +346,10 @@ class __$$_PengampuKelasModelCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      idPengampu: null == idPengampu
+          ? _value.idPengampu
+          : idPengampu // ignore: cast_nullable_to_non_nullable
               as String,
       idKelas: null == idKelas
           ? _value.idKelas
@@ -351,7 +367,10 @@ class __$$_PengampuKelasModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_PengampuKelasModel extends _PengampuKelasModel {
   const _$_PengampuKelasModel(
-      {required this.id, required this.idKelas, required this.kelas})
+      {required this.id,
+      required this.idPengampu,
+      required this.idKelas,
+      required this.kelas})
       : super._();
 
   factory _$_PengampuKelasModel.fromJson(Map<String, dynamic> json) =>
@@ -360,13 +379,15 @@ class _$_PengampuKelasModel extends _PengampuKelasModel {
   @override
   final String id;
   @override
+  final String idPengampu;
+  @override
   final String idKelas;
   @override
   final String kelas;
 
   @override
   String toString() {
-    return 'PengampuKelasModel(id: $id, idKelas: $idKelas, kelas: $kelas)';
+    return 'PengampuKelasModel(id: $id, idPengampu: $idPengampu, idKelas: $idKelas, kelas: $kelas)';
   }
 
   @override
@@ -375,13 +396,15 @@ class _$_PengampuKelasModel extends _PengampuKelasModel {
         (other.runtimeType == runtimeType &&
             other is _$_PengampuKelasModel &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.idPengampu, idPengampu) ||
+                other.idPengampu == idPengampu) &&
             (identical(other.idKelas, idKelas) || other.idKelas == idKelas) &&
             (identical(other.kelas, kelas) || other.kelas == kelas));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, idKelas, kelas);
+  int get hashCode => Object.hash(runtimeType, id, idPengampu, idKelas, kelas);
 
   @JsonKey(ignore: true)
   @override
@@ -401,6 +424,7 @@ class _$_PengampuKelasModel extends _PengampuKelasModel {
 abstract class _PengampuKelasModel extends PengampuKelasModel {
   const factory _PengampuKelasModel(
       {required final String id,
+      required final String idPengampu,
       required final String idKelas,
       required final String kelas}) = _$_PengampuKelasModel;
   const _PengampuKelasModel._() : super._();
@@ -410,6 +434,8 @@ abstract class _PengampuKelasModel extends PengampuKelasModel {
 
   @override
   String get id;
+  @override
+  String get idPengampu;
   @override
   String get idKelas;
   @override

@@ -11,6 +11,7 @@ import 'package:jadwal_kuliah/models/dosen_model.dart' as _i17;
 import 'package:jadwal_kuliah/models/fakultas_model.dart' as _i13;
 import 'package:jadwal_kuliah/models/kelas_model.dart' as _i23;
 import 'package:jadwal_kuliah/models/matakuliah_model.dart' as _i19;
+import 'package:jadwal_kuliah/models/pengampu_model.dart' as _i25;
 import 'package:jadwal_kuliah/models/program_studi_model.dart' as _i15;
 import 'package:jadwal_kuliah/models/ruangan_model.dart' as _i21;
 import 'package:jadwal_kuliah/services/dosen_service.dart' as _i16;
@@ -821,6 +822,14 @@ class MockDosenService extends _i1.Mock implements _i16.DosenService {
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
+  _i17.DosenModel? getById(String? id) => (super.noSuchMethod(
+        Invocation.method(
+          #getById,
+          [id],
+        ),
+        returnValueForMissingStub: null,
+      ) as _i17.DosenModel?);
+  @override
   _i5.Future<List<_i17.DosenModel>> gets() => (super.noSuchMethod(
         Invocation.method(
           #gets,
@@ -921,6 +930,14 @@ class MockMatakuliahService extends _i1.Mock implements _i18.MatakuliahService {
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+  @override
+  _i19.MatakuliahModel? getById(String? id) => (super.noSuchMethod(
+        Invocation.method(
+          #getById,
+          [id],
+        ),
+        returnValueForMissingStub: null,
+      ) as _i19.MatakuliahModel?);
   @override
   _i5.Future<List<_i19.MatakuliahModel>> gets() => (super.noSuchMethod(
         Invocation.method(
@@ -1190,4 +1207,100 @@ class MockKelasService extends _i1.Mock implements _i22.KelasService {
 /// A class which mocks [PengampuService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPengampuService extends _i1.Mock implements _i24.PengampuService {}
+class MockPengampuService extends _i1.Mock implements _i24.PengampuService {
+  @override
+  _i3.Logger get log => (super.noSuchMethod(
+        Invocation.getter(#log),
+        returnValue: _FakeLogger_3(
+          this,
+          Invocation.getter(#log),
+        ),
+        returnValueForMissingStub: _FakeLogger_3(
+          this,
+          Invocation.getter(#log),
+        ),
+      ) as _i3.Logger);
+  @override
+  List<_i25.PengampuModel> get items => (super.noSuchMethod(
+        Invocation.getter(#items),
+        returnValue: <_i25.PengampuModel>[],
+        returnValueForMissingStub: <_i25.PengampuModel>[],
+      ) as List<_i25.PengampuModel>);
+  @override
+  int get listenersCount => (super.noSuchMethod(
+        Invocation.getter(#listenersCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+  @override
+  _i5.Future<void> syncData() => (super.noSuchMethod(
+        Invocation.method(
+          #syncData,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<List<_i25.PengampuModel>> gets() => (super.noSuchMethod(
+        Invocation.method(
+          #gets,
+          [],
+        ),
+        returnValue:
+            _i5.Future<List<_i25.PengampuModel>>.value(<_i25.PengampuModel>[]),
+        returnValueForMissingStub:
+            _i5.Future<List<_i25.PengampuModel>>.value(<_i25.PengampuModel>[]),
+      ) as _i5.Future<List<_i25.PengampuModel>>);
+  @override
+  _i5.Future<void> save(_i25.PengampuModel? model) => (super.noSuchMethod(
+        Invocation.method(
+          #save,
+          [model],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> delete(_i25.PengampuModel? model) => (super.noSuchMethod(
+        Invocation.method(
+          #delete,
+          [model],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  void listenToReactiveValues(List<dynamic>? reactiveValues) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #listenToReactiveValues,
+          [reactiveValues],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void addListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void removeListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
