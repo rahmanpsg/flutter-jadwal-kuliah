@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:jadwal_kuliah/ui/common/app_themes.dart';
@@ -43,6 +44,14 @@ class MainApp extends StatelessWidget {
             theme: regularTheme,
             darkTheme: darkTheme,
             themeMode: themeMode,
+            scrollBehavior: const MaterialScrollBehavior().copyWith(
+              dragDevices: {
+                PointerDeviceKind.mouse,
+                PointerDeviceKind.touch,
+                PointerDeviceKind.stylus,
+                PointerDeviceKind.unknown
+              },
+            ),
             routerDelegate: stackedRouter.delegate(),
             routeInformationParser: stackedRouter.defaultRouteParser(),
           ),

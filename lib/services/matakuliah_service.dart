@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:jadwal_kuliah/app/app.logger.dart';
 import 'package:jadwal_kuliah/models/matakuliah_model.dart';
 import 'package:stacked/stacked.dart';
@@ -26,6 +27,11 @@ class MatakuliahService with ListenableServiceMixin {
     await gets();
 
     _isSync = true;
+  }
+
+  /// Get data by id
+  MatakuliahModel? getById(String id) {
+    return _items.firstWhereOrNull((element) => element.id == id);
   }
 
   /// Get all data

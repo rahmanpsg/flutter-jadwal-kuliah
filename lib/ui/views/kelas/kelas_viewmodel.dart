@@ -32,7 +32,13 @@ class KelasViewModel extends ReactiveViewModel {
     'Aksi',
   ];
 
-  List<KelasModel> get items => _kelasService.items;
+  bool _isFiltered = false;
+
+  final List<KelasModel> _filteredItems = [];
+
+  List<KelasModel> get _items => _kelasService.items;
+
+  List<KelasModel> get items => _isFiltered ? _filteredItems : _items;
 
   List<Map<String, dynamic>> get source => items
       .asMap()
@@ -61,6 +67,25 @@ class KelasViewModel extends ReactiveViewModel {
     await _kelasService.syncData();
 
     setBusy(false);
+  }
+
+  void onSearch(String value) {
+    if (value.isEmpty) {
+      _isFiltered = false;
+      rebuildUi();
+      return;
+    }
+
+    _isFiltered = true;
+    _filteredItems.clear();
+
+    for (var item in _items) {
+      if (item.nama.join(', ').toLowerCase().contains(value.toLowerCase())) {
+        _filteredItems.add(item);
+      }
+    }
+
+    rebuildUi();
   }
 
   void onAdd() async {

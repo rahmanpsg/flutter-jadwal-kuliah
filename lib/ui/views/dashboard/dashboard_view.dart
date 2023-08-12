@@ -24,7 +24,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
         appBar: isMobile
             ? AppBar(
                 title: Text(
-                  'Jadwal Kuliah UM-Parepare',
+                  'Jadwal Kuliah Menggunakan Algoritma Ant Colony Optimization',
                   style: ktRegularTextStyle.copyWith(
                     color: kcFontColorDark,
                   ),
@@ -122,13 +122,31 @@ class DashboardView extends StackedView<DashboardViewModel> {
                     )
                     .toList(),
               ).animate().fadeIn().moveX(),
-            const Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 8.0,
-                  horizontal: 16.0,
-                ),
-                child: NestedRouter(),
+            Expanded(
+              child: Column(
+                children: [
+                  const Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 8.0,
+                        horizontal: 16.0,
+                      ),
+                      child: NestedRouter(),
+                    ),
+                  ),
+                  Container(
+                    height: 30,
+                    color: kcPrimaryColor,
+                    child: Center(
+                      child: Text(
+                        "© 2023 Universitas Muhammadiyah Parepare",
+                        style: ktRegularTextStyle.copyWith(
+                          color: kcWhite,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

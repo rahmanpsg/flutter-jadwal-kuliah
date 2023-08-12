@@ -164,7 +164,7 @@ class MatakuliahViewModel extends ReactiveViewModel {
     setBusy(false);
   }
 
-  void onEdit(value) async {
+  void onEdit(MatakuliahModel value) async {
     final response = await _dialogService.showCustomDialog(
       variant: DialogType.form,
       title: 'Ubah Data $table',
@@ -248,7 +248,7 @@ class MatakuliahViewModel extends ReactiveViewModel {
     setBusy(false);
   }
 
-  void onDelete(value) async {
+  void onDelete(MatakuliahModel value) async {
     final response = await _dialogService.showDialog(
       title: 'Hapus Data $table',
       description: 'Apakah anda yakin ingin menghapus data ini?',

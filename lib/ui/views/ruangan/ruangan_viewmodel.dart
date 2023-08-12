@@ -28,7 +28,13 @@ class RuanganViewModel extends ReactiveViewModel {
     'Aksi',
   ];
 
-  List<RuanganModel> get items => _ruanganService.items;
+  bool _isFiltered = false;
+
+  final List<RuanganModel> _filteredItems = [];
+
+  List<RuanganModel> get _items => _ruanganService.items;
+
+  List<RuanganModel> get items => _isFiltered ? _filteredItems : _items;
 
   List<Map<String, dynamic>> get source => items
       .asMap()
@@ -55,6 +61,26 @@ class RuanganViewModel extends ReactiveViewModel {
     await _ruanganService.syncData();
 
     setBusy(false);
+  }
+
+  void onSearch(String value) {
+    if (value.isEmpty) {
+      _isFiltered = false;
+      rebuildUi();
+      return;
+    }
+
+    _isFiltered = true;
+
+    _filteredItems.clear();
+
+    for (var item in _items) {
+      if (item.nama.toLowerCase().contains(value.toLowerCase())) {
+        _filteredItems.add(item);
+      }
+    }
+
+    rebuildUi();
   }
 
   void onAdd() async {
@@ -208,4 +234,7 @@ class RuanganViewModel extends ReactiveViewModel {
 
     setBusy(false);
   }
+
+  @override
+  List<ListenableServiceMixin> get listenableServices => [_ruanganService];
 }

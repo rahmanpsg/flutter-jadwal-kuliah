@@ -22,6 +22,7 @@ import 'package:jadwal_kuliah/services/dosen_service.dart';
 import 'package:jadwal_kuliah/services/matakuliah_service.dart';
 import 'package:jadwal_kuliah/services/ruangan_service.dart';
 import 'package:jadwal_kuliah/services/kelas_service.dart';
+import 'package:jadwal_kuliah/services/pengampu_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -84,6 +85,7 @@ import 'package:jadwal_kuliah/services/kelas_service.dart';
     LazySingleton(classType: MatakuliahService),
     LazySingleton(classType: RuanganService),
     LazySingleton(classType: KelasService),
+    LazySingleton(classType: PengampuService),
 // @stacked-service
   ],
   bottomsheets: [

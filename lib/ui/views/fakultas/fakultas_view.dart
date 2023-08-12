@@ -3,6 +3,8 @@ import 'package:jadwal_kuliah/extensions/string_extension.dart';
 import 'package:jadwal_kuliah/ui/common/app_colors.dart';
 import 'package:jadwal_kuliah/ui/common/ui_helpers.dart';
 import 'package:jadwal_kuliah/ui/widgets/custom_actions_table_button.dart';
+import 'package:jadwal_kuliah/ui/widgets/custom_search_text_field.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:responsive_table/responsive_table.dart';
 import 'package:stacked/stacked.dart';
 import 'package:unicons/unicons.dart';
@@ -31,21 +33,50 @@ class FakultasView extends StackedView<FakultasViewModel> {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 24),
-            ElevatedButton.icon(
-              onPressed: viewModel.onAdd,
-              icon: const Icon(UniconsLine.plus),
-              label: Text('Tambah ${viewModel.table}'),
+            Wrap(
+              spacing: 16,
+              runSpacing: 8,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              alignment: WrapAlignment.start,
+              runAlignment: WrapAlignment.start,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: viewModel.onAdd,
+                  icon: const Icon(UniconsLine.plus),
+                  label: Text('Tambah ${viewModel.table}'),
+                ),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: getValueForScreenType<double>(
+                      context: context,
+                      mobile: 800,
+                      desktop: screenWidthFraction(
+                        context,
+                        offsetBy: 360,
+                      ),
+                    ),
+                  ),
+                  child: CustomSearchTextField(
+                    hintText: 'Cari',
+                    onSearch: viewModel.onSearch,
+                  ),
+                )
+              ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
             Expanded(
               child: Card(
                 elevation: 1,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Column(
+                  child: Stack(
                     children: [
                       ResponsiveDatatable(
                         isLoading: viewModel.isBusy,
+                        source: viewModel.source,
+                        selecteds: [],
+                        expanded: List.filled(viewModel.items.length, false),
+                        autoHeight: false,
                         headerDecoration: const BoxDecoration(
                           color: kcSecondaryColor,
                         ),
@@ -70,23 +101,21 @@ class FakultasView extends StackedView<FakultasViewModel> {
                               ),
                             )
                             .toList(),
-                        source: viewModel.source,
-                        selecteds: [],
-                        expanded: List.filled(viewModel.items.length, false),
+                        footers: viewModel.items.isEmpty
+                            ? null
+                            : [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                      'Jumlah ${viewModel.table}: ${viewModel.items.length}'),
+                                ),
+                              ],
                       ),
-                      if (viewModel.items.isEmpty) ...[
-                        SizedBox(
-                          height: screenHeightFraction(
-                            context,
-                            dividedBy: 2,
-                            offsetBy: 200,
-                          ),
-                        ),
+                      if (viewModel.items.isEmpty)
                         const Align(
                           alignment: Alignment.center,
                           child: Text('Tidak ada data'),
                         )
-                      ],
                     ],
                   ),
                 ),

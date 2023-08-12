@@ -17,6 +17,7 @@ import 'package:jadwal_kuliah/services/dosen_service.dart' as _i16;
 import 'package:jadwal_kuliah/services/fakultas_service.dart' as _i12;
 import 'package:jadwal_kuliah/services/kelas_service.dart' as _i22;
 import 'package:jadwal_kuliah/services/matakuliah_service.dart' as _i18;
+import 'package:jadwal_kuliah/services/pengampu_service.dart' as _i24;
 import 'package:jadwal_kuliah/services/program_studi_service.dart' as _i14;
 import 'package:jadwal_kuliah/services/ruangan_service.dart' as _i20;
 import 'package:logger/src/logger.dart' as _i3;
@@ -1185,3 +1186,8 @@ class MockKelasService extends _i1.Mock implements _i22.KelasService {
         returnValueForMissingStub: null,
       );
 }
+
+/// A class which mocks [PengampuService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockPengampuService extends _i1.Mock implements _i24.PengampuService {}

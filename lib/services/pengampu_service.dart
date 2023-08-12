@@ -1,23 +1,22 @@
-import 'package:collection/collection.dart';
 import 'package:jadwal_kuliah/app/app.logger.dart';
-import 'package:jadwal_kuliah/models/dosen_model.dart';
+import 'package:jadwal_kuliah/models/pengampu_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class DosenService with ListenableServiceMixin {
-  DosenService() {
+class PengampuService with ListenableServiceMixin {
+  PengampuService() {
     listenToReactiveValues([items]);
   }
 
-  final log = getLogger('DosenService');
+  final log = getLogger('PengampuService');
 
-  static const String tableName = 'dosen';
+  static const String tableName = 'pengampu';
   final _supabase = Supabase.instance.client;
 
-  final _items = ReactiveList<DosenModel>();
+  final _items = ReactiveList<PengampuModel>();
 
   /// List of all data
-  List<DosenModel> get items => _items.toSet().toList();
+  List<PengampuModel> get items => _items.toSet().toList();
 
   bool _isSync = false;
 
@@ -29,13 +28,8 @@ class DosenService with ListenableServiceMixin {
     _isSync = true;
   }
 
-  /// Get data by id
-  DosenModel? getById(String id) {
-    return _items.firstWhereOrNull((element) => element.id == id);
-  }
-
   /// Get all data
-  Future<List<DosenModel>> gets() async {
+  Future<List<PengampuModel>> gets() async {
     try {
       final response = await _supabase.from(tableName).select<PostgrestList>();
 
@@ -45,7 +39,20 @@ class DosenService with ListenableServiceMixin {
         return [];
       }
 
-      final list = response.map((e) => DosenModel.fromJson(e)).toList();
+      final list = <PengampuModel>[];
+
+      for (var json in response) {
+        json['kelas'] = await _supabase
+            .from('pengampu_kelas')
+            .select()
+            .eq('id_pengampu', json['id']);
+
+        log.d("json: $json");
+
+        final pengampu = PengampuModel.fromJson(json);
+
+        list.add(pengampu);
+      }
 
       _items.clear();
 
@@ -60,7 +67,7 @@ class DosenService with ListenableServiceMixin {
   }
 
   /// Save or update data
-  Future<void> save(DosenModel model) async {
+  Future<void> save(PengampuModel model) async {
     try {
       await _supabase.from(tableName).upsert(model.toJson());
 
@@ -78,7 +85,7 @@ class DosenService with ListenableServiceMixin {
   }
 
   /// Delete data
-  Future<void> delete(DosenModel model) async {
+  Future<void> delete(PengampuModel model) async {
     try {
       await _supabase.from(tableName).delete().eq('id', model.id);
 

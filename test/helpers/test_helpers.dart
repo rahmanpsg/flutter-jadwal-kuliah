@@ -8,6 +8,7 @@ import 'package:jadwal_kuliah/services/dosen_service.dart';
 import 'package:jadwal_kuliah/services/matakuliah_service.dart';
 import 'package:jadwal_kuliah/services/ruangan_service.dart';
 import 'package:jadwal_kuliah/services/kelas_service.dart';
+import 'package:jadwal_kuliah/services/pengampu_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -22,6 +23,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<MatakuliahService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<RuanganService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<KelasService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<PengampuService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -34,6 +36,7 @@ void registerServices() {
   getAndRegisterMatakuliahService();
   getAndRegisterRuanganService();
   getAndRegisterKelasService();
+  getAndRegisterPengampuService();
 // @stacked-mock-register
 }
 
@@ -126,6 +129,13 @@ MockKelasService getAndRegisterKelasService() {
   _removeRegistrationIfExists<KelasService>();
   final service = MockKelasService();
   locator.registerSingleton<KelasService>(service);
+  return service;
+}
+
+MockPengampuService getAndRegisterPengampuService() {
+  _removeRegistrationIfExists<PengampuService>();
+  final service = MockPengampuService();
+  locator.registerSingleton<PengampuService>(service);
   return service;
 }
 // @stacked-mock-create

@@ -22,7 +22,13 @@ class FakultasViewModel extends ReactiveViewModel {
     'Aksi',
   ];
 
-  List<FakultasModel> get items => _fakultasService.items;
+  bool _isFiltered = false;
+
+  final List<FakultasModel> _filteredItems = [];
+
+  List<FakultasModel> get _items => _fakultasService.items;
+
+  List<FakultasModel> get items => _isFiltered ? _filteredItems : _items;
 
   List<Map<String, dynamic>> get source => items
       .asMap()
@@ -42,6 +48,26 @@ class FakultasViewModel extends ReactiveViewModel {
     await _fakultasService.syncData();
 
     setBusy(false);
+  }
+
+  void onSearch(String value) {
+    if (value.isEmpty) {
+      _isFiltered = false;
+      rebuildUi();
+      return;
+    }
+
+    _isFiltered = true;
+
+    _filteredItems.clear();
+
+    _filteredItems.addAll(
+      _items.where(
+        (element) => element.nama.toLowerCase().contains(value.toLowerCase()),
+      ),
+    );
+
+    rebuildUi();
   }
 
   void onAdd() async {
