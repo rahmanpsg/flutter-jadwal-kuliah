@@ -9,6 +9,8 @@ import 'package:jadwal_kuliah/services/matakuliah_service.dart';
 import 'package:jadwal_kuliah/services/ruangan_service.dart';
 import 'package:jadwal_kuliah/services/kelas_service.dart';
 import 'package:jadwal_kuliah/services/pengampu_service.dart';
+import 'package:jadwal_kuliah/services/hari_service.dart';
+import 'package:jadwal_kuliah/services/jam_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -24,6 +26,8 @@ import 'test_helpers.mocks.dart';
   MockSpec<RuanganService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<KelasService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<PengampuService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<HariService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<JamService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -37,6 +41,8 @@ void registerServices() {
   getAndRegisterRuanganService();
   getAndRegisterKelasService();
   getAndRegisterPengampuService();
+  getAndRegisterHariService();
+  getAndRegisterJamService();
 // @stacked-mock-register
 }
 
@@ -136,6 +142,20 @@ MockPengampuService getAndRegisterPengampuService() {
   _removeRegistrationIfExists<PengampuService>();
   final service = MockPengampuService();
   locator.registerSingleton<PengampuService>(service);
+  return service;
+}
+
+MockHariService getAndRegisterHariService() {
+  _removeRegistrationIfExists<HariService>();
+  final service = MockHariService();
+  locator.registerSingleton<HariService>(service);
+  return service;
+}
+
+MockJamService getAndRegisterJamService() {
+  _removeRegistrationIfExists<JamService>();
+  final service = MockJamService();
+  locator.registerSingleton<JamService>(service);
   return service;
 }
 // @stacked-mock-create

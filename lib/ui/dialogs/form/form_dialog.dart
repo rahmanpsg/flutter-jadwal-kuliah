@@ -32,6 +32,7 @@ class FormDialogItem<T> {
   final List<TextInputFormatter>? inputFormatters;
   final bool isRequired;
   final bool isChipInput;
+  final bool isChipChoice;
   final List<ItemModel<T>>? chipItems;
 
   FormDialogItem({
@@ -45,12 +46,15 @@ class FormDialogItem<T> {
     this.inputFormatters,
     this.isRequired = true,
     this.isChipInput = false,
+    this.isChipChoice = false,
     this.chipItems,
   })  : controller = controller ?? TextEditingController(),
         assert(!isDropdown || dropdownItems != null,
             'Dropdown items are required when isDropdown is true'),
         assert(!isChipInput || chipItems != null,
-            'Chip items are required when isChipInput is true');
+            'Chip items are required when isChipInput is true'),
+        assert(!isChipChoice || chipItems != null,
+            'Chip items are required when isChipChoice is true');
 }
 
 class FormDialog extends StackedView<FormDialogModel> {
@@ -289,7 +293,67 @@ class _FieldHook extends StackedHookView<FormDialogModel> {
               );
             },
           )
-        else if (field.isDropdown)
+        else if (field.isChipChoice) ...[
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: field.chipItems!.map(
+              (item) {
+                final isSelected =
+                    (viewModel.mapResponse[field.label] as List<dynamic>?)
+                            ?.contains(item.value) ??
+                        false;
+
+                return ChoiceChip(
+                  label: Text(
+                    item.label,
+                    style: ktRegularTextStyle.copyWith(
+                      fontSize: 12,
+                      color: isSelected ? kcWhite : kcMediumGrey,
+                    ),
+                  ),
+                  side: const BorderSide(
+                    color: kcPrimaryColor,
+                    width: 1.5,
+                  ),
+                  iconTheme: IconThemeData(
+                    color: isSelected ? kcWhite : kcPrimaryColor,
+                  ),
+                  selected: isSelected,
+                  onSelected: (v) {
+                    viewModel.mapResponse.putIfAbsent(field.label, () => []);
+
+                    if (v) {
+                      viewModel.mapResponse[field.label].add(item.value);
+
+                      viewModel.setErrorForObject(field.label, null);
+                    } else {
+                      viewModel.mapResponse[field.label].remove(item.value);
+                    }
+
+                    viewModel.log.d("mapResponse: ${viewModel.mapResponse}");
+
+                    viewModel.rebuildUi();
+                  },
+                );
+              },
+            ).toList(),
+          ),
+          if (viewModel.hasErrorForKey(field.label))
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 12.0,
+                top: 4.0,
+              ),
+              child: Text(
+                'Silahkan pilih ${field.label.toLowerCase()}',
+                style: ktRegularTextStyle.copyWith(
+                  fontSize: 12,
+                  color: kcDangerColor,
+                ),
+              ),
+            ),
+        ] else if (field.isDropdown)
           DropdownSearch<ItemModel>(
             items: field.dropdownItems ?? [],
             itemAsString: (item) => item.label,

@@ -9,6 +9,8 @@ import 'dart:ui' as _i9;
 import 'package:flutter/material.dart' as _i6;
 import 'package:jadwal_kuliah/models/dosen_model.dart' as _i17;
 import 'package:jadwal_kuliah/models/fakultas_model.dart' as _i13;
+import 'package:jadwal_kuliah/models/hari_model.dart' as _i27;
+import 'package:jadwal_kuliah/models/jam_model.dart' as _i29;
 import 'package:jadwal_kuliah/models/kelas_model.dart' as _i23;
 import 'package:jadwal_kuliah/models/matakuliah_model.dart' as _i19;
 import 'package:jadwal_kuliah/models/pengampu_model.dart' as _i25;
@@ -16,6 +18,8 @@ import 'package:jadwal_kuliah/models/program_studi_model.dart' as _i15;
 import 'package:jadwal_kuliah/models/ruangan_model.dart' as _i21;
 import 'package:jadwal_kuliah/services/dosen_service.dart' as _i16;
 import 'package:jadwal_kuliah/services/fakultas_service.dart' as _i12;
+import 'package:jadwal_kuliah/services/hari_service.dart' as _i26;
+import 'package:jadwal_kuliah/services/jam_service.dart' as _i28;
 import 'package:jadwal_kuliah/services/kelas_service.dart' as _i22;
 import 'package:jadwal_kuliah/services/matakuliah_service.dart' as _i18;
 import 'package:jadwal_kuliah/services/pengampu_service.dart' as _i24;
@@ -1263,6 +1267,206 @@ class MockPengampuService extends _i1.Mock implements _i24.PengampuService {
       ) as _i5.Future<void>);
   @override
   _i5.Future<void> delete(_i25.PengampuModel? model) => (super.noSuchMethod(
+        Invocation.method(
+          #delete,
+          [model],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  void listenToReactiveValues(List<dynamic>? reactiveValues) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #listenToReactiveValues,
+          [reactiveValues],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void addListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void removeListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [HariService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockHariService extends _i1.Mock implements _i26.HariService {
+  @override
+  _i3.Logger get log => (super.noSuchMethod(
+        Invocation.getter(#log),
+        returnValue: _FakeLogger_3(
+          this,
+          Invocation.getter(#log),
+        ),
+        returnValueForMissingStub: _FakeLogger_3(
+          this,
+          Invocation.getter(#log),
+        ),
+      ) as _i3.Logger);
+  @override
+  List<_i27.HariModel> get items => (super.noSuchMethod(
+        Invocation.getter(#items),
+        returnValue: <_i27.HariModel>[],
+        returnValueForMissingStub: <_i27.HariModel>[],
+      ) as List<_i27.HariModel>);
+  @override
+  int get listenersCount => (super.noSuchMethod(
+        Invocation.getter(#listenersCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+  @override
+  _i5.Future<void> syncData() => (super.noSuchMethod(
+        Invocation.method(
+          #syncData,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<List<_i27.HariModel>> gets() => (super.noSuchMethod(
+        Invocation.method(
+          #gets,
+          [],
+        ),
+        returnValue: _i5.Future<List<_i27.HariModel>>.value(<_i27.HariModel>[]),
+        returnValueForMissingStub:
+            _i5.Future<List<_i27.HariModel>>.value(<_i27.HariModel>[]),
+      ) as _i5.Future<List<_i27.HariModel>>);
+  @override
+  _i5.Future<void> save(_i27.HariModel? model) => (super.noSuchMethod(
+        Invocation.method(
+          #save,
+          [model],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> delete(_i27.HariModel? model) => (super.noSuchMethod(
+        Invocation.method(
+          #delete,
+          [model],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  void listenToReactiveValues(List<dynamic>? reactiveValues) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #listenToReactiveValues,
+          [reactiveValues],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void addListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void removeListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [JamService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockJamService extends _i1.Mock implements _i28.JamService {
+  @override
+  _i3.Logger get log => (super.noSuchMethod(
+        Invocation.getter(#log),
+        returnValue: _FakeLogger_3(
+          this,
+          Invocation.getter(#log),
+        ),
+        returnValueForMissingStub: _FakeLogger_3(
+          this,
+          Invocation.getter(#log),
+        ),
+      ) as _i3.Logger);
+  @override
+  List<_i29.JamModel> get items => (super.noSuchMethod(
+        Invocation.getter(#items),
+        returnValue: <_i29.JamModel>[],
+        returnValueForMissingStub: <_i29.JamModel>[],
+      ) as List<_i29.JamModel>);
+  @override
+  int get listenersCount => (super.noSuchMethod(
+        Invocation.getter(#listenersCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+  @override
+  _i5.Future<void> syncData() => (super.noSuchMethod(
+        Invocation.method(
+          #syncData,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<List<_i29.JamModel>> gets() => (super.noSuchMethod(
+        Invocation.method(
+          #gets,
+          [],
+        ),
+        returnValue: _i5.Future<List<_i29.JamModel>>.value(<_i29.JamModel>[]),
+        returnValueForMissingStub:
+            _i5.Future<List<_i29.JamModel>>.value(<_i29.JamModel>[]),
+      ) as _i5.Future<List<_i29.JamModel>>);
+  @override
+  _i5.Future<void> save(_i29.JamModel? model) => (super.noSuchMethod(
+        Invocation.method(
+          #save,
+          [model],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> delete(_i29.JamModel? model) => (super.noSuchMethod(
         Invocation.method(
           #delete,
           [model],

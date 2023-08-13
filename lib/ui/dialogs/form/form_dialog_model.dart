@@ -23,6 +23,16 @@ class FormDialogModel extends BaseViewModel {
   }
 
   bool isValid() {
+    for (var field in formDialogData.formDialogItems) {
+      if (field.isChipChoice != true) continue;
+
+      setErrorForObject(field.label, null);
+
+      if (mapResponse.containsKey(field.label) == false ||
+          mapResponse[field.label]?.isNotEmpty == false) {
+        setErrorForObject(field.label, true);
+      }
+    }
     return formKey.currentState!.validate();
   }
 
@@ -43,7 +53,7 @@ class FormDialogModel extends BaseViewModel {
         continue;
       }
 
-      if (field.isChipInput) {
+      if (field.isChipInput || field.isChipChoice) {
         if (mapResponse.containsKey(field.label) == false) {
           mapResponse[field.label] = field.chipItems;
         }

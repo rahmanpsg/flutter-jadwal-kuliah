@@ -123,7 +123,7 @@ class KelasViewModel extends ReactiveViewModel {
           FormDialogItem(
             label: 'Jenis',
             isDropdown: true,
-            dropdownItems: [
+            dropdownItems: const [
               ItemModel(label: 'Reguler', value: KelasType.reguler),
               ItemModel(label: 'Non Reguler', value: KelasType.nonReguler),
             ],

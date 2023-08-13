@@ -17,7 +17,27 @@ enum KelasType {
     }
   }
 
+  static fromListInt(List<int> list) {
+    final kelas = <KelasType>[];
+
+    for (final item in list) {
+      kelas.add(KelasType.fromInt(item));
+    }
+
+    return kelas;
+  }
+
   static int toInt(KelasType value) => value.value;
+
+  static List<int> toListInt(List<KelasType> list) {
+    final kelas = <int>[];
+
+    for (final item in list) {
+      kelas.add(item.value);
+    }
+
+    return kelas;
+  }
 
   @override
   String toString() {
