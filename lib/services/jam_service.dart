@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:jadwal_kuliah/app/app.logger.dart';
+import 'package:jadwal_kuliah/extensions/time_of_day_extension.dart';
 import 'package:jadwal_kuliah/models/jam_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -31,7 +33,10 @@ class JamService with ListenableServiceMixin {
   /// Get all data
   Future<List<JamModel>> gets() async {
     try {
-      final response = await _supabase.from(tableName).select<PostgrestList>();
+      final response = await _supabase
+          .from(tableName)
+          .select<PostgrestList>()
+          .order('mulai', ascending: true);
 
       log.d("response: $response");
 
@@ -53,6 +58,44 @@ class JamService with ListenableServiceMixin {
     return [];
   }
 
+  Future<void> generateJam({
+    required TimeOfDay start,
+    required TimeOfDay end,
+    required Duration duration,
+  }) async {
+    try {
+      _items.clear();
+
+      final list = <JamModel>[];
+
+      var time = start;
+
+      while (time.isBefore(end)) {
+        final mulai = time;
+        final selesai = time.add(duration);
+
+        list.add(JamModel.create(
+          mulai: mulai,
+          selesai: selesai,
+          aktif: true,
+        ));
+
+        time = time.add(duration);
+      }
+
+      // clear all data
+      await _supabase.rpc('delete_jam');
+
+      await _supabase
+          .from(tableName)
+          .upsert(list.map((e) => e.toJson()).toList());
+
+      _items.addAll(list);
+    } catch (e) {
+      log.e(e);
+    }
+  }
+
   /// Save or update data
   Future<void> save(JamModel model) async {
     try {
@@ -68,18 +111,6 @@ class JamService with ListenableServiceMixin {
     } catch (e) {
       log.e(e);
       throw 'Gagal menyimpan data';
-    }
-  }
-
-  /// Delete data
-  Future<void> delete(JamModel model) async {
-    try {
-      await _supabase.from(tableName).delete().eq('id', model.id);
-
-      _items.remove(model);
-    } catch (e) {
-      log.e(e);
-      throw 'Gagal menghapus data';
     }
   }
 }

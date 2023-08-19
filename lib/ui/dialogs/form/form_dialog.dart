@@ -302,7 +302,7 @@ class _FieldHook extends StackedHookView<FormDialogModel> {
                 final isSelected =
                     (viewModel.mapResponse[field.label] as List<dynamic>?)
                             ?.contains(item.value) ??
-                        false;
+                        item.isSelected;
 
                 return ChoiceChip(
                   label: Text(
@@ -321,7 +321,12 @@ class _FieldHook extends StackedHookView<FormDialogModel> {
                   ),
                   selected: isSelected,
                   onSelected: (v) {
-                    viewModel.mapResponse.putIfAbsent(field.label, () => []);
+                    viewModel.mapResponse.putIfAbsent(
+                        field.label,
+                        () => [
+                              for (var item in field.chipItems!)
+                                if (item.isSelected) item.value
+                            ]);
 
                     if (v) {
                       viewModel.mapResponse[field.label].add(item.value);
@@ -394,6 +399,7 @@ class _FieldHook extends StackedHookView<FormDialogModel> {
 
               viewModel.rebuildUi();
             },
+            readOnly: field.onTap != null,
             keyboardType: field.keyboardType,
             inputFormatters: field.inputFormatters,
             validator: (value) {

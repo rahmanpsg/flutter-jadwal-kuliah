@@ -17,7 +17,7 @@ enum KelasType {
     }
   }
 
-  static fromListInt(List<int> list) {
+  static fromListInt(List<dynamic> list) {
     final kelas = <KelasType>[];
 
     for (final item in list) {

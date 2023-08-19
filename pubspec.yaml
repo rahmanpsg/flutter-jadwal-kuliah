@@ -11,6 +11,7 @@ dependencies:
   chips_input: ^0.1.0
   collection: ^1.0.0
   dropdown_search: ^5.0.6
+  duration_picker: ^1.1.1
   equatable: ^2.0.5
   flutter:
     sdk: flutter
@@ -18,6 +19,7 @@ dependencies:
   flutter_hooks: ^0.18.2+1
   flutter_portal: ^1.1.4
   freezed_annotation: ^2.4.1
+  intl: ^0.18.1
   json_annotation: ^4.8.1
   responsive_builder: ^0.7.0
   responsive_table: ^0.2.0+2

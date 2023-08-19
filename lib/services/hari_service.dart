@@ -31,7 +31,10 @@ class HariService with ListenableServiceMixin {
   /// Get all data
   Future<List<HariModel>> gets() async {
     try {
-      final response = await _supabase.from(tableName).select<PostgrestList>();
+      final response = await _supabase
+          .from(tableName)
+          .select<PostgrestList>()
+          .order('created_at', ascending: true);
 
       log.d("response: $response");
 

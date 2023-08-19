@@ -28,9 +28,12 @@ class FormDialogModel extends BaseViewModel {
 
       setErrorForObject(field.label, null);
 
+      log.d("mapResponse: $mapResponse");
+
       if (mapResponse.containsKey(field.label) == false ||
           mapResponse[field.label]?.isNotEmpty == false) {
         setErrorForObject(field.label, true);
+        return false;
       }
     }
     return formKey.currentState!.validate();

@@ -1,5 +1,4 @@
 import 'package:jadwal_kuliah/ui/bottom_sheets/notice/notice_sheet.dart';
-import 'package:jadwal_kuliah/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:jadwal_kuliah/ui/views/home/home_view.dart';
 import 'package:jadwal_kuliah/ui/views/startup/startup_view.dart';
 import 'package:jadwal_kuliah/ui/views/unknown/unknown_view.dart';
@@ -98,7 +97,6 @@ import 'package:jadwal_kuliah/services/jam_service.dart';
     // @stacked-bottom-sheet
   ],
   dialogs: [
-    StackedDialog(classType: InfoAlertDialog),
     StackedDialog(classType: FormDialog),
     StackedDialog(classType: PengampuFormDialog),
 // @stacked-dialog

@@ -1457,18 +1457,28 @@ class MockJamService extends _i1.Mock implements _i28.JamService {
             _i5.Future<List<_i29.JamModel>>.value(<_i29.JamModel>[]),
       ) as _i5.Future<List<_i29.JamModel>>);
   @override
-  _i5.Future<void> save(_i29.JamModel? model) => (super.noSuchMethod(
+  _i5.Future<void> generateJam({
+    required _i6.TimeOfDay? start,
+    required _i6.TimeOfDay? end,
+    required Duration? duration,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #save,
-          [model],
+          #generateJam,
+          [],
+          {
+            #start: start,
+            #end: end,
+            #duration: duration,
+          },
         ),
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
-  _i5.Future<void> delete(_i29.JamModel? model) => (super.noSuchMethod(
+  _i5.Future<void> save(_i29.JamModel? model) => (super.noSuchMethod(
         Invocation.method(
-          #delete,
+          #save,
           [model],
         ),
         returnValue: _i5.Future<void>.value(),
