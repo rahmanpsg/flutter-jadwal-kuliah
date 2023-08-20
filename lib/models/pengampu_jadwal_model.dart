@@ -1,10 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:jadwal_kuliah/enums/kelas_type.dart';
 import 'package:jadwal_kuliah/models/dosen_model.dart';
 import 'package:jadwal_kuliah/models/matakuliah_model.dart';
 
 import 'pengampu_model.dart';
 
-class PengampuJadwalModel {
+class PengampuJadwalModel extends Equatable {
   final String id;
   final MatakuliahModel matakuliah;
   final DosenModel dosen;
@@ -73,4 +74,14 @@ class PengampuJadwalModel {
   String toString() {
     return 'PengampuJadwalModel(id: $id, matakuliah: $matakuliah, dosen: $dosen, tahunAkademik: $tahunAkademik, kelas: $kelas, kelasType: $kelasType)';
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        matakuliah,
+        dosen,
+        tahunAkademik,
+        kelas,
+        kelasType,
+      ];
 }

@@ -1,7 +1,7 @@
 import 'package:jadwal_kuliah/app/app.locator.dart';
 import 'package:jadwal_kuliah/app/app.logger.dart';
 import 'package:jadwal_kuliah/enums/semester_type.dart';
-import 'package:jadwal_kuliah/models/time_slot_model.dart';
+import 'package:jadwal_kuliah/models/ant_slot_model.dart';
 import 'package:jadwal_kuliah/services/jam_service.dart';
 import 'package:jadwal_kuliah/services/pengampu_service.dart';
 import 'package:jadwal_kuliah/services/ruangan_service.dart';
@@ -37,23 +37,26 @@ class JadwalService {
       // 3. ambil data hari
       final hariList = await locator<HariService>().gets();
 
-      // 4. inisialisasi data time slot
-      final timeSlotList = TimeSlotModel.generate(hariList, jamList);
-
-      // 5. ambil data ruang
+      // 4. ambil data ruang
       final ruanganList = await locator<RuanganService>().gets();
+
+      // 5. inisialisasi data slot
+      final antSlotList = AntSlotModel.generate(
+        hariList,
+        jamList,
+        ruanganList,
+      );
 
       log.d("Total pengampu: ${pengampuJadwalList.length}");
       log.d("Total jam: ${jamList.length}");
       log.d("Total hari: ${hariList.length}");
-      log.d("Total time slot: ${timeSlotList.length}");
+      log.d("Total slot: ${antSlotList.length}");
       log.d("Total ruangan: ${ruanganList.length}");
 
       // 6. inisialisasi semut
       final antColony = AntColonyService(
         pengampuJadwalList,
-        timeSlotList,
-        ruanganList,
+        antSlotList,
       );
 
       // 7. mulai generate jadwal
