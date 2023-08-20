@@ -14,6 +14,7 @@ import 'package:stacked_shared/stacked_shared.dart';
 import '../services/dosen_service.dart';
 import '../services/fakultas_service.dart';
 import '../services/hari_service.dart';
+import '../services/jadwal_service.dart';
 import '../services/jam_service.dart';
 import '../services/kelas_service.dart';
 import '../services/matakuliah_service.dart';
@@ -46,6 +47,7 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => PengampuService());
   locator.registerLazySingleton(() => HariService());
   locator.registerLazySingleton(() => JamService());
+  locator.registerLazySingleton(() => JadwalService());
   if (stackedRouter == null) {
     throw Exception(
         'Stacked is building to use the Router (Navigator 2.0) navigation but no stackedRouter is supplied. Pass the stackedRouter to the setupLocator function in main.dart');

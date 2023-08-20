@@ -31,7 +31,9 @@ class JamService with ListenableServiceMixin {
   }
 
   /// Get all data
-  Future<List<JamModel>> gets() async {
+  Future<List<JamModel>> gets({
+    bool getAktifOnly = false,
+  }) async {
     try {
       final response = await _supabase
           .from(tableName)
@@ -49,6 +51,10 @@ class JamService with ListenableServiceMixin {
       _items.clear();
 
       _items.addAll(list);
+
+      if (getAktifOnly) {
+        return list.where((element) => element.aktif).toList();
+      }
 
       return list;
     } catch (e) {

@@ -1,4 +1,6 @@
 import 'package:jadwal_kuliah/app/app.logger.dart';
+import 'package:jadwal_kuliah/enums/semester_type.dart';
+import 'package:jadwal_kuliah/models/pengampu_jadwal_model.dart';
 import 'package:jadwal_kuliah/models/pengampu_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -52,6 +54,70 @@ class PengampuService with ListenableServiceMixin {
       _items.clear();
 
       _items.addAll(list);
+
+      return list;
+    } catch (e) {
+      log.e(e);
+    }
+
+    return [];
+  }
+
+  /// Get data by semester and tahun akademik
+  Future<List<PengampuJadwalModel>> getJadwal({
+    required SemesterType semester,
+    required String tahunAkademik,
+  }) async {
+    try {
+      final response = await _supabase
+          .from('pengampu_kelas')
+          .select(
+            '*, kelas_jenis:id_kelas(jenis), pengampu:id_pengampu(id, tahun_akademik, tahun_akademik, matakuliah:id_matakuliah(*), dosen:id_dosen(*)) ',
+          )
+          .not('pengampu', 'is', null)
+          .in_('pengampu.matakuliah.semester', semester.gets())
+          .eq('pengampu.tahun_akademik', tahunAkademik);
+
+      log.d("response: $response");
+
+      if (response.isEmpty) return [];
+
+      final list = <PengampuJadwalModel>[];
+
+      for (final json in response) {
+        final kelas = PengampuKelasModel.fromJson(json);
+
+        final newJson = json['pengampu'] as Map<String, dynamic>;
+
+        newJson['kelas'] = kelas.toJson();
+        newJson['kelas_type'] = json['kelas_jenis']['jenis'] as int;
+
+        final pengampuJadwal = PengampuJadwalModel.fromJson(newJson);
+
+        list.add(pengampuJadwal);
+      }
+
+      return list;
+    } catch (e) {
+      log.e(e);
+    }
+
+    return [];
+  }
+
+  Future<List<String>> getTahunAkademik() async {
+    try {
+      final response = await _supabase
+          .from('distinct_tahun_akademik')
+          .select<PostgrestList>();
+
+      log.d("response: $response");
+
+      if (response.isEmpty) {
+        return [];
+      }
+
+      final list = response.map((e) => e['tahun_akademik'] as String).toList();
 
       return list;
     } catch (e) {

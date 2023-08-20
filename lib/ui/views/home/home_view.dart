@@ -5,6 +5,8 @@ import 'package:stacked/stacked.dart';
 import 'package:unicons/unicons.dart';
 
 import 'home_viewmodel.dart';
+import 'widgets/card_jadwal_baru_widget.dart';
+import 'widgets/card_jadwal_lama_widget.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
   const HomeView({super.key});
@@ -92,7 +94,7 @@ class HomeView extends StackedView<HomeViewModel> {
                           overlayColor:
                               MaterialStateProperty.all(Colors.transparent),
                           indicatorSize: TabBarIndicatorSize.label,
-                          tabs: [
+                          tabs: const [
                             Tab(
                               text: 'Generate Jadwal Baru',
                               icon: Icon(
@@ -107,14 +109,11 @@ class HomeView extends StackedView<HomeViewModel> {
                             ),
                           ],
                         ),
-                        Expanded(
+                        const Expanded(
                           child: TabBarView(
                             children: [
-                              // Widget untuk generate jadwal baru
-                              Center(child: Text('Generate Jadwal Baru')),
-                              // Widget untuk jadwal yang telah di-generate
-                              Center(
-                                  child: Text('Jadwal yang Telah Di-Generate')),
+                              CardJadwalBaruWidget(),
+                              CardJadwalLamaWidget()
                             ],
                           ),
                         ),

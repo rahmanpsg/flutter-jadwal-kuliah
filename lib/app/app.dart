@@ -25,6 +25,7 @@ import 'package:jadwal_kuliah/services/pengampu_service.dart';
 import 'package:jadwal_kuliah/ui/dialogs/pengampu_form/pengampu_form_dialog.dart';
 import 'package:jadwal_kuliah/services/hari_service.dart';
 import 'package:jadwal_kuliah/services/jam_service.dart';
+import 'package:jadwal_kuliah/services/jadwal_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -90,6 +91,7 @@ import 'package:jadwal_kuliah/services/jam_service.dart';
     LazySingleton(classType: PengampuService),
     LazySingleton(classType: HariService),
     LazySingleton(classType: JamService),
+    LazySingleton(classType: JadwalService),
 // @stacked-service
   ],
   bottomsheets: [
