@@ -2,88 +2,137 @@ import 'dart:math';
 
 import 'package:jadwal_kuliah/app/app.logger.dart';
 import 'package:jadwal_kuliah/models/pengampu_jadwal_model.dart';
+import 'package:jadwal_kuliah/models/ruangan_model.dart';
+import 'package:uuid/uuid.dart';
 
-import 'ant_jadwal_model.dart';
 import 'ant_slot_model.dart';
+import 'hari_model.dart';
+import 'jam_model.dart';
 
 class AntModel {
-  final _logger = getLogger('AntModel');
+  final String id = const Uuid().v4();
 
-  AntJadwalModel jadwal;
-  List<PengampuJadwalModel> pengampuJadwalList;
-  List<AntSlotModel> antSlotList;
+  PengampuJadwalModel pengampuJadwal;
+  AntSlotModel? _antSlot;
+
+  AntSlotModel? get antSlot => _antSlot;
+
+  int titikDosen;
+  int titikMatakuliah;
+  int titikKelas;
+
+  late int _titikRuang;
+  late int _titikHari;
+  late int _titikJam;
+
+  /// jarak antara ant dengan ant lain
+  final List<double> jarakAntaraAnts = [];
+
+  /// visibilitas ant dengan ant lain
+  final List<double> visibilitasAntaraAnts = [];
+
+  double jarakTotal = 0.0;
+
+  /// jumlah bentrok ant dengan ant lain
+  double bentrok = 0.0;
+
   Random random;
-  AntModel(this.pengampuJadwalList, this.antSlotList)
-      : jadwal = AntJadwalModel(),
-        random = Random();
 
-  void constructSolution(List<List<double>> pheromoneMatrix) {
-    for (var pengampuJadwal in pengampuJadwalList) {
-      try {
-        var antSlot = selectAntSlotModel(pengampuJadwal, pheromoneMatrix);
-        jadwal.assign(pengampuJadwal, antSlot);
-      } catch (e, s) {
-        _logger.e('Error constructSolution', e, s);
-      }
+  AntModel(
+    this.pengampuJadwal, {
+    required int totalAnt,
+    required this.titikDosen,
+    required this.titikMatakuliah,
+    required this.titikKelas,
+  }) : random = Random() {
+    for (var i = 0; i < totalAnt; i++) {
+      jarakAntaraAnts.add(0.0);
+      visibilitasAntaraAnts.add(0.0);
     }
   }
 
-  AntSlotModel selectAntSlotModel(
-      PengampuJadwalModel pengampuJadwal, List<List<double>> pheromoneMatrix) {
-    var availableAntSlotList = <AntSlotModel>[];
+  final _logger = getLogger('AntModel');
 
-    for (var antSlot in antSlotList) {
-      if (jadwal.hasConflict(pengampuJadwal, antSlot)) {
+  void setAntSlot(AntSlotModel antSlot) {
+    _antSlot = antSlot;
+  }
+
+  void setTitik({
+    required Set<RuanganModel> ruanganSet,
+    required Set<HariModel> hariSet,
+    required Set<JamModel> jamSet,
+  }) {
+    _titikRuang = ruanganSet.toList().indexOf(_antSlot!.ruangan);
+    _titikHari = hariSet.toList().indexOf(_antSlot!.hari);
+    _titikJam = jamSet.toList().indexOf(_antSlot!.jam);
+  }
+
+  void printTitik() {
+    _logger.d('titikDosen: $titikDosen');
+    _logger.d('titikMatakuliah: $titikMatakuliah');
+    _logger.d('titikKelas: $titikKelas');
+    _logger.d('titikRuangan: $_titikRuang');
+    _logger.d('titikHari: $_titikHari');
+    _logger.d('titikJam: $_titikJam');
+  }
+
+  void hitungJarakAntaraAnts(List<AntModel> ants) {
+    try {
+      for (var i = 0; i < ants.length; i++) {
+        final ant = ants[i];
+
+        if (ant.id == id) {
+          continue;
+        }
+
+        final jarakDosen = titikDosen - ant.titikDosen.toDouble();
+        final jarakRuang = _titikRuang - ant._titikRuang.toDouble();
+        final jarakHari = _titikHari - ant._titikHari.toDouble();
+        final jarakJam = _titikJam - ant._titikJam.toDouble();
+
+        final jarakDHJ =
+            sqrt(pow(jarakDosen, 2) + pow(jarakHari, 2) + pow(jarakJam, 2));
+        final jarakRHJ =
+            sqrt(pow(jarakRuang, 2) + pow(jarakHari, 2) + pow(jarakJam, 2));
+
+        jarakTotal = sqrt(pow(jarakDHJ, 2) + pow(jarakRHJ, 2));
+
+        jarakAntaraAnts[i] = jarakTotal;
+
+        visibilitasAntaraAnts[i] = _calculateVisibility(jarakTotal);
+      }
+    } catch (e) {
+      _logger.e(e);
+    }
+  }
+
+  double _calculateVisibility(double distance) {
+    return 1 / distance;
+  }
+
+  double calculateProbability(
+      double visibility, double totalVisibility, double alpha, double beta) {
+    return pow(visibility, alpha) * pow(totalVisibility, beta).toDouble();
+  }
+
+  void hitungBentrok(List<AntModel> ants) {
+    for (var i = 0; i < ants.length; i++) {
+      final ant = ants[i];
+
+      if (ant.id == id) {
         continue;
       }
 
-      if (jadwal.hasDosenConflict(pengampuJadwal)) {
-        continue;
-      }
+      if (_antSlot!.hari == ant._antSlot!.hari &&
+          _antSlot!.jam == ant._antSlot!.jam) {
+        if (_antSlot!.ruangan == ant._antSlot!.ruangan) {
+          bentrok++;
+        }
 
-      if (!antSlot.hari.kelas.contains(pengampuJadwal.kelasType)) {
-        continue;
-      }
-
-      availableAntSlotList.add(antSlot);
-    }
-
-    if (availableAntSlotList.isEmpty) {
-      // throw 'Tidak ada slot yang tersedia';
-      availableAntSlotList = antSlotList;
-    }
-
-    var alpha = 2;
-    var beta = 1;
-
-    var total = 0.0;
-    var probabilities = <double>[];
-
-    for (var antSlot in availableAntSlotList) {
-      var i = pengampuJadwalList.indexOf(pengampuJadwal);
-      var j = antSlotList.indexOf(antSlot);
-
-      var pheromone = pheromoneMatrix[i][j];
-      var heuristic = 1 / antSlot.hari.kelas.length;
-
-      var probability = pow(pheromone, alpha) * pow(heuristic, beta);
-
-      total += probability;
-      probabilities.add(probability.toDouble());
-    }
-
-    var randomValue = random.nextDouble() * total;
-
-    var cumulative = 0.0;
-
-    for (var i = 0; i < availableAntSlotList.length; i++) {
-      cumulative += probabilities[i];
-
-      if (cumulative >= randomValue) {
-        return availableAntSlotList[i];
+        if (pengampuJadwal.dosen == ant.pengampuJadwal.dosen) {
+          bentrok++;
+        }
       }
     }
-
-    throw 'Tidak ada slot yang tersedia';
   }
 }

@@ -72,10 +72,8 @@ class CardJadwalBaruWidget extends ViewModelWidget<HomeViewModel> {
               disabledBackgroundColor: kcPrimaryColor.withOpacity(.3),
               minimumSize: const Size(double.infinity, 48),
             ),
-            onPressed: viewModel.isButtonGenerateEnabled &&
-                    !viewModel.busy('onGenerate')
-                ? viewModel.onGenerate
-                : null,
+            onPressed:
+                !viewModel.busy('onGenerate') ? viewModel.onGenerate : null,
             icon: viewModel.busy('onGenerate')
                 ? const SizedBox.square(
                     dimension: 25,

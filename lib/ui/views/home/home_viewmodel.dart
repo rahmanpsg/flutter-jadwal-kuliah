@@ -48,8 +48,6 @@ class HomeViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  bool get isButtonGenerateEnabled => semester != null && tahunAkademik != null;
-
   void init() async {
     setBusy(true);
 
@@ -70,6 +68,15 @@ class HomeViewModel extends BaseViewModel {
   }
 
   void onGenerate() async {
+    if (semester == null || tahunAkademik == null) {
+      _dialogService.showDialog(
+        title: 'Informasi',
+        description: 'Silahkan pilih semester dan tahun akademik',
+        dialogPlatform: DialogPlatform.Material,
+      );
+      return;
+    }
+
     setBusyForObject('onGenerate', true);
 
     try {
