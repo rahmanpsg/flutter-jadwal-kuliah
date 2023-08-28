@@ -20,6 +20,7 @@ dependencies:
   flutter_portal: ^1.1.4
   freezed_annotation: ^2.4.1
   intl: ^0.18.1
+  isolate_manager: ^4.1.1
   json_annotation: ^4.8.1
   responsive_builder: ^0.7.0
   responsive_table: ^0.2.0+2

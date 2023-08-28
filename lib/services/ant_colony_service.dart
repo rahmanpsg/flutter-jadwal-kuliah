@@ -1,8 +1,8 @@
+import 'dart:isolate';
 import 'dart:math';
 
 import 'package:jadwal_kuliah/app/app.logger.dart';
 import 'package:jadwal_kuliah/models/ant_model.dart';
-import 'package:jadwal_kuliah/models/ant_jadwal_model.dart';
 import 'package:jadwal_kuliah/models/dosen_model.dart';
 import 'package:jadwal_kuliah/models/hari_model.dart';
 import 'package:jadwal_kuliah/models/jadwal_model.dart';
@@ -12,7 +12,6 @@ import 'package:jadwal_kuliah/models/pengampu_jadwal_model.dart';
 import 'package:jadwal_kuliah/models/ant_slot_model.dart';
 import 'package:jadwal_kuliah/models/pengampu_model.dart';
 import 'package:jadwal_kuliah/models/ruangan_model.dart';
-import 'package:jadwal_kuliah/utils/datetime.dart';
 
 class AntColonyService {
   final log = getLogger('AntColonyService');
@@ -41,7 +40,7 @@ class AntColonyService {
     this.alpha = 1,
     this.beta = 1,
     this.evaporationRate = .5,
-    this.maxIterations = 500,
+    this.maxIterations = 100,
   }) : random = Random() {
     ants = [];
     pheromoneMatrix = List.generate(
@@ -100,7 +99,8 @@ class AntColonyService {
     // }
   }
 
-  List<JadwalModel> runACO() {
+  // Future<List<JadwalModel>> runACO() async {
+  void runACO(SendPort sendPort) {
     initializeAnt();
 
     List<AntModel>? bestSchedule;
@@ -108,49 +108,81 @@ class AntColonyService {
 
     for (var iteration = 0; iteration < maxIterations; iteration++) {
       if (bestSchedule != null) {
-        ants = bestSchedule;
+        ants = List.from(bestSchedule);
       }
 
       for (var ant in ants) {
         final antSlot = selectAntSlot(ant);
 
         ant.setAntSlot(antSlot);
-        ant.setTitik(
-          ruanganSet: _ruanganSet,
-          hariSet: _hariSet,
-          jamSet: _jamSet,
-        );
+        // ant.setTitik(
+        //   ruanganSet: _ruanganSet,
+        //   hariSet: _hariSet,
+        //   jamSet: _jamSet,
+        // );
       }
 
       for (var ant in ants) {
-        ant.hitungJarakAntaraAnts(ants);
-        ant.hitungBentrok(ants);
+        // ant.hitungJarakAntaraAnts(ants);
+        ant.hitungBentrok(ants, antSlotList);
       }
 
       var fitness = calculateFitness();
       if (fitness < bestFitness) {
         bestFitness = fitness;
-        bestSchedule = ants;
+        bestSchedule = List.from(ants);
       }
 
-      updatePheromoneMatrix();
+      // updatePheromoneMatrix();
 
-      log.d("Iteration: ${iteration + 1} || Best Fitness: $bestFitness");
+      sendPort.send(
+          "Iterasi: ${iteration + 1} || Best Fitness: $bestFitness || Fitness: $fitness ");
 
       if (fitness == 0) break;
     }
 
-    ants.sort((a, b) => antSlotList.indexOf(a.antSlot!).compareTo(
+    log.d("Best Fitness: $bestFitness");
+
+    bestSchedule!.sort((a, b) => antSlotList.indexOf(a.antSlot!).compareTo(
           antSlotList.indexOf(b.antSlot!),
         ));
 
-    return ants.map((ant) {
+    final jadwalList = bestSchedule.map((ant) {
       var pengampuJadwal = ant.pengampuJadwal;
       var antSlot = ant.antSlot!;
 
       var hari = antSlot.hari;
-      var jam = antSlot.jam;
       var ruangan = antSlot.ruangan;
+
+      var startJamIndex = antSlotList.indexOf(antSlot);
+
+      var jam = <JamModel>[];
+
+      var jamIndex = startJamIndex + jam.length;
+
+      while (jam.length < pengampuJadwal.matakuliah.sks) {
+        if (jamIndex >= antSlotList.length) {
+          // throw 'Tidak ada slot yang tersedia';
+          break;
+        }
+
+        var antSlot = antSlotList[jamIndex];
+
+        // if (antSlot.hari != hari || antSlot.ruangan != ruangan) {
+        //   throw 'Tidak ada slot yang tersedia';
+        // }
+
+        // cek jika jam sudah ada di list jam
+        if (jam.contains(antSlot.jam)) {
+          // lanjut ke slot berikutnya
+          jamIndex++;
+          continue;
+        }
+
+        jam.add(antSlot.jam);
+
+        jamIndex++;
+      }
 
       return JadwalModel(
         pengampuJadwal: pengampuJadwal,
@@ -159,19 +191,30 @@ class AntColonyService {
         ruangan: ruangan,
       );
     }).toList();
+
+    sendPort.send(jadwalList);
   }
 
   AntSlotModel selectAntSlot(AntModel ant) {
     final pengampuJadwal = ant.pengampuJadwal;
 
     if (ant.bentrok == 0 && ant.antSlot != null) {
-      return ant.antSlot!;
+      if (random.nextBool()) return ant.antSlot!;
     }
 
     var availableAntSlotList = <AntSlotModel>[];
 
     for (var antSlot in antSlotList) {
+      if (antSlot == ant.antSlot) continue;
+
       if (!antSlot.hari.kelas.contains(pengampuJadwal.kelasType)) {
+        continue;
+      }
+
+      // cek jika kemungkinan jam selesai melebihi jam selesai hari
+      var indexOfJam = _jamSet.toList().indexOf(antSlot.jam);
+
+      if (indexOfJam + pengampuJadwal.matakuliah.sks > _jamSet.length) {
         continue;
       }
 
@@ -193,9 +236,9 @@ class AntColonyService {
     for (var i = 0; i < ants.length; i++) {
       var ant = ants[i];
       var pengampuJadwal = ant.pengampuJadwal;
-      var antSlot = ant.antSlot;
+      var startAntSlotIndex = antSlotList.indexOf(ant.antSlot!);
 
-      if (antSlot == null) {
+      if (startAntSlotIndex == -1) {
         continue;
       }
 
@@ -204,29 +247,39 @@ class AntColonyService {
         var otherPengampuJadwal = otherAnt.pengampuJadwal;
         var otherAntSlot = otherAnt.antSlot;
 
-        if (otherAntSlot == null) {
-          continue;
-        }
+        for (var i = 0; i < pengampuJadwal.matakuliah.sks; i++) {
+          var antSlotIndex = startAntSlotIndex + i;
 
-        if (antSlot == otherAntSlot) {
-          fitness += 1;
-        }
+          if (antSlotIndex >= antSlotList.length) {
+            break;
+          }
 
-        if (antSlot.hari.id == otherAntSlot.hari.id &&
-            antSlot.jam.id == otherAntSlot.jam.id) {
-          if (antSlot.ruangan.id == otherAntSlot.ruangan.id &&
-              antSlot.jam.id == otherAntSlot.jam.id) {
+          var antSlot = antSlotList[antSlotIndex];
+
+          if (otherAntSlot == null) {
+            continue;
+          }
+
+          if (antSlot == otherAntSlot) {
             fitness += 1;
           }
 
-          if (pengampuJadwal.dosen.id == otherPengampuJadwal.dosen.id &&
+          if (antSlot.hari.id == otherAntSlot.hari.id &&
               antSlot.jam.id == otherAntSlot.jam.id) {
-            fitness += 1;
-          }
+            if (antSlot.ruangan.id == otherAntSlot.ruangan.id &&
+                antSlot.jam.id == otherAntSlot.jam.id) {
+              fitness += 1;
+            }
 
-          if (pengampuJadwal.kelas.id == otherPengampuJadwal.kelas.id &&
-              antSlot.jam.id == otherAntSlot.jam.id) {
-            fitness += 1;
+            if (pengampuJadwal.dosen.id == otherPengampuJadwal.dosen.id &&
+                antSlot.jam.id == otherAntSlot.jam.id) {
+              fitness += 1;
+            }
+
+            if (pengampuJadwal.kelas.id == otherPengampuJadwal.kelas.id &&
+                antSlot.jam.id == otherAntSlot.jam.id) {
+              fitness += 1;
+            }
           }
         }
       }

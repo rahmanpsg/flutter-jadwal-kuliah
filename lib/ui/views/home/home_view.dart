@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jadwal_kuliah/ui/common/app_colors.dart';
+import 'package:jadwal_kuliah/ui/common/ui_helpers.dart';
 import 'package:jadwal_kuliah/ui/widgets/custom_stats.dart';
 import 'package:stacked/stacked.dart';
 import 'package:unicons/unicons.dart';
@@ -17,12 +18,13 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
-    return Stack(
-      children: [
-        Card(
-          color: Theme.of(context).colorScheme.background,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
+    return Card(
+      color: Theme.of(context).colorScheme.background,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: DefaultTabController(
+            length: 2,
             child: Column(
               children: [
                 Wrap(
@@ -73,68 +75,59 @@ class HomeView extends StackedView<HomeViewModel> {
                   color: kcVeryLightGrey,
                 ),
                 const SizedBox(height: 24),
-                Expanded(
-                  child: DefaultTabController(
-                    length: 2,
-                    child: Column(
-                      children: [
-                        TabBar(
-                          indicatorColor: kcPrimaryColor,
-                          labelColor: kcWhite,
-                          unselectedLabelColor: kcDarkGreyColor,
-                          indicator: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: kcPrimaryColorDark,
-                          ),
-                          indicatorPadding: const EdgeInsets.symmetric(
-                            horizontal: -20,
-                            vertical: 4,
-                          ),
-                          dividerColor: kcVeryLightGrey,
-                          overlayColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                          indicatorSize: TabBarIndicatorSize.label,
-                          tabs: const [
-                            Tab(
-                              text: 'Generate Jadwal Baru',
-                              icon: Icon(
-                                UniconsThinline.calender,
-                              ),
-                            ),
-                            Tab(
-                              text: 'Jadwal yang Telah Di-Generate',
-                              icon: Icon(
-                                UniconsThinline.calender,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Expanded(
-                          child: TabBarView(
-                            children: [
-                              CardJadwalBaruWidget(),
-                              CardJadwalLamaWidget()
-                            ],
-                          ),
-                        ),
-                      ],
+                // TabBar(
+                //   indicatorColor: kcPrimaryColor,
+                //   labelColor: kcWhite,
+                //   unselectedLabelColor: kcDarkGreyColor,
+                //   indicator: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(8),
+                //     color: kcPrimaryColorDark,
+                //   ),
+                //   indicatorPadding: const EdgeInsets.symmetric(
+                //     horizontal: -20,
+                //     vertical: 4,
+                //   ),
+                //   dividerColor: kcVeryLightGrey,
+                //   overlayColor: MaterialStateProperty.all(Colors.transparent),
+                //   indicatorSize: TabBarIndicatorSize.label,
+                //   tabs: const [
+                //     Tab(
+                //       text: 'Generate Jadwal Baru',
+                //       icon: Icon(
+                //         UniconsThinline.calender,
+                //       ),
+                //     ),
+                //     Tab(
+                //       text: 'Jadwal yang Telah Di-Generate',
+                //       icon: Icon(
+                //         UniconsThinline.calender,
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                SizedBox(
+                    height: screenHeightFraction(
+                      context,
+                      offsetBy: 280,
                     ),
-                  ),
-                ),
+                    child: const CardJadwalBaruWidget())
+                // SizedBox(
+                //   height: screenHeightFraction(
+                //     context,
+                //     offsetBy: 380,
+                //   ),
+                //   child: const TabBarView(
+                //     children: [
+                //       CardJadwalBaruWidget(),
+                //       CardJadwalLamaWidget(),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),
         ),
-        if (viewModel.isBusy)
-          const Positioned.fill(
-            child: SizedBox.square(
-              dimension: 40,
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            ),
-          )
-      ],
+      ),
     );
   }
 

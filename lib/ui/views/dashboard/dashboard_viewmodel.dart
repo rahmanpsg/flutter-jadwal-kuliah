@@ -7,6 +7,10 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:unicons/unicons.dart';
 
 class DashboardViewModel extends IndexTrackingViewModel {
+  DashboardViewModel() {
+    setCurrentWebPageIndex(_routerService);
+  }
+
   final log = getLogger('DashboardViewModel');
 
   final _routerService = locator<RouterService>();
@@ -58,10 +62,6 @@ class DashboardViewModel extends IndexTrackingViewModel {
       route: const PengaturanViewRoute(),
     ),
   ];
-
-  DashboardViewModel() {
-    setCurrentWebPageIndex(_routerService);
-  }
 
   void handleNavigation(int idx) {
     if (currentIndex == idx) return;

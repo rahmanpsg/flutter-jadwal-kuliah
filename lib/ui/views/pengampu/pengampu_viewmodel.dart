@@ -57,6 +57,8 @@ class PengampuViewModel extends ReactiveViewModel {
 
     await _matakuliahService.syncData();
     await _dosenService.syncData();
+
+    // await _pengampuService.generateDummy();
     await _pengampuService.syncData();
 
     setBusy(false);

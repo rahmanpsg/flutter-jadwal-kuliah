@@ -26,7 +26,25 @@ class DosenService with ListenableServiceMixin {
 
     await gets();
 
+    // await _generateDummy();
+
     _isSync = true;
+  }
+
+  Future<void> _generateDummy() async {
+    final dosenList = <DosenModel>[];
+    for (var i = 0; i < 100; i++) {
+      final model = DosenModel.create(
+        nbm: '${i + 1}',
+        nama: 'Dosen ${i + 1}',
+      );
+
+      dosenList.add(model);
+    }
+
+    await _supabase
+        .from('dosen')
+        .insert(dosenList.map((e) => e.toJson()).toList());
   }
 
   /// Get data by id

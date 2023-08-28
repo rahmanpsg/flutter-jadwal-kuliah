@@ -1,6 +1,11 @@
+import 'dart:isolate';
+
+import 'package:flutter/material.dart';
 import 'package:jadwal_kuliah/app/app.locator.dart';
 import 'package:jadwal_kuliah/app/app.logger.dart';
 import 'package:jadwal_kuliah/enums/semester_type.dart';
+import 'package:jadwal_kuliah/models/jadwal_model.dart';
+import 'package:jadwal_kuliah/models/program_studi_model.dart';
 import 'package:jadwal_kuliah/services/dosen_service.dart';
 import 'package:jadwal_kuliah/services/fakultas_service.dart';
 import 'package:jadwal_kuliah/services/jadwal_service.dart';
@@ -32,6 +37,16 @@ class HomeViewModel extends BaseViewModel {
   int get totalRuangan => _ruanganService.items.length;
   int get totalKelas => _kelasService.items.length;
 
+  List<ProgramStudiModel> get programStudiList => _programStudiService.items;
+
+  ProgramStudiModel? _programStudi;
+  ProgramStudiModel? get programStudi => _programStudi;
+
+  set programStudi(ProgramStudiModel? value) {
+    _programStudi = value;
+    rebuildUi();
+  }
+
   SemesterType? _semester;
   SemesterType? get semester => _semester;
 
@@ -47,6 +62,51 @@ class HomeViewModel extends BaseViewModel {
     _tahunAkademik = value;
     rebuildUi();
   }
+
+  int _jumlahIterasi = 100;
+  int get jumlahIterasi => _jumlahIterasi;
+
+  set jumlahIterasi(int value) {
+    _jumlahIterasi = value;
+    rebuildUi();
+  }
+
+  Isolate? isolate;
+  DateTime? startDateTime;
+
+  List<JadwalModel> generateJadwalList = [];
+
+  List<String> logs = [];
+
+  final columns = [
+    '#',
+    'Hari',
+    'Jam',
+    'Matakuliah',
+    'SKS',
+    'Semester',
+    'Kelas',
+    'Dosen',
+    'Ruangan',
+  ];
+
+  List<Map<String, dynamic>> get source => generateJadwalList
+      .asMap()
+      .entries
+      .map(
+        (entry) => {
+          '#': entry.key + 1,
+          'hari': entry.value.hari.hari,
+          'jam': entry.value.jamMulaiDanSelesai,
+          'matakuliah': entry.value.pengampuJadwal.matakuliah.nama,
+          'sks': entry.value.pengampuJadwal.matakuliah.sks,
+          'semester': entry.value.pengampuJadwal.matakuliah.semester,
+          'kelas': entry.value.pengampuJadwal.kelas.kelas,
+          'dosen': entry.value.pengampuJadwal.dosen.nama,
+          'ruangan': entry.value.ruangan.nama,
+        },
+      )
+      .toList();
 
   void init() async {
     setBusy(true);
@@ -68,22 +128,69 @@ class HomeViewModel extends BaseViewModel {
   }
 
   void onGenerate() async {
-    if (semester == null || tahunAkademik == null) {
+    if (programStudi == null || semester == null || tahunAkademik == null) {
+      final description = [
+        if (programStudi == null) 'Program Studi belum dipilih',
+        if (semester == null) 'Semester belum dipilih',
+        if (tahunAkademik == null) 'Tahun Akademik belum dipilih',
+      ].join('\n');
+
       _dialogService.showDialog(
         title: 'Informasi',
-        description: 'Silahkan pilih semester dan tahun akademik',
+        description: description,
         dialogPlatform: DialogPlatform.Material,
       );
       return;
     }
 
+    startDateTime = null;
+    rebuildUi();
+    await Future.delayed(const Duration(milliseconds: 100));
+
     setBusyForObject('onGenerate', true);
 
     try {
-      await _jadwalService.generate(
-        semester: semester!,
-        tahunAkademik: tahunAkademik!,
+      startDateTime = DateTime.now();
+      generateJadwalList.clear();
+      logs.clear();
+
+      final receivePort = ReceivePort();
+
+      final response = _jadwalService.generate(
+        GenerateJadwalRequest(
+          isolate: isolate,
+          receivePort: receivePort,
+          programStudi: programStudi!,
+          semester: semester!,
+          tahunAkademik: tahunAkademik!,
+          iterasi: jumlahIterasi,
+        ),
       );
+
+      response.listen((message) {
+        if (message is String) logs.add(message.toString());
+
+        if (message is List<JadwalModel>) {
+          logs.add('Total jadwal: ${message.length}');
+          logs.add('');
+
+          log.d('Best jadwal: $message');
+
+          generateJadwalList.addAll(message);
+
+          isolate?.kill();
+
+          receivePort.close();
+        }
+
+        rebuildUi();
+      }, onDone: () {
+        setBusyForObject('onGenerate', false);
+      }, onError: (e) {
+        log.e(e);
+        logs.add(e.toString());
+        setBusyForObject('onGenerate', false);
+      });
     } catch (e) {
       _dialogService.showDialog(
         title: 'Gagal',
@@ -91,7 +198,11 @@ class HomeViewModel extends BaseViewModel {
         dialogPlatform: DialogPlatform.Material,
       );
     }
+  }
 
-    setBusyForObject('onGenerate', false);
+  @override
+  void dispose() {
+    isolate?.kill();
+    super.dispose();
   }
 }

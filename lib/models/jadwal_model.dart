@@ -10,7 +10,7 @@ class JadwalModel {
   final String id;
   final PengampuJadwalModel pengampuJadwal;
   final HariModel hari;
-  final JamModel jam;
+  final List<JamModel> jam;
   final RuanganModel ruangan;
 
   JadwalModel({
@@ -21,11 +21,15 @@ class JadwalModel {
     required this.ruangan,
   }) : id = id ?? const Uuid().v4();
 
+  String get jamMulaiDanSelesai =>
+      '${DateTimeUtils.timeOfDayToString(jam.first.mulai)} - '
+      '${DateTimeUtils.timeOfDayToString(jam.last.selesai)}';
+
   @override
   String toString() {
-    var jam = '${DateTimeUtils.timeOfDayToString(this.jam.mulai)} - '
-        '${DateTimeUtils.timeOfDayToString(this.jam.selesai)}';
+    var jam = '${DateTimeUtils.timeOfDayToString(this.jam.first.mulai)} - '
+        '${DateTimeUtils.timeOfDayToString(this.jam.last.selesai)}';
 
-    return '${hari.hari} $jam ${ruangan.nama} ${pengampuJadwal.matakuliah.nama} ${pengampuJadwal.dosen.nama} ${pengampuJadwal.kelas.kelas}\n';
+    return '${hari.hari} $jam ${ruangan.nama} ${pengampuJadwal.matakuliah.nama} ${pengampuJadwal.dosen.nama} ${pengampuJadwal.kelas.kelas} SKS ${pengampuJadwal.matakuliah.sks}\n';
   }
 }

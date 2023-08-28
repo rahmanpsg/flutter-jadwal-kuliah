@@ -31,7 +31,12 @@ class KelasService with ListenableServiceMixin {
   /// Get all data
   Future<List<KelasModel>> gets() async {
     try {
-      final response = await _supabase.from(tableName).select<PostgrestList>();
+      final response = await _supabase
+          .from(tableName)
+          .select<PostgrestList>()
+          .order('tahun_angkatan')
+          .order('id_program_studi')
+          .order('jenis', ascending: true);
 
       log.d("response: $response");
 

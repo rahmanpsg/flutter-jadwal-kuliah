@@ -115,7 +115,9 @@ class AntModel {
     return pow(visibility, alpha) * pow(totalVisibility, beta).toDouble();
   }
 
-  void hitungBentrok(List<AntModel> ants) {
+  void hitungBentrok(List<AntModel> ants, List<AntSlotModel> antSlotList) {
+    final startAntSlotIndex = antSlotList.indexOf(_antSlot!);
+
     for (var i = 0; i < ants.length; i++) {
       final ant = ants[i];
 
@@ -123,16 +125,36 @@ class AntModel {
         continue;
       }
 
-      if (_antSlot!.hari == ant._antSlot!.hari &&
-          _antSlot!.jam == ant._antSlot!.jam) {
-        if (_antSlot!.ruangan == ant._antSlot!.ruangan) {
-          bentrok++;
+      for (var i = 0; i < pengampuJadwal.matakuliah.sks; i++) {
+        final antSlotIndex = startAntSlotIndex + i;
+
+        if (antSlotIndex >= antSlotList.length) {
+          break;
         }
 
-        if (pengampuJadwal.dosen == ant.pengampuJadwal.dosen) {
-          bentrok++;
+        final antSlot = antSlotList[antSlotIndex];
+
+        if (antSlot.hari == ant.antSlot!.hari &&
+            antSlot.jam == ant.antSlot!.jam) {
+          if (antSlot.ruangan == ant.antSlot!.ruangan) {
+            bentrok++;
+          }
+
+          if (pengampuJadwal.dosen == ant.pengampuJadwal.dosen) {
+            bentrok++;
+          }
         }
       }
+      // if (antSlot!.hari == ant.antSlot!.hari &&
+      //     antSlot!.jam == ant.antSlot!.jam) {
+      //   if (antSlot!.ruangan == ant.antSlot!.ruangan) {
+      //     bentrok++;
+      //   }
+
+      //   if (pengampuJadwal.dosen == ant.pengampuJadwal.dosen) {
+      //     bentrok++;
+      //   }
+      // }
     }
   }
 }

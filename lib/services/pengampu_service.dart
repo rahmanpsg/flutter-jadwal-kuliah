@@ -1,9 +1,18 @@
+import 'dart:math';
+
+import 'package:jadwal_kuliah/app/app.locator.dart';
 import 'package:jadwal_kuliah/app/app.logger.dart';
 import 'package:jadwal_kuliah/enums/semester_type.dart';
 import 'package:jadwal_kuliah/models/pengampu_jadwal_model.dart';
 import 'package:jadwal_kuliah/models/pengampu_model.dart';
+import 'package:jadwal_kuliah/models/program_studi_model.dart';
+import 'package:jadwal_kuliah/services/dosen_service.dart';
+import 'package:jadwal_kuliah/services/matakuliah_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:uuid/uuid.dart';
+
+import 'kelas_service.dart';
 
 class PengampuService with ListenableServiceMixin {
   PengampuService() {
@@ -28,6 +37,68 @@ class PengampuService with ListenableServiceMixin {
     await gets();
 
     _isSync = true;
+  }
+
+  // generate dummy
+  Future<void> generateDummy() async {
+    final pengampuList = <PengampuModel>[];
+
+    const idProgramStudi = '15deb00c-d7ee-4a96-8108-a7c44e3d6765';
+
+    final listMatakuliah = locator<MatakuliahService>()
+        .items
+        .where((e) => e.idProgramStudi == idProgramStudi && !e.semester.isEven);
+
+    final listDosen = locator<DosenService>().items;
+
+    final listKelas = locator<KelasService>()
+        .items
+        .where((e) => e.idProgramStudi == idProgramStudi);
+
+    for (var matakuliah in listMatakuliah) {
+      final randomDosen = listDosen[Random().nextInt(listDosen.length)];
+
+      final idPengampu = const Uuid().v4();
+
+      final kelas = <PengampuKelasModel>[];
+
+      final listKelasSemester =
+          listKelas.where((e) => e.semester == matakuliah.semester).toList();
+
+      if (listKelasSemester.isEmpty) continue;
+
+      for (var kelasSemester in listKelasSemester) {
+        for (var i = 0; i < kelasSemester.nama.length; i++) {
+          final nama = kelasSemester.nama[i];
+
+          kelas.add(
+            PengampuKelasModel.create(
+              idKelas: kelasSemester.id,
+              idPengampu: idPengampu,
+              kelas: nama,
+            ),
+          );
+        }
+      }
+
+      final model = PengampuModel(
+        id: idPengampu,
+        tahunAkademik: '2023 - 2024',
+        idMatakuliah: matakuliah.id,
+        idDosen: randomDosen.id,
+        kelas: kelas,
+      );
+
+      pengampuList.add(model);
+    }
+    await _supabase
+        .from('pengampu')
+        .insert(pengampuList.map((e) => e.toJson()).toList());
+
+    await _supabase.from('pengampu_kelas').insert(pengampuList
+        .expand((element) => element.kelas)
+        .map((e) => e.toJson())
+        .toList());
   }
 
   /// Get all data
@@ -65,6 +136,7 @@ class PengampuService with ListenableServiceMixin {
 
   /// Get data by semester and tahun akademik
   Future<List<PengampuJadwalModel>> getJadwal({
+    required ProgramStudiModel programStudi,
     required SemesterType semester,
     required String tahunAkademik,
   }) async {
@@ -76,7 +148,8 @@ class PengampuService with ListenableServiceMixin {
           )
           .not('pengampu', 'is', null)
           .in_('pengampu.matakuliah.semester', semester.gets())
-          .eq('pengampu.tahun_akademik', tahunAkademik);
+          .eq('pengampu.tahun_akademik', tahunAkademik)
+          .eq('pengampu.id_matakuliah.id_program_studi', programStudi.id);
 
       log.d("response: $response");
 
