@@ -42,4 +42,12 @@ extension TimeOfDayExtension on TimeOfDay {
       minute: minutes % 60,
     );
   }
+
+  int compareTo(TimeOfDay other) {
+    if (hour < other.hour) return -1;
+    if (hour > other.hour) return 1;
+    if (minute < other.minute) return -1;
+    if (minute > other.minute) return 1;
+    return 0;
+  }
 }

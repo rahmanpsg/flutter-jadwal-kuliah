@@ -23,9 +23,27 @@ class RuanganService with ListenableServiceMixin {
   Future<void> syncData() async {
     if (_isSync) return;
 
+    // await _generateDummy();
+
     await gets();
 
     _isSync = true;
+  }
+
+  // generate dummy
+  Future<void> _generateDummy() async {
+    final ruanganList = <RuanganModel>[];
+    for (var i = 0; i < 20; i++) {
+      final model = RuanganModel.create(
+        nama: 'Ruangan ${i + 1}',
+      );
+
+      ruanganList.add(model);
+    }
+
+    await _supabase
+        .from('ruangan')
+        .insert(ruanganList.map((e) => e.toJson()).toList());
   }
 
   /// Get all data

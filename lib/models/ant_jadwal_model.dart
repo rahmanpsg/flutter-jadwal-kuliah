@@ -1,58 +1,45 @@
+import 'package:jadwal_kuliah/app/app.logger.dart';
+
 import 'pengampu_jadwal_model.dart';
-import 'ruangan_model.dart';
-import 'time_slot_model.dart';
+import 'ant_slot_model.dart';
 
 class AntJadwalModel {
-  Map<PengampuJadwalModel, Map<TimeSlotModel, RuanganModel>> assignments;
+  final _logger = getLogger('AntJadwalModel');
+
+  Map<PengampuJadwalModel, AntSlotModel> assignments;
   AntJadwalModel() : assignments = {};
-  void assign(PengampuJadwalModel pengampuJadwal, TimeSlotModel timeSlot,
-      RuanganModel ruangan) {
-    assignments[pengampuJadwal] ??= {};
-    assignments[pengampuJadwal]?[timeSlot] = ruangan;
+
+  void assign(PengampuJadwalModel pengampuJadwal, AntSlotModel antSlot) {
+    assignments[pengampuJadwal] = antSlot;
   }
 
-  bool isAssigned(PengampuJadwalModel pengampuJadwal, TimeSlotModel timeSlot) {
-    return assignments.containsKey(pengampuJadwal) &&
-        (assignments[pengampuJadwal]?.containsKey(timeSlot) ?? false);
-  }
-
-  bool hasConflict(PengampuJadwalModel pengampuJadwal, TimeSlotModel timeSlot,
-      RuanganModel ruangan) {
-    if (isAssigned(pengampuJadwal, timeSlot)) {
-      return true;
-    }
-    for (var entry in assignments.entries) {
-      var assignedPengampuJadwalModel = entry.key;
-      var assignedTimeslots = entry.value.keys;
-      if (assignedTimeslots.contains(timeSlot) &&
-          assignments[assignedPengampuJadwalModel]?[timeSlot] == ruangan) {
-        return true;
-      }
-    }
+  // cek conflict dosen
+  bool hasDosenConflict(PengampuJadwalModel pengampuJadwal) {
     return false;
   }
 
   double calculateFitness() {
     double fitness = 0;
+
     for (var entry in assignments.entries) {
-      // var pengampuJadwal = entry.key;
-      var timeslots = entry.value.keys.toSet();
-      var uniqueTimeslots = timeslots.length;
-      fitness += uniqueTimeslots.toDouble();
+      var pengampuJadwal = entry.key;
+      var antSlot = entry.value;
+
+      // fitness += pengampuJadwal.jamList.length * antSlot.jamList.length;
+      fitness += 1;
     }
+
     return fitness;
   }
 
-  @override
-  String toString() {
-    String result = '';
-    for (var entry in assignments.entries) {
-      var pengampuJadwal = entry.key;
-      var timeslots = entry.value.keys.toSet();
-      var uniqueTimeslots = timeslots.length;
-      result +=
-          '${pengampuJadwal.matakuliah.nama} - ${pengampuJadwal.dosen.nama} - ${pengampuJadwal.kelas.kelas} - $uniqueTimeslots\n';
-    }
-    return result;
-  }
+  // buat fungsi untuk menghitung jarak
+  // double calculateDistance(Ant other) {
+  //   final jarakDHJ = sqrt(pow(dosen - other.dosen, 2) +
+  //       pow(hari - other.hari, 2) +
+  //       pow(jam - other.jam, 2));
+  //   final jarakRHJ = sqrt(pow(ruang - other.ruang, 2) +
+  //       pow(hari - other.hari, 2) +
+  //       pow(jam - other.jam, 2));
+  //   return sqrt(pow(jarakDHJ, 2) + pow(jarakRHJ, 2));
+  // }
 }

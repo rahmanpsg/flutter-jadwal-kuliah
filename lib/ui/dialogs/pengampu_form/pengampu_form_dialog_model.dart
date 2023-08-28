@@ -8,6 +8,7 @@ import 'package:jadwal_kuliah/models/pengampu_model.dart';
 import 'package:jadwal_kuliah/services/dosen_service.dart';
 import 'package:jadwal_kuliah/services/kelas_service.dart';
 import 'package:jadwal_kuliah/services/matakuliah_service.dart';
+import 'package:jadwal_kuliah/services/program_studi_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:uuid/uuid.dart';
@@ -19,6 +20,7 @@ class PengampuFormDialogModel extends BaseViewModel {
   final _matakuliahService = locator<MatakuliahService>();
   final _dosenService = locator<DosenService>();
   final _kelasService = locator<KelasService>();
+  final _programStudiService = locator<ProgramStudiService>();
 
   final now = DateTime.now().subtract(const Duration(days: 365 * 4));
 
@@ -54,6 +56,10 @@ class PengampuFormDialogModel extends BaseViewModel {
   List<String> get kelas => _kelas;
 
   PengampuModel? _pengampu;
+
+  String programStudiName(String id) {
+    return _programStudiService.getById(id)?.nama ?? '';
+  }
 
   void init(PengampuModel? pengampu) async {
     setBusy(true);

@@ -141,6 +141,15 @@ class PengampuFormDialog extends StackedView<PengampuFormDialogModel> {
                           color: kcMediumGrey,
                         ),
                       ),
+                      trailing: Text(
+                        viewModel.programStudiName(
+                          item.idProgramStudi,
+                        ),
+                        style: ktRegularTextStyle.copyWith(
+                          fontSize: 12,
+                          color: kcMediumGrey,
+                        ),
+                      ),
                     );
                   },
                 ),
