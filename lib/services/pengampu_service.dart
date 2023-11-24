@@ -141,33 +141,43 @@ class PengampuService with ListenableServiceMixin {
     required String tahunAkademik,
   }) async {
     try {
+      log.wtf(programStudi);
+      log.wtf("semester: ${semester.gets()}");
+      log.wtf("tahunAkademik: $tahunAkademik");
+
       final response = await _supabase
           .from('pengampu_kelas')
           .select(
-            '*, kelas_jenis:id_kelas(jenis), pengampu:id_pengampu(id, tahun_akademik, tahun_akademik, matakuliah:id_matakuliah(*), dosen:id_dosen(*)) ',
+            '*, kelas_jenis:id_kelas(jenis), pengampu:id_pengampu(id, tahun_akademik, matakuliah:id_matakuliah(*), dosen:id_dosen(*))',
           )
           .not('pengampu', 'is', null)
+          .not('pengampu.matakuliah', 'is', null)
           .in_('pengampu.matakuliah.semester', semester.gets())
           .eq('pengampu.tahun_akademik', tahunAkademik)
-          .eq('pengampu.id_matakuliah.id_program_studi', programStudi.id);
+          .eq('pengampu.matakuliah.id_program_studi', programStudi.id);
 
-      log.d("response: $response");
+      log.d("response: ${response.length}");
 
       if (response.isEmpty) return [];
 
       final list = <PengampuJadwalModel>[];
 
       for (final json in response) {
-        final kelas = PengampuKelasModel.fromJson(json);
+        try {
+          final kelas = PengampuKelasModel.fromJson(json);
 
-        final newJson = json['pengampu'] as Map<String, dynamic>;
+          final newJson = json['pengampu'] as Map<String, dynamic>;
 
-        newJson['kelas'] = kelas.toJson();
-        newJson['kelas_type'] = json['kelas_jenis']['jenis'] as int;
+          newJson['kelas'] = kelas.toJson();
+          newJson['kelas_type'] = json['kelas_jenis']['jenis'] as int;
 
-        final pengampuJadwal = PengampuJadwalModel.fromJson(newJson);
+          final pengampuJadwal = PengampuJadwalModel.fromJson(newJson);
 
-        list.add(pengampuJadwal);
+          list.add(pengampuJadwal);
+        } catch (e) {
+          log.wtf('json: $json');
+          log.e(e);
+        }
       }
 
       return list;
