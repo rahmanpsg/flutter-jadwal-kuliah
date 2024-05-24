@@ -142,9 +142,11 @@ class PengampuFormDialog extends StackedView<PengampuFormDialogModel> {
                         ),
                       ),
                       trailing: Text(
-                        viewModel.programStudiName(
-                          item.idProgramStudi,
-                        ),
+                        item.idProgramStudi == null
+                            ? '-'
+                            : viewModel.programStudiName(
+                                item.idProgramStudi!,
+                              ),
                         style: ktRegularTextStyle.copyWith(
                           fontSize: 12,
                           color: kcMediumGrey,

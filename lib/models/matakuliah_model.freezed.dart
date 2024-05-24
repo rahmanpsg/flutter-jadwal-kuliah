@@ -25,7 +25,7 @@ mixin _$MatakuliahModel {
   String get nama => throw _privateConstructorUsedError;
   int get sks => throw _privateConstructorUsedError;
   int get semester => throw _privateConstructorUsedError;
-  String get idProgramStudi => throw _privateConstructorUsedError;
+  String? get idProgramStudi => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +45,7 @@ abstract class $MatakuliahModelCopyWith<$Res> {
       String nama,
       int sks,
       int semester,
-      String idProgramStudi});
+      String? idProgramStudi});
 }
 
 /// @nodoc
@@ -66,7 +66,7 @@ class _$MatakuliahModelCopyWithImpl<$Res, $Val extends MatakuliahModel>
     Object? nama = null,
     Object? sks = null,
     Object? semester = null,
-    Object? idProgramStudi = null,
+    Object? idProgramStudi = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -89,10 +89,10 @@ class _$MatakuliahModelCopyWithImpl<$Res, $Val extends MatakuliahModel>
           ? _value.semester
           : semester // ignore: cast_nullable_to_non_nullable
               as int,
-      idProgramStudi: null == idProgramStudi
+      idProgramStudi: freezed == idProgramStudi
           ? _value.idProgramStudi
           : idProgramStudi // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -111,7 +111,7 @@ abstract class _$$_MatakuliahModelCopyWith<$Res>
       String nama,
       int sks,
       int semester,
-      String idProgramStudi});
+      String? idProgramStudi});
 }
 
 /// @nodoc
@@ -130,7 +130,7 @@ class __$$_MatakuliahModelCopyWithImpl<$Res>
     Object? nama = null,
     Object? sks = null,
     Object? semester = null,
-    Object? idProgramStudi = null,
+    Object? idProgramStudi = freezed,
   }) {
     return _then(_$_MatakuliahModel(
       id: null == id
@@ -153,10 +153,10 @@ class __$$_MatakuliahModelCopyWithImpl<$Res>
           ? _value.semester
           : semester // ignore: cast_nullable_to_non_nullable
               as int,
-      idProgramStudi: null == idProgramStudi
+      idProgramStudi: freezed == idProgramStudi
           ? _value.idProgramStudi
           : idProgramStudi // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -187,7 +187,7 @@ class _$_MatakuliahModel extends _MatakuliahModel {
   @override
   final int semester;
   @override
-  final String idProgramStudi;
+  final String? idProgramStudi;
 
   @override
   String toString() {
@@ -235,7 +235,7 @@ abstract class _MatakuliahModel extends MatakuliahModel {
       required final String nama,
       required final int sks,
       required final int semester,
-      required final String idProgramStudi}) = _$_MatakuliahModel;
+      required final String? idProgramStudi}) = _$_MatakuliahModel;
   const _MatakuliahModel._() : super._();
 
   factory _MatakuliahModel.fromJson(Map<String, dynamic> json) =
@@ -252,7 +252,7 @@ abstract class _MatakuliahModel extends MatakuliahModel {
   @override
   int get semester;
   @override
-  String get idProgramStudi;
+  String? get idProgramStudi;
   @override
   @JsonKey(ignore: true)
   _$$_MatakuliahModelCopyWith<_$_MatakuliahModel> get copyWith =>

@@ -14,7 +14,7 @@ class MatakuliahModel with _$MatakuliahModel {
     required final String nama,
     required final int sks,
     required final int semester,
-    required final String idProgramStudi,
+    required final String? idProgramStudi,
   }) = _MatakuliahModel;
 
   factory MatakuliahModel.fromJson(Map<String, Object?> json) =>

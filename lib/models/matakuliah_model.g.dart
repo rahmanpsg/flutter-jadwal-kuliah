@@ -13,7 +13,7 @@ _$_MatakuliahModel _$$_MatakuliahModelFromJson(Map<String, dynamic> json) =>
       nama: json['nama'] as String,
       sks: json['sks'] as int,
       semester: json['semester'] as int,
-      idProgramStudi: json['id_program_studi'] as String,
+      idProgramStudi: json['id_program_studi'] as String?,
     );
 
 Map<String, dynamic> _$$_MatakuliahModelToJson(_$_MatakuliahModel instance) =>

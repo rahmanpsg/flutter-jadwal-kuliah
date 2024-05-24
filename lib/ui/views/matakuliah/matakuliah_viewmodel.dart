@@ -50,8 +50,11 @@ class MatakuliahViewModel extends ReactiveViewModel {
           'nama': entry.value.nama,
           'sks': entry.value.sks,
           'semester': entry.value.semester,
-          'program_studi':
-              _programStudiService.getById(entry.value.idProgramStudi)?.nama ??
+          'program_studi': entry.value.idProgramStudi == null
+              ? '-'
+              : _programStudiService
+                      .getById(entry.value.idProgramStudi!)
+                      ?.nama ??
                   '-',
           'aksi': entry.value,
         },
@@ -199,8 +202,11 @@ class MatakuliahViewModel extends ReactiveViewModel {
           ),
           FormDialogItem<ProgramStudiModel>(
             controller: TextEditingController(
-                text:
-                    _programStudiService.getById(value.idProgramStudi)?.nama ??
+                text: value.idProgramStudi == null
+                    ? ''
+                    : _programStudiService
+                            .getById(value.idProgramStudi!)
+                            ?.nama ??
                         ''),
             label: 'Program Studi',
             isDropdown: true,
