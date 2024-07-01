@@ -55,7 +55,7 @@ class DosenService with ListenableServiceMixin {
   /// Get all data
   Future<List<DosenModel>> gets() async {
     try {
-      final response = await _supabase.from(tableName).select<PostgrestList>();
+      final response = await _supabase.from(tableName).select();
 
       log.d("response: $response");
 

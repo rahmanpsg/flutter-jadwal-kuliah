@@ -11,12 +11,12 @@ class CustomStats extends StatelessWidget {
   final Color color;
 
   const CustomStats({
-    Key? key,
+    super.key,
     required this.text,
     required this.total,
     required this.iconData,
     this.color = kcPrimaryColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

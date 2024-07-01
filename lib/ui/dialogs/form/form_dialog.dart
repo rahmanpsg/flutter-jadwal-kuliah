@@ -62,11 +62,10 @@ class FormDialog extends StackedView<FormDialogModel> {
   final Function(DialogResponse) completer;
 
   const FormDialog({
-    Key? key,
+    super.key,
     DialogRequest? request,
     required this.completer,
-  })  : request = request as DialogRequest<FormDialogData>,
-        super(key: key);
+  })  : request = request as DialogRequest<FormDialogData>;
 
   @override
   Widget builder(

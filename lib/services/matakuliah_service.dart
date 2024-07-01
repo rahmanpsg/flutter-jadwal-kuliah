@@ -39,7 +39,7 @@ class MatakuliahService with ListenableServiceMixin {
     try {
       final response = await _supabase
           .from(tableName)
-          .select<PostgrestList>()
+          .select()
           .order('semester', ascending: true)
           .order('id_program_studi', ascending: true)
           .order('nama', ascending: true);

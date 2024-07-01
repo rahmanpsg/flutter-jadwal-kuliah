@@ -7,7 +7,6 @@ import 'package:unicons/unicons.dart';
 
 import 'home_viewmodel.dart';
 import 'widgets/card_jadwal_baru_widget.dart';
-import 'widgets/card_jadwal_lama_widget.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
   const HomeView({super.key});
@@ -19,7 +18,7 @@ class HomeView extends StackedView<HomeViewModel> {
     Widget? child,
   ) {
     return Card(
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(

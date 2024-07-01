@@ -120,7 +120,7 @@ class _JamItemWidget extends HookWidget {
           value: item.aktif,
           onChanged: onChanged,
           checkColor: kcWhite,
-          fillColor: MaterialStateProperty.all(
+          fillColor: WidgetStateProperty.all(
             kcPrimaryColor,
           ),
           side: const BorderSide(

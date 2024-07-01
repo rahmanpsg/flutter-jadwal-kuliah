@@ -6,7 +6,7 @@ import 'widgets/card_hari_widget.dart';
 import 'widgets/card_jam_widget.dart';
 
 class PengaturanView extends StackedView<PengaturanViewModel> {
-  const PengaturanView({Key? key}) : super(key: key);
+  const PengaturanView({super.key});
 
   @override
   Widget builder(
@@ -15,7 +15,7 @@ class PengaturanView extends StackedView<PengaturanViewModel> {
     Widget? child,
   ) {
     return Card(
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: DefaultTabController(

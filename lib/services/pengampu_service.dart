@@ -106,7 +106,7 @@ class PengampuService with ListenableServiceMixin {
     try {
       final response = await _supabase
           .from(tableName)
-          .select<PostgrestList>(
+          .select(
             '*, kelas:pengampu_kelas(*)',
           )
           .order('tahun_akademik', ascending: true)
@@ -152,7 +152,7 @@ class PengampuService with ListenableServiceMixin {
           )
           .not('pengampu', 'is', null)
           .not('pengampu.matakuliah', 'is', null)
-          .in_('pengampu.matakuliah.semester', semester.gets())
+          // .in_('pengampu.matakuliah.semester', semester.gets())
           .eq('pengampu.tahun_akademik', tahunAkademik)
           .eq('pengampu.matakuliah.id_program_studi', programStudi.id);
 
@@ -190,9 +190,7 @@ class PengampuService with ListenableServiceMixin {
 
   Future<List<String>> getTahunAkademik() async {
     try {
-      final response = await _supabase
-          .from('distinct_tahun_akademik')
-          .select<PostgrestList>();
+      final response = await _supabase.from('distinct_tahun_akademik').select();
 
       log.d("response: $response");
 

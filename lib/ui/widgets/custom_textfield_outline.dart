@@ -34,7 +34,7 @@ class CustomTextFieldOutline extends StatelessWidget {
   final TextCapitalization? textCapitalization;
 
   const CustomTextFieldOutline({
-    Key? key,
+    super.key,
     this.controller,
     this.onTap,
     this.focusNode,
@@ -63,7 +63,7 @@ class CustomTextFieldOutline extends StatelessWidget {
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.validator,
     this.textCapitalization,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

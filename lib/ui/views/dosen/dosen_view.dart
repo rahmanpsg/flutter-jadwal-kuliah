@@ -12,7 +12,7 @@ import 'package:unicons/unicons.dart';
 import 'dosen_viewmodel.dart';
 
 class DosenView extends StackedView<DosenViewModel> {
-  const DosenView({Key? key}) : super(key: key);
+  const DosenView({super.key});
 
   @override
   Widget builder(
@@ -21,7 +21,7 @@ class DosenView extends StackedView<DosenViewModel> {
     Widget? child,
   ) {
     return Card(
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -74,7 +74,7 @@ class DosenView extends StackedView<DosenViewModel> {
                       ResponsiveDatatable(
                         isLoading: viewModel.isBusy,
                         source: viewModel.source,
-                        selecteds: [],
+                        selecteds: const [],
                         expanded: List.filled(viewModel.items.length, false),
                         autoHeight: false,
                         headerDecoration: const BoxDecoration(
