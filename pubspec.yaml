@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   animated_flip_counter: ^0.3.4
-  chips_input: ^0.1.0
+  # chips_input: ^0.1.0
   collection: ^1.0.0
   dropdown_search: ^5.0.6
   duration_picker: ^1.2.0
@@ -24,7 +24,7 @@ dependencies:
   json_annotation: ^4.8.1
   responsive_builder: ^0.7.0
   responsive_table: ^0.2.0+2
-  stacked: ^3.4.2
+  stacked: ^3.4.3
   stacked_hooks: ^0.2.4
   stacked_services: ^1.5.0
   supabase_flutter: ^2.5.3

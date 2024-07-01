@@ -54,7 +54,7 @@ class CustomTextFieldOutline extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.color = kcBackgroundColor,
-    this.outlineColor = kcBackgroundColor,
+    this.outlineColor = kcMediumGrey,
     this.outlineFocusedColor = kcPrimaryColor,
     this.onChanged,
     this.onSaved,
