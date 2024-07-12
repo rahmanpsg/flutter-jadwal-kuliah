@@ -145,18 +145,26 @@ class PengampuService with ListenableServiceMixin {
       log.wtf("semester: ${semester.gets()}");
       log.wtf("tahunAkademik: $tahunAkademik");
 
-      final response = await _supabase
-          .from('pengampu_kelas')
-          .select(
-            '*, kelas_jenis:id_kelas(jenis), pengampu:id_pengampu(id, tahun_akademik, matakuliah:id_matakuliah(*), dosen:id_dosen(*))',
-          )
-          .not('pengampu', 'is', null)
-          .not('pengampu.matakuliah', 'is', null)
-          // .in_('pengampu.matakuliah.semester', semester.gets())
-          .eq('pengampu.tahun_akademik', tahunAkademik)
-          .eq('pengampu.matakuliah.id_program_studi', programStudi.id);
+      // final response = await _supabase
+      //     .from('pengampu_kelas')
+      //     .select(
+      //       '*, kelas_jenis:id_kelas(jenis), pengampu:id_pengampu(id, tahun_akademik, matakuliah:id_matakuliah(*), dosen:id_dosen(*))',
+      //     )
+      //     .not('pengampu', 'is', null)
+      //     .not('pengampu.matakuliah', 'is', null)
+      //     .in_('pengampu.matakuliah.semester', semester.gets())
+      //     .eq('pengampu.tahun_akademik', tahunAkademik)
+      //     .eq('pengampu.matakuliah.id_program_studi', programStudi.id);
 
-      log.d("response: ${response.length}");
+      final response = await _supabase.rpc('get_pengampu_kelas', params: {
+        'program_studi_id_value': programStudi.id,
+        'semester_values': semester.gets(),
+        'tahun_akademik_value': tahunAkademik,
+      });
+
+      if (response == null) return [];
+
+      log.d("response: ${response}");
 
       if (response.isEmpty) return [];
 
@@ -164,6 +172,7 @@ class PengampuService with ListenableServiceMixin {
 
       for (final json in response) {
         try {
+          // log.d('json: $json');
           final kelas = PengampuKelasModel.fromJson(json);
 
           final newJson = json['pengampu'] as Map<String, dynamic>;

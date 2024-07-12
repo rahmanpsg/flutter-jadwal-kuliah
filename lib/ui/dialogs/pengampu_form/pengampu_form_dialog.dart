@@ -28,11 +28,11 @@ class PengampuFormDialog extends StackedView<PengampuFormDialogModel> {
     super.key,
     DialogRequest? request,
     required this.completer,
-  })  : request = request as DialogRequest<PengampuFormDialogData>;
+  }) : request = request as DialogRequest<PengampuFormDialogData>;
 
   OutlineInputBorder get outlineInputBorder => OutlineInputBorder(
         borderSide: const BorderSide(
-          color: kcBackgroundColor,
+          color: kcMediumGrey,
         ),
         borderRadius: BorderRadius.circular(12),
       );

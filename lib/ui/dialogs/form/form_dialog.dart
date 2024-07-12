@@ -1,3 +1,4 @@
+import 'package:chips_input/chips_input.dart';
 import 'package:collection/collection.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -181,7 +182,7 @@ class _FieldHook extends StackedHookView<FormDialogModel> {
 
   OutlineInputBorder get outlineInputBorder => OutlineInputBorder(
         borderSide: const BorderSide(
-          color: kcBackgroundColor,
+          color: kcMediumGrey,
         ),
         borderRadius: BorderRadius.circular(12),
       );
@@ -221,77 +222,76 @@ class _FieldHook extends StackedHookView<FormDialogModel> {
         Text(field.label, style: Theme.of(context).textTheme.bodySmall),
         const SizedBox(height: 8),
         if (field.isChipInput)
-          const SizedBox()
-        // ChipsInput<ItemModel>(
-        //   initialValue: field.chipItems ?? [],
-        //   findSuggestions: (String query) {
-        //     final results = field.chipItems!.where((item) {
-        //       return item.value.toLowerCase().contains(query.toLowerCase());
-        //     }).toList();
+          ChipsInput<ItemModel>(
+            initialValue: field.chipItems ?? [],
+            findSuggestions: (String query) {
+              final results = field.chipItems!.where((item) {
+                return item.value.toLowerCase().contains(query.toLowerCase());
+              }).toList();
 
-        //     if (results.isEmpty) {
-        //       return [
-        //         ItemModel(
-        //           label: query.toUpperCase(),
-        //           value: query.toUpperCase(),
-        //         ),
-        //       ];
-        //     }
+              if (results.isEmpty) {
+                return [
+                  ItemModel(
+                    label: query.toUpperCase(),
+                    value: query.toUpperCase(),
+                  ),
+                ];
+              }
 
-        //     return results;
-        //   },
-        //   inputFormatters: field.inputFormatters,
-        //   keyboardType: field.keyboardType,
-        //   onChanged: (data) {
-        //     viewModel.mapResponse[field.label] = data;
+              return results;
+            },
+            inputFormatters: field.inputFormatters,
+            keyboardType: field.keyboardType,
+            onChanged: (data) {
+              viewModel.mapResponse[field.label] = data;
 
-        //     viewModel.rebuildUi();
-        //   },
-        //   decoration: inputDecoration,
-        //   chipBuilder: (context, state, ItemModel item) {
-        //     return Container(
-        //       padding: const EdgeInsets.symmetric(
-        //         vertical: 4,
-        //         horizontal: 8,
-        //       ),
-        //       decoration: BoxDecoration(
-        //         color: kcSecondaryColor,
-        //         borderRadius: BorderRadius.circular(12),
-        //         border: Border.all(
-        //           color: kcPrimaryColor,
-        //           width: 1.5,
-        //         ),
-        //       ),
-        //       child: Row(
-        //         mainAxisSize: MainAxisSize.min,
-        //         children: [
-        //           Text(
-        //             item.label,
-        //             style: ktRegularTextStyle.copyWith(
-        //               fontSize: 14,
-        //               color: kcWhite,
-        //             ),
-        //           ),
-        //           const SizedBox(width: 8),
-        //           InkWell(
-        //             onTap: () => state.deleteChip(item),
-        //             child: const Icon(
-        //               UniconsLine.times,
-        //               size: 14,
-        //               color: kcWhite,
-        //             ),
-        //           ),
-        //         ],
-        //       ),
-        //     );
-        //   },
-        //   suggestionBuilder: (context, ItemModel item) {
-        //     return ListTile(
-        //       key: ObjectKey(item),
-        //       title: Text(item.label),
-        //     );
-        //   },
-        // )
+              viewModel.rebuildUi();
+            },
+            decoration: inputDecoration,
+            chipBuilder: (context, state, ItemModel item) {
+              return Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 4,
+                  horizontal: 8,
+                ),
+                decoration: BoxDecoration(
+                  color: kcSecondaryColor,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: kcPrimaryColor,
+                    width: 1.5,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      item.label,
+                      style: ktRegularTextStyle.copyWith(
+                        fontSize: 14,
+                        color: kcWhite,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    InkWell(
+                      onTap: () => state.deleteChip(item),
+                      child: const Icon(
+                        UniconsLine.times,
+                        size: 14,
+                        color: kcWhite,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+            suggestionBuilder: (context, ItemModel item) {
+              return ListTile(
+                key: ObjectKey(item),
+                title: Text(item.label),
+              );
+            },
+          )
         else if (field.isChipChoice) ...[
           Wrap(
             spacing: 8,

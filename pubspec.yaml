@@ -8,7 +8,10 @@ environment:
 
 dependencies:
   animated_flip_counter: ^0.3.4
-  # chips_input: ^0.1.0
+  chips_input:
+    git:
+      url: https://github.com/CeRBeR666/chips_input.git
+      ref: patch-1
   collection: ^1.0.0
   dropdown_search: ^5.0.6
   duration_picker: ^1.2.0
