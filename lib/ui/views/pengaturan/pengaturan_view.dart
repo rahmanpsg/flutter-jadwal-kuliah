@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jadwal_kuliah/ui/views/pengaturan/widgets/card_semester_widget.dart';
 import 'package:stacked/stacked.dart';
 
 import 'pengaturan_viewmodel.dart';
@@ -39,6 +40,7 @@ class PengaturanView extends StackedView<PengaturanViewModel> {
                       runAlignment: WrapAlignment.spaceBetween,
                       runSpacing: 16,
                       children: [
+                        CardSemesterWidget(),
                         CardHariWidget(),
                         CardJamWidget(),
                       ],
