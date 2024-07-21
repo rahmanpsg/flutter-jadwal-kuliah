@@ -38,7 +38,8 @@ class PengampuFormDialogModel extends BaseViewModel {
   List<KelasModel> get kelasList => _kelasList
       .where((element) =>
           element.idProgramStudi == matakuliah?.idProgramStudi &&
-          element.semester == matakuliah?.semester)
+          element.getSemesterList().contains(matakuliah?.semester))
+      // element.semester == matakuliah?.semester)
       .toList();
 
   final formKey = GlobalKey<FormState>();

@@ -1,5 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:jadwal_kuliah/enums/kelas_type.dart';
 import 'package:uuid/uuid.dart';
@@ -53,5 +54,24 @@ class KelasModel with _$KelasModel {
     } else {
       return (semester * 2) + 1;
     }
+  }
+
+  List<int> getSemesterList() {
+    List<List<int>> semesterList = [
+      [1, 2],
+      [3, 4],
+      [5, 6],
+      [7, 8],
+      [9, 10],
+      [11, 12],
+      [13, 14]
+    ];
+
+    final semester = this.semester;
+
+    // get containing semester
+    return semesterList
+            .firstWhereOrNull((element) => element.contains(semester)) ??
+        [semester];
   }
 }
