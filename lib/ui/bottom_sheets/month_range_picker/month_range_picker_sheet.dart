@@ -101,8 +101,8 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
                   onPressed: () => completer?.call(SheetResponse(
                     confirmed: true,
                     data: {
-                      'startDate': viewModel.startDate,
-                      'endDate': viewModel.endDate,
+                      'startMonth': viewModel.startDate.month,
+                      'endMonth': viewModel.endDate.month,
                     },
                   )),
                   child: const Text('Konfirmasi'),
