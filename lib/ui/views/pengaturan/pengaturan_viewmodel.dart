@@ -7,6 +7,7 @@ import 'package:jadwal_kuliah/app/app.dialogs.dart';
 import 'package:jadwal_kuliah/app/app.locator.dart';
 import 'package:jadwal_kuliah/app/app.logger.dart';
 import 'package:jadwal_kuliah/enums/kelas_type.dart';
+import 'package:jadwal_kuliah/enums/periode_semester_type.dart';
 import 'package:jadwal_kuliah/extensions/time_of_day_extension.dart';
 import 'package:jadwal_kuliah/models/hari_model.dart';
 import 'package:jadwal_kuliah/models/item_model.dart';
@@ -76,8 +77,10 @@ class PengaturanViewModel extends ReactiveViewModel {
     final response = await _bottomSheetService.showCustomSheet(
         variant: BottomSheetType.monthRangePicker,
         data: MonthRangePickerSheetData(
-          startMonth: currentModel?.startMonth ?? (type == PeriodeSemesterType.ganjil ? 8 : 2),
-          endMonth: currentModel?.endMonth ?? (type == PeriodeSemesterType.ganjil ? 1 : 7),
+          startMonth: currentModel?.startMonth ??
+              (type == PeriodeSemesterType.ganjil ? 8 : 2),
+          endMonth: currentModel?.endMonth ??
+              (type == PeriodeSemesterType.ganjil ? 1 : 7),
         ));
 
     if (response?.confirmed == false) return;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jadwal_kuliah/enums/periode_semester_type.dart';
 import 'package:jadwal_kuliah/ui/common/app_colors.dart';
 import 'package:jadwal_kuliah/ui/common/ui_helpers.dart';
 import 'package:jadwal_kuliah/ui/views/pengaturan/pengaturan_viewmodel.dart';
@@ -72,7 +73,8 @@ class CardSemesterWidget extends ViewModelWidget<PengaturanViewModel> {
                       ),
                       const SizedBox(width: 16),
                       IconButton(
-                        onPressed: () => viewModel.onSelectSemester(PeriodeSemesterType.ganjil),
+                        onPressed: () => viewModel
+                            .onSelectSemester(PeriodeSemesterType.ganjil),
                         icon: const Icon(
                           UniconsLine.edit,
                           color: kcTertiaryColor,
@@ -89,7 +91,8 @@ class CardSemesterWidget extends ViewModelWidget<PengaturanViewModel> {
                       ),
                       const SizedBox(width: 16),
                       IconButton(
-                        onPressed: () => viewModel.onSelectSemester(PeriodeSemesterType.genap),
+                        onPressed: () => viewModel
+                            .onSelectSemester(PeriodeSemesterType.genap),
                         icon: const Icon(
                           UniconsLine.edit,
                           color: kcTertiaryColor,
