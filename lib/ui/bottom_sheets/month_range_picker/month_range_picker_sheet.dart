@@ -37,7 +37,7 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              request.title ?? 'Select Month Range',
+              request.title ?? 'Pilih Rentang Bulan',
               style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
             ),
             verticalSpaceMedium,
@@ -92,7 +92,7 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
                 TextButton(
                   onPressed: () =>
                       completer?.call(SheetResponse(confirmed: false)),
-                  child: const Text('Cancel'),
+                  child: const Text('Batal'),
                 ),
                 horizontalSpaceSmall,
                 ElevatedButton(
@@ -103,7 +103,7 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
                       'endDate': viewModel.endDate,
                     },
                   )),
-                  child: const Text('Confirm'),
+                  child: const Text('Konfirmasi'),
                 ),
               ],
             ),
