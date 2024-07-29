@@ -50,23 +50,38 @@ class KelasModel with _$KelasModel {
     final bulan = now.month;
 
     final tahunAngkatan = this.tahunAngkatan;
-    final semester = (tahun - tahunAngkatan) * 2;
+    int semester;
+
+    // Calculate the number of years since enrollment
+    int yearsSinceEnrollment = tahun - tahunAngkatan;
+    
+    // Adjust for the academic year starting in September
+    if (bulan < 9) {
+      yearsSinceEnrollment--;
+    }
+
+    // Calculate the base semester
+    semester = yearsSinceEnrollment * 2 + 1;
 
     final ganjil = periodeSemesterService.ganjil;
     final genap = periodeSemesterService.genap;
 
     if (ganjil != null && genap != null) {
       if (bulan >= ganjil.startMonth && bulan <= ganjil.endMonth) {
-        return semester + 1;
+        // We're in the odd semester
+        return semester;
       } else if (bulan >= genap.startMonth && bulan <= genap.endMonth) {
-        return semester + 2;
+        // We're in the even semester
+        return semester + 1;
       }
     }
 
-    // Fallback to the original logic if PeriodeSemesterService data is not available
-    if (bulan >= 2 && bulan <= 7) {
+    // Fallback logic if PeriodeSemesterService data is not available
+    if (bulan >= 9 || bulan <= 2) {
+      // Odd semester (September to February)
       return semester;
     } else {
+      // Even semester (March to August)
       return semester + 1;
     }
   }
