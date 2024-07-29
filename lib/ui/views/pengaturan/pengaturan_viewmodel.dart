@@ -11,6 +11,7 @@ import 'package:jadwal_kuliah/extensions/time_of_day_extension.dart';
 import 'package:jadwal_kuliah/models/hari_model.dart';
 import 'package:jadwal_kuliah/models/item_model.dart';
 import 'package:jadwal_kuliah/models/jam_model.dart';
+import 'package:jadwal_kuliah/models/periode_semester_model.dart';
 import 'package:jadwal_kuliah/services/hari_service.dart';
 import 'package:jadwal_kuliah/services/jam_service.dart';
 import 'package:jadwal_kuliah/services/periode_semester_service.dart';
@@ -399,6 +400,7 @@ class PengaturanViewModel extends ReactiveViewModel {
 
   @override
   List<ListenableServiceMixin> get listenableServices => [
+        _periodSemesterService,
         _hariService,
         _jamService,
       ];
