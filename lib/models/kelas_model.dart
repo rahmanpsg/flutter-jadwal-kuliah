@@ -3,6 +3,8 @@
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:jadwal_kuliah/enums/kelas_type.dart';
+import 'package:jadwal_kuliah/app/app.locator.dart';
+import 'package:jadwal_kuliah/services/periode_semester_service.dart';
 import 'package:uuid/uuid.dart';
 
 part 'kelas_model.freezed.dart';
@@ -42,17 +44,30 @@ class KelasModel with _$KelasModel {
       );
 
   int get semester {
+    final periodeSemesterService = locator<PeriodeSemesterService>();
     final now = DateTime.now();
     final tahun = now.year;
     final bulan = now.month;
 
     final tahunAngkatan = this.tahunAngkatan;
-    final semester = tahun - tahunAngkatan;
+    final semester = (tahun - tahunAngkatan) * 2;
 
+    final ganjil = periodeSemesterService.ganjil;
+    final genap = periodeSemesterService.genap;
+
+    if (ganjil != null && genap != null) {
+      if (bulan >= ganjil.startMonth && bulan <= ganjil.endMonth) {
+        return semester + 1;
+      } else if (bulan >= genap.startMonth && bulan <= genap.endMonth) {
+        return semester + 2;
+      }
+    }
+
+    // Fallback to the original logic if PeriodeSemesterService data is not available
     if (bulan >= 2 && bulan <= 7) {
-      return semester * 2;
+      return semester;
     } else {
-      return (semester * 2) + 1;
+      return semester + 1;
     }
   }
 
