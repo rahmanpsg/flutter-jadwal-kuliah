@@ -66,7 +66,7 @@ class CardSemesterWidget extends ViewModelWidget<PengaturanViewModel> {
                       Flexible(
                         child: Text(
                           viewModel.ganjil != null
-                              ? '${viewModel.ganjil!.startMonth} - ${viewModel.ganjil!.endMonth}'
+                              ? '${viewModel.ganjil!.startMonthText} - ${viewModel.ganjil!.endMonthText}'
                               : 'Belum diatur',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
@@ -84,7 +84,7 @@ class CardSemesterWidget extends ViewModelWidget<PengaturanViewModel> {
                       Flexible(
                         child: Text(
                           viewModel.genap != null
-                              ? '${viewModel.genap!.startMonth} - ${viewModel.genap!.endMonth}'
+                              ? '${viewModel.genap!.startMonthText} - ${viewModel.genap!.endMonthText}'
                               : 'Belum diatur',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
