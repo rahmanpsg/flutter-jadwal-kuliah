@@ -57,7 +57,7 @@ class PeriodeSemesterService with ListenableServiceMixin {
     try {
       await _supabase.from(tableName).upsert(model.toJson());
 
-      final index = _items.indexWhere((element) => element.id == model.id);
+      final index = _items.indexWhere((element) => element.type == model.type);
 
       if (index >= 0) {
         _items[index] = model;
@@ -72,13 +72,11 @@ class PeriodeSemesterService with ListenableServiceMixin {
 }
 
 class PeriodeSemesterModel {
-  final String id;
   final String type;
   final int startMonth;
   final int endMonth;
 
   PeriodeSemesterModel({
-    required this.id,
     required this.type,
     required this.startMonth,
     required this.endMonth,
@@ -86,7 +84,6 @@ class PeriodeSemesterModel {
 
   factory PeriodeSemesterModel.fromJson(Map<String, dynamic> json) {
     return PeriodeSemesterModel(
-      id: json['id'],
       type: json['type'],
       startMonth: json['start_month'],
       endMonth: json['end_month'],
@@ -95,7 +92,6 @@ class PeriodeSemesterModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'type': type,
       'start_month': startMonth,
       'end_month': endMonth,
