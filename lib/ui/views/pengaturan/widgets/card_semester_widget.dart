@@ -23,30 +23,21 @@ class CardSemesterWidget extends ViewModelWidget<PengaturanViewModel> {
       child: Card(
         child: Column(
           children: [
-            ListTile(
+            const ListTile(
               tileColor: kcSecondaryColor,
-              shape: const RoundedRectangleBorder(
+              shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(8),
                 ),
               ),
               textColor: kcWhite,
-              leading: const Icon(
+              leading: Icon(
                 UniconsLine.calendar_alt,
                 color: kcWhite,
               ),
-              title: const Text('Semester'),
-              trailing: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  UniconsLine.edit,
-                  color: kcWhite,
-                ),
-              ),
+              title: Text('Semester'),
             ),
             if (viewModel.busy('hari')) const LinearProgressIndicator(),
-            // add form editable for semester ganjil and genap with month - month
-
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -71,19 +62,35 @@ class CardSemesterWidget extends ViewModelWidget<PengaturanViewModel> {
                   const SizedBox(height: 16),
                   Row(
                     children: [
-                      Expanded(
+                      Flexible(
                         child: Text(
                           'Agustus - Januari',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
                       const SizedBox(width: 16),
-                      Expanded(
+                      IconButton(
+                        onPressed: viewModel.onSelectSemesterGanjil,
+                        icon: const Icon(
+                          UniconsLine.edit,
+                          color: kcTertiaryColor,
+                        ),
+                      ),
+                      const Spacer(),
+                      Flexible(
                         child: Text(
                           'Februari - Juli',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
+                      const SizedBox(width: 16),
+                      IconButton(
+                        onPressed: viewModel.onSelectSemesterGanjil,
+                        icon: const Icon(
+                          UniconsLine.edit,
+                          color: kcTertiaryColor,
+                        ),
+                      )
                     ],
                   ),
                 ],

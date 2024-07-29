@@ -2,6 +2,7 @@
 
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:jadwal_kuliah/app/app.bottomsheets.dart';
 import 'package:jadwal_kuliah/app/app.dialogs.dart';
 import 'package:jadwal_kuliah/app/app.locator.dart';
 import 'package:jadwal_kuliah/app/app.logger.dart';
@@ -21,6 +22,7 @@ class PengaturanViewModel extends ReactiveViewModel {
   final log = getLogger('PengaturanViewModel');
 
   final _dialogService = locator<DialogService>();
+  final _bottomSheetService = locator<BottomSheetService>();
   final _hariService = locator<HariService>();
   final _jamService = locator<JamService>();
 
@@ -59,6 +61,12 @@ class PengaturanViewModel extends ReactiveViewModel {
 
     setBusyForObject('hari', false);
     setBusyForObject('jam', false);
+  }
+
+  void onSelectSemesterGanjil() async {
+    final response = await _bottomSheetService.showCustomSheet(
+      variant: BottomSheetType.monthRangePicker,
+    );
   }
 
   void onAddHari() async {

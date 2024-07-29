@@ -10,10 +10,10 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const MonthRangePickerSheet({
-    Key? key,
+    super.key,
     required this.completer,
     required this.request,
-  }) : super(key: key);
+  });
 
   @override
   Widget builder(
@@ -52,7 +52,8 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
                 lastDate: DateTime(DateTime.now().year + 5),
                 initialDateRange: DateTimeRange(
                   start: viewModel.startDate ?? DateTime.now(),
-                  end: viewModel.endDate ?? DateTime.now().add(const Duration(days: 30)),
+                  end: viewModel.endDate ??
+                      DateTime.now().add(const Duration(days: 30)),
                 ),
               );
               if (picked != null) {
@@ -66,7 +67,8 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                onPressed: () => completer?.call(SheetResponse(confirmed: false)),
+                onPressed: () =>
+                    completer?.call(SheetResponse(confirmed: false)),
                 child: const Text('Cancel'),
               ),
               horizontalSpaceSmall,
