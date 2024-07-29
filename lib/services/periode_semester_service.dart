@@ -1,4 +1,5 @@
 import 'package:jadwal_kuliah/app/app.logger.dart';
+import 'package:jadwal_kuliah/models/periode_semester_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -68,33 +69,5 @@ class PeriodeSemesterService with ListenableServiceMixin {
       log.e(e);
       throw 'Gagal menyimpan data';
     }
-  }
-}
-
-class PeriodeSemesterModel {
-  final String type;
-  final int startMonth;
-  final int endMonth;
-
-  PeriodeSemesterModel({
-    required this.type,
-    required this.startMonth,
-    required this.endMonth,
-  });
-
-  factory PeriodeSemesterModel.fromJson(Map<String, dynamic> json) {
-    return PeriodeSemesterModel(
-      type: json['type'],
-      startMonth: json['start_month'],
-      endMonth: json['end_month'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'type': type,
-      'start_month': startMonth,
-      'end_month': endMonth,
-    };
   }
 }
