@@ -12,7 +12,7 @@ part of 'fakultas_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 FakultasModel _$FakultasModelFromJson(Map<String, dynamic> json) {
   return _FakultasModel.fromJson(json);
@@ -68,22 +68,22 @@ class _$FakultasModelCopyWithImpl<$Res, $Val extends FakultasModel>
 }
 
 /// @nodoc
-abstract class _$$_FakultasModelCopyWith<$Res>
+abstract class _$$FakultasModelImplCopyWith<$Res>
     implements $FakultasModelCopyWith<$Res> {
-  factory _$$_FakultasModelCopyWith(
-          _$_FakultasModel value, $Res Function(_$_FakultasModel) then) =
-      __$$_FakultasModelCopyWithImpl<$Res>;
+  factory _$$FakultasModelImplCopyWith(
+          _$FakultasModelImpl value, $Res Function(_$FakultasModelImpl) then) =
+      __$$FakultasModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String nama});
 }
 
 /// @nodoc
-class __$$_FakultasModelCopyWithImpl<$Res>
-    extends _$FakultasModelCopyWithImpl<$Res, _$_FakultasModel>
-    implements _$$_FakultasModelCopyWith<$Res> {
-  __$$_FakultasModelCopyWithImpl(
-      _$_FakultasModel _value, $Res Function(_$_FakultasModel) _then)
+class __$$FakultasModelImplCopyWithImpl<$Res>
+    extends _$FakultasModelCopyWithImpl<$Res, _$FakultasModelImpl>
+    implements _$$FakultasModelImplCopyWith<$Res> {
+  __$$FakultasModelImplCopyWithImpl(
+      _$FakultasModelImpl _value, $Res Function(_$FakultasModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +92,7 @@ class __$$_FakultasModelCopyWithImpl<$Res>
     Object? id = null,
     Object? nama = null,
   }) {
-    return _then(_$_FakultasModel(
+    return _then(_$FakultasModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -107,11 +107,11 @@ class __$$_FakultasModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_FakultasModel extends _FakultasModel {
-  const _$_FakultasModel({required this.id, required this.nama}) : super._();
+class _$FakultasModelImpl extends _FakultasModel {
+  const _$FakultasModelImpl({required this.id, required this.nama}) : super._();
 
-  factory _$_FakultasModel.fromJson(Map<String, dynamic> json) =>
-      _$$_FakultasModelFromJson(json);
+  factory _$FakultasModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FakultasModelImplFromJson(json);
 
   @override
   final String id;
@@ -124,10 +124,10 @@ class _$_FakultasModel extends _FakultasModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FakultasModel &&
+            other is _$FakultasModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.nama, nama) || other.nama == nama));
   }
@@ -139,12 +139,12 @@ class _$_FakultasModel extends _FakultasModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FakultasModelCopyWith<_$_FakultasModel> get copyWith =>
-      __$$_FakultasModelCopyWithImpl<_$_FakultasModel>(this, _$identity);
+  _$$FakultasModelImplCopyWith<_$FakultasModelImpl> get copyWith =>
+      __$$FakultasModelImplCopyWithImpl<_$FakultasModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_FakultasModelToJson(
+    return _$$FakultasModelImplToJson(
       this,
     );
   }
@@ -153,11 +153,11 @@ class _$_FakultasModel extends _FakultasModel {
 abstract class _FakultasModel extends FakultasModel {
   const factory _FakultasModel(
       {required final String id,
-      required final String nama}) = _$_FakultasModel;
+      required final String nama}) = _$FakultasModelImpl;
   const _FakultasModel._() : super._();
 
   factory _FakultasModel.fromJson(Map<String, dynamic> json) =
-      _$_FakultasModel.fromJson;
+      _$FakultasModelImpl.fromJson;
 
   @override
   String get id;
@@ -165,6 +165,6 @@ abstract class _FakultasModel extends FakultasModel {
   String get nama;
   @override
   @JsonKey(ignore: true)
-  _$$_FakultasModelCopyWith<_$_FakultasModel> get copyWith =>
+  _$$FakultasModelImplCopyWith<_$FakultasModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

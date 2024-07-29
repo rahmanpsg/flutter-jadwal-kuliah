@@ -53,21 +53,19 @@ class DashboardView extends StackedView<DashboardViewModel> {
                         ],
                       ),
                     ),
-                    ...viewModel.items
-                        .map(
-                          (item) => ListTile(
-                            selected: viewModel.currentIndex ==
-                                viewModel.items.indexOf(item),
-                            leading: Icon(item.icon),
-                            title: Text(item.label),
-                            onTap: () {
-                              viewModel.handleNavigation(
-                                  viewModel.items.indexOf(item));
-                              Navigator.pop(context);
-                            },
-                          ),
-                        )
-                        ,
+                    ...viewModel.items.map(
+                      (item) => ListTile(
+                        selected: viewModel.currentIndex ==
+                            viewModel.items.indexOf(item),
+                        leading: Icon(item.icon),
+                        title: Text(item.label),
+                        onTap: () {
+                          viewModel
+                              .handleNavigation(viewModel.items.indexOf(item));
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
                   ],
                 ),
               )

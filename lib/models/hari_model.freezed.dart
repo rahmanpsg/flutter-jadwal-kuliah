@@ -12,7 +12,7 @@ part of 'hari_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 HariModel _$HariModelFromJson(Map<String, dynamic> json) {
   return _HariModel.fromJson(json);
@@ -78,10 +78,11 @@ class _$HariModelCopyWithImpl<$Res, $Val extends HariModel>
 }
 
 /// @nodoc
-abstract class _$$_HariModelCopyWith<$Res> implements $HariModelCopyWith<$Res> {
-  factory _$$_HariModelCopyWith(
-          _$_HariModel value, $Res Function(_$_HariModel) then) =
-      __$$_HariModelCopyWithImpl<$Res>;
+abstract class _$$HariModelImplCopyWith<$Res>
+    implements $HariModelCopyWith<$Res> {
+  factory _$$HariModelImplCopyWith(
+          _$HariModelImpl value, $Res Function(_$HariModelImpl) then) =
+      __$$HariModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -92,11 +93,11 @@ abstract class _$$_HariModelCopyWith<$Res> implements $HariModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_HariModelCopyWithImpl<$Res>
-    extends _$HariModelCopyWithImpl<$Res, _$_HariModel>
-    implements _$$_HariModelCopyWith<$Res> {
-  __$$_HariModelCopyWithImpl(
-      _$_HariModel _value, $Res Function(_$_HariModel) _then)
+class __$$HariModelImplCopyWithImpl<$Res>
+    extends _$HariModelCopyWithImpl<$Res, _$HariModelImpl>
+    implements _$$HariModelImplCopyWith<$Res> {
+  __$$HariModelImplCopyWithImpl(
+      _$HariModelImpl _value, $Res Function(_$HariModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -106,7 +107,7 @@ class __$$_HariModelCopyWithImpl<$Res>
     Object? hari = null,
     Object? kelas = null,
   }) {
-    return _then(_$_HariModel(
+    return _then(_$HariModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -125,8 +126,8 @@ class __$$_HariModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_HariModel extends _HariModel {
-  const _$_HariModel(
+class _$HariModelImpl extends _HariModel {
+  const _$HariModelImpl(
       {required this.id,
       required this.hari,
       @JsonKey(fromJson: KelasType.fromListInt, toJson: KelasType.toListInt)
@@ -134,8 +135,8 @@ class _$_HariModel extends _HariModel {
       : _kelas = kelas,
         super._();
 
-  factory _$_HariModel.fromJson(Map<String, dynamic> json) =>
-      _$$_HariModelFromJson(json);
+  factory _$HariModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$HariModelImplFromJson(json);
 
   @override
   final String id;
@@ -156,10 +157,10 @@ class _$_HariModel extends _HariModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_HariModel &&
+            other is _$HariModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.hari, hari) || other.hari == hari) &&
             const DeepCollectionEquality().equals(other._kelas, _kelas));
@@ -173,12 +174,12 @@ class _$_HariModel extends _HariModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_HariModelCopyWith<_$_HariModel> get copyWith =>
-      __$$_HariModelCopyWithImpl<_$_HariModel>(this, _$identity);
+  _$$HariModelImplCopyWith<_$HariModelImpl> get copyWith =>
+      __$$HariModelImplCopyWithImpl<_$HariModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_HariModelToJson(
+    return _$$HariModelImplToJson(
       this,
     );
   }
@@ -189,11 +190,11 @@ abstract class _HariModel extends HariModel {
       {required final String id,
       required final String hari,
       @JsonKey(fromJson: KelasType.fromListInt, toJson: KelasType.toListInt)
-      required final List<KelasType> kelas}) = _$_HariModel;
+      required final List<KelasType> kelas}) = _$HariModelImpl;
   const _HariModel._() : super._();
 
   factory _HariModel.fromJson(Map<String, dynamic> json) =
-      _$_HariModel.fromJson;
+      _$HariModelImpl.fromJson;
 
   @override
   String get id;
@@ -204,6 +205,6 @@ abstract class _HariModel extends HariModel {
   List<KelasType> get kelas;
   @override
   @JsonKey(ignore: true)
-  _$$_HariModelCopyWith<_$_HariModel> get copyWith =>
+  _$$HariModelImplCopyWith<_$HariModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

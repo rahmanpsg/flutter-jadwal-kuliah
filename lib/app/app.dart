@@ -26,6 +26,7 @@ import 'package:jadwal_kuliah/ui/dialogs/pengampu_form/pengampu_form_dialog.dart
 import 'package:jadwal_kuliah/services/hari_service.dart';
 import 'package:jadwal_kuliah/services/jam_service.dart';
 import 'package:jadwal_kuliah/services/jadwal_service.dart';
+import 'package:jadwal_kuliah/ui/bottom_sheets/month_range_picker/month_range_picker_sheet.dart';
 // @stacked-import
 
 @StackedApp(
@@ -96,7 +97,8 @@ import 'package:jadwal_kuliah/services/jadwal_service.dart';
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),
-    // @stacked-bottom-sheet
+    StackedBottomsheet(classType: MonthRangePickerSheet),
+// @stacked-bottom-sheet
   ],
   dialogs: [
     StackedDialog(classType: FormDialog),

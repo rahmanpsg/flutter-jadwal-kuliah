@@ -12,7 +12,7 @@ part of 'pengampu_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 PengampuModel _$PengampuModelFromJson(Map<String, dynamic> json) {
   return _PengampuModel.fromJson(json);
@@ -92,11 +92,11 @@ class _$PengampuModelCopyWithImpl<$Res, $Val extends PengampuModel>
 }
 
 /// @nodoc
-abstract class _$$_PengampuModelCopyWith<$Res>
+abstract class _$$PengampuModelImplCopyWith<$Res>
     implements $PengampuModelCopyWith<$Res> {
-  factory _$$_PengampuModelCopyWith(
-          _$_PengampuModel value, $Res Function(_$_PengampuModel) then) =
-      __$$_PengampuModelCopyWithImpl<$Res>;
+  factory _$$PengampuModelImplCopyWith(
+          _$PengampuModelImpl value, $Res Function(_$PengampuModelImpl) then) =
+      __$$PengampuModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -108,11 +108,11 @@ abstract class _$$_PengampuModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PengampuModelCopyWithImpl<$Res>
-    extends _$PengampuModelCopyWithImpl<$Res, _$_PengampuModel>
-    implements _$$_PengampuModelCopyWith<$Res> {
-  __$$_PengampuModelCopyWithImpl(
-      _$_PengampuModel _value, $Res Function(_$_PengampuModel) _then)
+class __$$PengampuModelImplCopyWithImpl<$Res>
+    extends _$PengampuModelCopyWithImpl<$Res, _$PengampuModelImpl>
+    implements _$$PengampuModelImplCopyWith<$Res> {
+  __$$PengampuModelImplCopyWithImpl(
+      _$PengampuModelImpl _value, $Res Function(_$PengampuModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -124,7 +124,7 @@ class __$$_PengampuModelCopyWithImpl<$Res>
     Object? tahunAkademik = null,
     Object? kelas = null,
   }) {
-    return _then(_$_PengampuModel(
+    return _then(_$PengampuModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -151,8 +151,8 @@ class __$$_PengampuModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PengampuModel extends _PengampuModel {
-  const _$_PengampuModel(
+class _$PengampuModelImpl extends _PengampuModel {
+  const _$PengampuModelImpl(
       {required this.id,
       required this.idMatakuliah,
       required this.idDosen,
@@ -162,8 +162,8 @@ class _$_PengampuModel extends _PengampuModel {
       : _kelas = kelas,
         super._();
 
-  factory _$_PengampuModel.fromJson(Map<String, dynamic> json) =>
-      _$$_PengampuModelFromJson(json);
+  factory _$PengampuModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PengampuModelImplFromJson(json);
 
   @override
   final String id;
@@ -188,10 +188,10 @@ class _$_PengampuModel extends _PengampuModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PengampuModel &&
+            other is _$PengampuModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.idMatakuliah, idMatakuliah) ||
                 other.idMatakuliah == idMatakuliah) &&
@@ -209,12 +209,12 @@ class _$_PengampuModel extends _PengampuModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PengampuModelCopyWith<_$_PengampuModel> get copyWith =>
-      __$$_PengampuModelCopyWithImpl<_$_PengampuModel>(this, _$identity);
+  _$$PengampuModelImplCopyWith<_$PengampuModelImpl> get copyWith =>
+      __$$PengampuModelImplCopyWithImpl<_$PengampuModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PengampuModelToJson(
+    return _$$PengampuModelImplToJson(
       this,
     );
   }
@@ -227,11 +227,11 @@ abstract class _PengampuModel extends PengampuModel {
       required final String idDosen,
       required final String tahunAkademik,
       @JsonKey(includeToJson: false)
-      required final List<PengampuKelasModel> kelas}) = _$_PengampuModel;
+      required final List<PengampuKelasModel> kelas}) = _$PengampuModelImpl;
   const _PengampuModel._() : super._();
 
   factory _PengampuModel.fromJson(Map<String, dynamic> json) =
-      _$_PengampuModel.fromJson;
+      _$PengampuModelImpl.fromJson;
 
   @override
   String get id;
@@ -246,7 +246,7 @@ abstract class _PengampuModel extends PengampuModel {
   List<PengampuKelasModel> get kelas;
   @override
   @JsonKey(ignore: true)
-  _$$_PengampuModelCopyWith<_$_PengampuModel> get copyWith =>
+  _$$PengampuModelImplCopyWith<_$PengampuModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -316,22 +316,22 @@ class _$PengampuKelasModelCopyWithImpl<$Res, $Val extends PengampuKelasModel>
 }
 
 /// @nodoc
-abstract class _$$_PengampuKelasModelCopyWith<$Res>
+abstract class _$$PengampuKelasModelImplCopyWith<$Res>
     implements $PengampuKelasModelCopyWith<$Res> {
-  factory _$$_PengampuKelasModelCopyWith(_$_PengampuKelasModel value,
-          $Res Function(_$_PengampuKelasModel) then) =
-      __$$_PengampuKelasModelCopyWithImpl<$Res>;
+  factory _$$PengampuKelasModelImplCopyWith(_$PengampuKelasModelImpl value,
+          $Res Function(_$PengampuKelasModelImpl) then) =
+      __$$PengampuKelasModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String idPengampu, String idKelas, String kelas});
 }
 
 /// @nodoc
-class __$$_PengampuKelasModelCopyWithImpl<$Res>
-    extends _$PengampuKelasModelCopyWithImpl<$Res, _$_PengampuKelasModel>
-    implements _$$_PengampuKelasModelCopyWith<$Res> {
-  __$$_PengampuKelasModelCopyWithImpl(
-      _$_PengampuKelasModel _value, $Res Function(_$_PengampuKelasModel) _then)
+class __$$PengampuKelasModelImplCopyWithImpl<$Res>
+    extends _$PengampuKelasModelCopyWithImpl<$Res, _$PengampuKelasModelImpl>
+    implements _$$PengampuKelasModelImplCopyWith<$Res> {
+  __$$PengampuKelasModelImplCopyWithImpl(_$PengampuKelasModelImpl _value,
+      $Res Function(_$PengampuKelasModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -342,7 +342,7 @@ class __$$_PengampuKelasModelCopyWithImpl<$Res>
     Object? idKelas = null,
     Object? kelas = null,
   }) {
-    return _then(_$_PengampuKelasModel(
+    return _then(_$PengampuKelasModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -365,16 +365,16 @@ class __$$_PengampuKelasModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PengampuKelasModel extends _PengampuKelasModel {
-  const _$_PengampuKelasModel(
+class _$PengampuKelasModelImpl extends _PengampuKelasModel {
+  const _$PengampuKelasModelImpl(
       {required this.id,
       required this.idPengampu,
       required this.idKelas,
       required this.kelas})
       : super._();
 
-  factory _$_PengampuKelasModel.fromJson(Map<String, dynamic> json) =>
-      _$$_PengampuKelasModelFromJson(json);
+  factory _$PengampuKelasModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PengampuKelasModelImplFromJson(json);
 
   @override
   final String id;
@@ -391,10 +391,10 @@ class _$_PengampuKelasModel extends _PengampuKelasModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PengampuKelasModel &&
+            other is _$PengampuKelasModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.idPengampu, idPengampu) ||
                 other.idPengampu == idPengampu) &&
@@ -409,13 +409,13 @@ class _$_PengampuKelasModel extends _PengampuKelasModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PengampuKelasModelCopyWith<_$_PengampuKelasModel> get copyWith =>
-      __$$_PengampuKelasModelCopyWithImpl<_$_PengampuKelasModel>(
+  _$$PengampuKelasModelImplCopyWith<_$PengampuKelasModelImpl> get copyWith =>
+      __$$PengampuKelasModelImplCopyWithImpl<_$PengampuKelasModelImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PengampuKelasModelToJson(
+    return _$$PengampuKelasModelImplToJson(
       this,
     );
   }
@@ -426,11 +426,11 @@ abstract class _PengampuKelasModel extends PengampuKelasModel {
       {required final String id,
       required final String idPengampu,
       required final String idKelas,
-      required final String kelas}) = _$_PengampuKelasModel;
+      required final String kelas}) = _$PengampuKelasModelImpl;
   const _PengampuKelasModel._() : super._();
 
   factory _PengampuKelasModel.fromJson(Map<String, dynamic> json) =
-      _$_PengampuKelasModel.fromJson;
+      _$PengampuKelasModelImpl.fromJson;
 
   @override
   String get id;
@@ -442,6 +442,6 @@ abstract class _PengampuKelasModel extends PengampuKelasModel {
   String get kelas;
   @override
   @JsonKey(ignore: true)
-  _$$_PengampuKelasModelCopyWith<_$_PengampuKelasModel> get copyWith =>
+  _$$PengampuKelasModelImplCopyWith<_$PengampuKelasModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

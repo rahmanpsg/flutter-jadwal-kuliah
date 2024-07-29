@@ -6,8 +6,8 @@ part of 'dosen_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_DosenModel _$$_DosenModelFromJson(Map<String, dynamic> json) =>
-    _$_DosenModel(
+_$DosenModelImpl _$$DosenModelImplFromJson(Map<String, dynamic> json) =>
+    _$DosenModelImpl(
       id: json['id'] as String,
       nbm: json['nbm'] as String,
       nama: json['nama'] as String,
@@ -15,7 +15,7 @@ _$_DosenModel _$$_DosenModelFromJson(Map<String, dynamic> json) =>
       nomorTelepon: json['nomor_telepon'] as String?,
     );
 
-Map<String, dynamic> _$$_DosenModelToJson(_$_DosenModel instance) =>
+Map<String, dynamic> _$$DosenModelImplToJson(_$DosenModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'nbm': instance.nbm,

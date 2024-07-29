@@ -12,7 +12,7 @@ part of 'matakuliah_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 MatakuliahModel _$MatakuliahModelFromJson(Map<String, dynamic> json) {
   return _MatakuliahModel.fromJson(json);
@@ -98,11 +98,11 @@ class _$MatakuliahModelCopyWithImpl<$Res, $Val extends MatakuliahModel>
 }
 
 /// @nodoc
-abstract class _$$_MatakuliahModelCopyWith<$Res>
+abstract class _$$MatakuliahModelImplCopyWith<$Res>
     implements $MatakuliahModelCopyWith<$Res> {
-  factory _$$_MatakuliahModelCopyWith(
-          _$_MatakuliahModel value, $Res Function(_$_MatakuliahModel) then) =
-      __$$_MatakuliahModelCopyWithImpl<$Res>;
+  factory _$$MatakuliahModelImplCopyWith(_$MatakuliahModelImpl value,
+          $Res Function(_$MatakuliahModelImpl) then) =
+      __$$MatakuliahModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -115,11 +115,11 @@ abstract class _$$_MatakuliahModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_MatakuliahModelCopyWithImpl<$Res>
-    extends _$MatakuliahModelCopyWithImpl<$Res, _$_MatakuliahModel>
-    implements _$$_MatakuliahModelCopyWith<$Res> {
-  __$$_MatakuliahModelCopyWithImpl(
-      _$_MatakuliahModel _value, $Res Function(_$_MatakuliahModel) _then)
+class __$$MatakuliahModelImplCopyWithImpl<$Res>
+    extends _$MatakuliahModelCopyWithImpl<$Res, _$MatakuliahModelImpl>
+    implements _$$MatakuliahModelImplCopyWith<$Res> {
+  __$$MatakuliahModelImplCopyWithImpl(
+      _$MatakuliahModelImpl _value, $Res Function(_$MatakuliahModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -132,7 +132,7 @@ class __$$_MatakuliahModelCopyWithImpl<$Res>
     Object? semester = null,
     Object? idProgramStudi = freezed,
   }) {
-    return _then(_$_MatakuliahModel(
+    return _then(_$MatakuliahModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -163,8 +163,8 @@ class __$$_MatakuliahModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_MatakuliahModel extends _MatakuliahModel {
-  const _$_MatakuliahModel(
+class _$MatakuliahModelImpl extends _MatakuliahModel {
+  const _$MatakuliahModelImpl(
       {required this.id,
       required this.kode,
       required this.nama,
@@ -173,8 +173,8 @@ class _$_MatakuliahModel extends _MatakuliahModel {
       required this.idProgramStudi})
       : super._();
 
-  factory _$_MatakuliahModel.fromJson(Map<String, dynamic> json) =>
-      _$$_MatakuliahModelFromJson(json);
+  factory _$MatakuliahModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MatakuliahModelImplFromJson(json);
 
   @override
   final String id;
@@ -195,10 +195,10 @@ class _$_MatakuliahModel extends _MatakuliahModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MatakuliahModel &&
+            other is _$MatakuliahModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.kode, kode) || other.kode == kode) &&
             (identical(other.nama, nama) || other.nama == nama) &&
@@ -217,12 +217,13 @@ class _$_MatakuliahModel extends _MatakuliahModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MatakuliahModelCopyWith<_$_MatakuliahModel> get copyWith =>
-      __$$_MatakuliahModelCopyWithImpl<_$_MatakuliahModel>(this, _$identity);
+  _$$MatakuliahModelImplCopyWith<_$MatakuliahModelImpl> get copyWith =>
+      __$$MatakuliahModelImplCopyWithImpl<_$MatakuliahModelImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MatakuliahModelToJson(
+    return _$$MatakuliahModelImplToJson(
       this,
     );
   }
@@ -235,11 +236,11 @@ abstract class _MatakuliahModel extends MatakuliahModel {
       required final String nama,
       required final int sks,
       required final int semester,
-      required final String? idProgramStudi}) = _$_MatakuliahModel;
+      required final String? idProgramStudi}) = _$MatakuliahModelImpl;
   const _MatakuliahModel._() : super._();
 
   factory _MatakuliahModel.fromJson(Map<String, dynamic> json) =
-      _$_MatakuliahModel.fromJson;
+      _$MatakuliahModelImpl.fromJson;
 
   @override
   String get id;
@@ -255,6 +256,6 @@ abstract class _MatakuliahModel extends MatakuliahModel {
   String? get idProgramStudi;
   @override
   @JsonKey(ignore: true)
-  _$$_MatakuliahModelCopyWith<_$_MatakuliahModel> get copyWith =>
+  _$$MatakuliahModelImplCopyWith<_$MatakuliahModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
