@@ -29,6 +29,9 @@ class PengaturanViewModel extends ReactiveViewModel {
   final _hariService = locator<HariService>();
   final _jamService = locator<JamService>();
 
+  PeriodeSemesterModel? get ganjil => _periodSemesterService.ganjil;
+  PeriodeSemesterModel? get genap => _periodSemesterService.genap;
+
   final hariColumns = [
     '#',
     'Hari',
