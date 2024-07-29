@@ -28,17 +28,11 @@ class MonthRangePickerSheetModel extends BaseViewModel {
 
   void setStartMonth(int month) {
     startMonth = month;
-    if (endMonth < startMonth) {
-      endMonth = startMonth;
-    }
-    notifyListeners();
+    rebuildUi();
   }
 
   void setEndMonth(int month) {
     endMonth = month;
-    if (startMonth > endMonth) {
-      startMonth = endMonth;
-    }
-    notifyListeners();
+    rebuildUi();
   }
 }
