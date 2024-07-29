@@ -6,7 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class PeriodeSemesterService with ListenableServiceMixin {
   PeriodeSemesterService() {
-    listenToReactiveValues([items]);
+    listenToReactiveValues([_ganjil, _genap]);
   }
 
   final log = getLogger('PeriodeSemesterService');
@@ -14,57 +14,55 @@ class PeriodeSemesterService with ListenableServiceMixin {
   static const String tableName = 'periode_semester';
   final _supabase = Supabase.instance.client;
 
-  final _items = ReactiveList<PeriodeSemesterModel>();
+  final ReactiveValue<PeriodeSemesterModel?> _ganjil = ReactiveValue<PeriodeSemesterModel?>(null);
+  final ReactiveValue<PeriodeSemesterModel?> _genap = ReactiveValue<PeriodeSemesterModel?>(null);
 
-  List<PeriodeSemesterModel> get items => _items.toSet().toList();
+  PeriodeSemesterModel? get ganjil => _ganjil.value;
+  PeriodeSemesterModel? get genap => _genap.value;
 
   bool _isSync = false;
 
   Future<void> syncData() async {
     if (_isSync) return;
 
-    await gets();
+    await fetchData();
 
     _isSync = true;
   }
 
-  Future<List<PeriodeSemesterModel>> gets() async {
+  Future<void> fetchData() async {
     try {
-      final response = await _supabase
-          .from(tableName)
-          .select()
-          .order('start_month', ascending: true);
+      final response = await _supabase.from(tableName).select();
 
       log.d("response: $response");
 
       if (response.isEmpty) {
-        return [];
+        _ganjil.value = null;
+        _genap.value = null;
+        return;
       }
 
-      final list =
-          response.map((e) => PeriodeSemesterModel.fromJson(e)).toList();
-
-      _items.clear();
-      _items.addAll(list);
-
-      return list;
+      for (var item in response) {
+        final model = PeriodeSemesterModel.fromJson(item);
+        if (model.type == PeriodeSemesterType.ganjil) {
+          _ganjil.value = model;
+        } else if (model.type == PeriodeSemesterType.genap) {
+          _genap.value = model;
+        }
+      }
     } catch (e) {
       log.e(e);
     }
-
-    return [];
   }
 
   Future<void> save(PeriodeSemesterModel model) async {
     try {
       await _supabase.from(tableName).upsert(model.toJson());
 
-      final index = _items.indexWhere((element) => element.type == model.type);
-
-      if (index >= 0) {
-        _items[index] = model;
-      } else {
-        _items.add(model);
+      if (model.type == PeriodeSemesterType.ganjil) {
+        _ganjil.value = model;
+      } else if (model.type == PeriodeSemesterType.genap) {
+        _genap.value = model;
       }
     } catch (e) {
       log.e(e);
