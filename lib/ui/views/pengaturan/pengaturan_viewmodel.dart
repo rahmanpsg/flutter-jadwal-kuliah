@@ -13,6 +13,7 @@ import 'package:jadwal_kuliah/models/item_model.dart';
 import 'package:jadwal_kuliah/models/jam_model.dart';
 import 'package:jadwal_kuliah/services/hari_service.dart';
 import 'package:jadwal_kuliah/services/jam_service.dart';
+import 'package:jadwal_kuliah/ui/bottom_sheets/month_range_picker/month_range_picker_sheet.dart';
 import 'package:jadwal_kuliah/ui/dialogs/form/form_dialog.dart';
 import 'package:jadwal_kuliah/utils/datetime.dart';
 import 'package:stacked/stacked.dart';
@@ -65,8 +66,11 @@ class PengaturanViewModel extends ReactiveViewModel {
 
   void onSelectSemesterGanjil() async {
     final response = await _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.monthRangePicker,
-    );
+        variant: BottomSheetType.monthRangePicker,
+        data: MonthRangePickerSheetData(
+          startMonth: 2,
+          endMonth: 7,
+        ));
 
     if (response?.confirmed == false) return;
 
