@@ -114,4 +114,10 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
   @override
   MonthRangePickerSheetModel viewModelBuilder(BuildContext context) =>
       MonthRangePickerSheetModel();
+
+  @override
+  void onViewModelReady(MonthRangePickerSheetModel viewModel) {
+    viewModel.init(request.data.startMonth, request.data.endMonth);
+    super.onViewModelReady(viewModel);
+  }
 }

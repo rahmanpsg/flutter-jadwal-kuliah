@@ -19,6 +19,13 @@ class MonthRangePickerSheetModel extends BaseViewModel {
   int startMonth = DateTime.now().month;
   int endMonth = DateTime.now().month;
 
+  void init(int startMonth, int endMonth) {
+    this.startMonth = startMonth;
+    this.endMonth = endMonth;
+
+    rebuildUi();
+  }
+
   void setStartMonth(int month) {
     startMonth = month;
     if (endMonth < startMonth) {
