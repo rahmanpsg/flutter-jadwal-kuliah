@@ -52,21 +52,27 @@ class CardSemesterWidget extends ViewModelWidget<PengaturanViewModel> {
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         const SizedBox(height: 4),
-                        Text(
-                          viewModel.ganjil != null
-                              ? '${viewModel.ganjil!.startMonthText} - ${viewModel.ganjil!.endMonthText}'
-                              : 'Belum diatur',
-                          style: Theme.of(context).textTheme.bodyMedium,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                viewModel.ganjil != null
+                                    ? '${viewModel.ganjil!.startMonthText} - ${viewModel.ganjil!.endMonthText}'
+                                    : 'Belum diatur',
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () => viewModel
+                                  .onSelectSemester(PeriodeSemesterType.ganjil),
+                              icon: const Icon(
+                                UniconsLine.edit,
+                                color: kcTertiaryColor,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () => viewModel
-                        .onSelectSemester(PeriodeSemesterType.ganjil),
-                    icon: const Icon(
-                      UniconsLine.edit,
-                      color: kcTertiaryColor,
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -79,21 +85,27 @@ class CardSemesterWidget extends ViewModelWidget<PengaturanViewModel> {
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         const SizedBox(height: 4),
-                        Text(
-                          viewModel.genap != null
-                              ? '${viewModel.genap!.startMonthText} - ${viewModel.genap!.endMonthText}'
-                              : 'Belum diatur',
-                          style: Theme.of(context).textTheme.bodyMedium,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                viewModel.genap != null
+                                    ? '${viewModel.genap!.startMonthText} - ${viewModel.genap!.endMonthText}'
+                                    : 'Belum diatur',
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () => viewModel
+                                  .onSelectSemester(PeriodeSemesterType.genap),
+                              icon: const Icon(
+                                UniconsLine.edit,
+                                color: kcTertiaryColor,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () => viewModel
-                        .onSelectSemester(PeriodeSemesterType.genap),
-                    icon: const Icon(
-                      UniconsLine.edit,
-                      color: kcTertiaryColor,
                     ),
                   ),
                 ],
