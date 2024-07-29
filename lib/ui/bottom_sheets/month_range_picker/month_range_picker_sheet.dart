@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jadwal_kuliah/ui/common/app_colors.dart';
 import 'package:jadwal_kuliah/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -74,7 +73,10 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
                         viewModel.setEndDate(DateTime(
                           viewModel.endDate.year,
                           index + 1,
-                          viewModel.getLastDayOfMonth(DateTime(viewModel.endDate.year, index + 1)).day,
+                          viewModel
+                              .getLastDayOfMonth(
+                                  DateTime(viewModel.endDate.year, index + 1))
+                              .day,
                         ));
                       },
                       children: viewModel.months

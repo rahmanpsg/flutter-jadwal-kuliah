@@ -1,10 +1,19 @@
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class MonthRangePickerSheetModel extends BaseViewModel {
   final List<String> months = [
-    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+    'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember'
   ];
 
   DateTime startDate = DateTime.now();
@@ -25,7 +34,6 @@ class MonthRangePickerSheetModel extends BaseViewModel {
     }
     notifyListeners();
   }
-
 
   DateTime getFirstDayOfMonth(DateTime date) {
     return DateTime(date.year, date.month, 1);
