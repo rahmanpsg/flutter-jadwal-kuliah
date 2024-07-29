@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jadwal_kuliah/ui/common/app_colors.dart';
 import 'package:jadwal_kuliah/ui/common/ui_helpers.dart';
@@ -44,23 +45,24 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
             style: const TextStyle(fontSize: 16, color: kcMediumGrey),
           ),
           verticalSpaceMedium,
-          ElevatedButton(
-            onPressed: () async {
-              final picked = await showDateRangePicker(
-                context: context,
-                firstDate: DateTime(DateTime.now().year - 5),
-                lastDate: DateTime(DateTime.now().year + 5),
-                initialDateRange: DateTimeRange(
-                  start: viewModel.startDate ?? DateTime.now(),
-                  end: viewModel.endDate ??
-                      DateTime.now().add(const Duration(days: 30)),
+          Row(
+            children: [
+              Expanded(
+                child: CupertinoDatePicker(
+                  mode: CupertinoDatePickerMode.date,
+                  initialDateTime: viewModel.startDate,
+                  onDateTimeChanged: viewModel.setStartDate,
                 ),
-              );
-              if (picked != null) {
-                viewModel.setDateRange(picked.start, picked.end);
-              }
-            },
-            child: const Text('Pick Month Range'),
+              ),
+              horizontalSpaceSmall,
+              Expanded(
+                child: CupertinoDatePicker(
+                  mode: CupertinoDatePickerMode.date,
+                  initialDateTime: viewModel.endDate,
+                  onDateTimeChanged: viewModel.setEndDate,
+                ),
+              ),
+            ],
           ),
           verticalSpaceLarge,
           Row(
