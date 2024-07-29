@@ -55,14 +55,10 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
                     child: CupertinoPicker(
                       itemExtent: 32.0,
                       scrollController: FixedExtentScrollController(
-                        initialItem: viewModel.startDate.month - 1,
+                        initialItem: viewModel.startMonth - 1,
                       ),
                       onSelectedItemChanged: (int index) {
-                        viewModel.setStartDate(DateTime(
-                          viewModel.startDate.year,
-                          index + 1,
-                          1,
-                        ));
+                        viewModel.setStartMonth(index + 1);
                       },
                       children: viewModel.months
                           .map((month) => Center(child: Text(month)))
@@ -74,17 +70,10 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
                     child: CupertinoPicker(
                       itemExtent: 32.0,
                       scrollController: FixedExtentScrollController(
-                        initialItem: viewModel.endDate.month - 1,
+                        initialItem: viewModel.endMonth - 1,
                       ),
                       onSelectedItemChanged: (int index) {
-                        viewModel.setEndDate(DateTime(
-                          viewModel.endDate.year,
-                          index + 1,
-                          viewModel
-                              .getLastDayOfMonth(
-                                  DateTime(viewModel.endDate.year, index + 1))
-                              .day,
-                        ));
+                        viewModel.setEndMonth(index + 1);
                       },
                       children: viewModel.months
                           .map((month) => Center(child: Text(month)))
@@ -108,8 +97,8 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
                   onPressed: () => completer?.call(SheetResponse(
                     confirmed: true,
                     data: {
-                      'startMonth': viewModel.startDate.month,
-                      'endMonth': viewModel.endDate.month,
+                      'startMonth': viewModel.startMonth,
+                      'endMonth': viewModel.endMonth,
                     },
                   )),
                   child: const Text('Konfirmasi'),
