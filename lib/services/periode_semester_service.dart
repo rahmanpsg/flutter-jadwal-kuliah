@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:jadwal_kuliah/app/app.logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -40,7 +39,8 @@ class PeriodeSemesterService with ListenableServiceMixin {
         return [];
       }
 
-      final list = response.map((e) => PeriodeSemesterModel.fromJson(e)).toList();
+      final list =
+          response.map((e) => PeriodeSemesterModel.fromJson(e)).toList();
 
       _items.clear();
       _items.addAll(list);
