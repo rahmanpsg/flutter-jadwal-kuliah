@@ -53,21 +53,19 @@ class DashboardView extends StackedView<DashboardViewModel> {
                         ],
                       ),
                     ),
-                    ...viewModel.items
-                        .map(
-                          (item) => ListTile(
-                            selected: viewModel.currentIndex ==
-                                viewModel.items.indexOf(item),
-                            leading: Icon(item.icon),
-                            title: Text(item.label),
-                            onTap: () {
-                              viewModel.handleNavigation(
-                                  viewModel.items.indexOf(item));
-                              Navigator.pop(context);
-                            },
-                          ),
-                        )
-                        .toList(),
+                    ...viewModel.items.map(
+                      (item) => ListTile(
+                        selected: viewModel.currentIndex ==
+                            viewModel.items.indexOf(item),
+                        leading: Icon(item.icon),
+                        title: Text(item.label),
+                        onTap: () {
+                          viewModel
+                              .handleNavigation(viewModel.items.indexOf(item));
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
                   ],
                 ),
               )
@@ -78,7 +76,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
               NavigationRail(
                 selectedIndex: viewModel.currentIndex,
                 onDestinationSelected: viewModel.handleNavigation,
-                backgroundColor: Theme.of(context).colorScheme.background,
+                backgroundColor: Theme.of(context).colorScheme.surface,
                 indicatorColor: Theme.of(context).colorScheme.primary,
                 elevation: 10,
                 useIndicator: true,
@@ -88,7 +86,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                   color: kcWhite,
                 ),
                 unselectedIconTheme: IconThemeData(
-                  color: Theme.of(context).colorScheme.onBackground,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
                 selectedLabelTextStyle: Theme.of(context).textTheme.bodyMedium,
                 unselectedLabelTextStyle:

@@ -6,17 +6,19 @@ part of 'matakuliah_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_MatakuliahModel _$$_MatakuliahModelFromJson(Map<String, dynamic> json) =>
-    _$_MatakuliahModel(
+_$MatakuliahModelImpl _$$MatakuliahModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$MatakuliahModelImpl(
       id: json['id'] as String,
       kode: json['kode'] as String,
       nama: json['nama'] as String,
-      sks: json['sks'] as int,
-      semester: json['semester'] as int,
+      sks: (json['sks'] as num).toInt(),
+      semester: (json['semester'] as num).toInt(),
       idProgramStudi: json['id_program_studi'] as String?,
     );
 
-Map<String, dynamic> _$$_MatakuliahModelToJson(_$_MatakuliahModel instance) =>
+Map<String, dynamic> _$$MatakuliahModelImplToJson(
+        _$MatakuliahModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'kode': instance.kode,

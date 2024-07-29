@@ -1,6 +1,5 @@
 import 'dart:isolate';
 
-import 'package:flutter/material.dart';
 import 'package:jadwal_kuliah/app/app.locator.dart';
 import 'package:jadwal_kuliah/app/app.logger.dart';
 import 'package:jadwal_kuliah/enums/semester_type.dart';

@@ -37,7 +37,7 @@ class JamService with ListenableServiceMixin {
     try {
       final response = await _supabase
           .from(tableName)
-          .select<PostgrestList>()
+          .select()
           .order('mulai', ascending: true);
 
       log.d("response: $response");

@@ -6,7 +6,8 @@ part of 'jam_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_JamModel _$$_JamModelFromJson(Map<String, dynamic> json) => _$_JamModel(
+_$JamModelImpl _$$JamModelImplFromJson(Map<String, dynamic> json) =>
+    _$JamModelImpl(
       id: json['id'] as String,
       mulai: TimeOfDayExtension.fromJson(json['mulai'] as String),
       selesai: TimeOfDayExtension.fromJson(json['selesai'] as String),
@@ -14,7 +15,7 @@ _$_JamModel _$$_JamModelFromJson(Map<String, dynamic> json) => _$_JamModel(
       keterangan: json['keterangan'] as String?,
     );
 
-Map<String, dynamic> _$$_JamModelToJson(_$_JamModel instance) =>
+Map<String, dynamic> _$$JamModelImplToJson(_$JamModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'mulai': TimeOfDayExtension.toJson(instance.mulai),

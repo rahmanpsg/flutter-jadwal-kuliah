@@ -1,5 +1,5 @@
-import 'package:collection/collection.dart';
 import 'package:chips_input/chips_input.dart';
+import 'package:collection/collection.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -62,11 +62,10 @@ class FormDialog extends StackedView<FormDialogModel> {
   final Function(DialogResponse) completer;
 
   const FormDialog({
-    Key? key,
+    super.key,
     DialogRequest? request,
     required this.completer,
-  })  : request = request as DialogRequest<FormDialogData>,
-        super(key: key);
+  }) : request = request as DialogRequest<FormDialogData>;
 
   @override
   Widget builder(
@@ -183,7 +182,7 @@ class _FieldHook extends StackedHookView<FormDialogModel> {
 
   OutlineInputBorder get outlineInputBorder => OutlineInputBorder(
         borderSide: const BorderSide(
-          color: kcBackgroundColor,
+          color: kcMediumGrey,
         ),
         borderRadius: BorderRadius.circular(12),
       );

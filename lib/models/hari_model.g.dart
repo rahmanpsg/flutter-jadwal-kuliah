@@ -6,13 +6,14 @@ part of 'hari_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_HariModel _$$_HariModelFromJson(Map<String, dynamic> json) => _$_HariModel(
+_$HariModelImpl _$$HariModelImplFromJson(Map<String, dynamic> json) =>
+    _$HariModelImpl(
       id: json['id'] as String,
       hari: json['hari'] as String,
       kelas: KelasType.fromListInt(json['kelas'] as List),
     );
 
-Map<String, dynamic> _$$_HariModelToJson(_$_HariModel instance) =>
+Map<String, dynamic> _$$HariModelImplToJson(_$HariModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'hari': instance.hari,

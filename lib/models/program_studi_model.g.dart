@@ -6,8 +6,9 @@ part of 'program_studi_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ProgramStudiModel _$$_ProgramStudiModelFromJson(Map<String, dynamic> json) =>
-    _$_ProgramStudiModel(
+_$ProgramStudiModelImpl _$$ProgramStudiModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ProgramStudiModelImpl(
       id: json['id'] as String,
       nama: json['nama'] as String,
       fakultas: json['id_fakultas'] == null
@@ -15,8 +16,8 @@ _$_ProgramStudiModel _$$_ProgramStudiModelFromJson(Map<String, dynamic> json) =>
           : FakultasModel.fromJson(json['id_fakultas'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_ProgramStudiModelToJson(
-        _$_ProgramStudiModel instance) =>
+Map<String, dynamic> _$$ProgramStudiModelImplToJson(
+        _$ProgramStudiModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'nama': instance.nama,

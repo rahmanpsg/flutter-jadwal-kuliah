@@ -12,7 +12,7 @@ part of 'dosen_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 DosenModel _$DosenModelFromJson(Map<String, dynamic> json) {
   return _DosenModel.fromJson(json);
@@ -91,11 +91,11 @@ class _$DosenModelCopyWithImpl<$Res, $Val extends DosenModel>
 }
 
 /// @nodoc
-abstract class _$$_DosenModelCopyWith<$Res>
+abstract class _$$DosenModelImplCopyWith<$Res>
     implements $DosenModelCopyWith<$Res> {
-  factory _$$_DosenModelCopyWith(
-          _$_DosenModel value, $Res Function(_$_DosenModel) then) =
-      __$$_DosenModelCopyWithImpl<$Res>;
+  factory _$$DosenModelImplCopyWith(
+          _$DosenModelImpl value, $Res Function(_$DosenModelImpl) then) =
+      __$$DosenModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -107,11 +107,11 @@ abstract class _$$_DosenModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_DosenModelCopyWithImpl<$Res>
-    extends _$DosenModelCopyWithImpl<$Res, _$_DosenModel>
-    implements _$$_DosenModelCopyWith<$Res> {
-  __$$_DosenModelCopyWithImpl(
-      _$_DosenModel _value, $Res Function(_$_DosenModel) _then)
+class __$$DosenModelImplCopyWithImpl<$Res>
+    extends _$DosenModelCopyWithImpl<$Res, _$DosenModelImpl>
+    implements _$$DosenModelImplCopyWith<$Res> {
+  __$$DosenModelImplCopyWithImpl(
+      _$DosenModelImpl _value, $Res Function(_$DosenModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -123,7 +123,7 @@ class __$$_DosenModelCopyWithImpl<$Res>
     Object? alamat = freezed,
     Object? nomorTelepon = freezed,
   }) {
-    return _then(_$_DosenModel(
+    return _then(_$DosenModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -150,8 +150,8 @@ class __$$_DosenModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DosenModel extends _DosenModel {
-  const _$_DosenModel(
+class _$DosenModelImpl extends _DosenModel {
+  const _$DosenModelImpl(
       {required this.id,
       required this.nbm,
       required this.nama,
@@ -159,8 +159,8 @@ class _$_DosenModel extends _DosenModel {
       this.nomorTelepon})
       : super._();
 
-  factory _$_DosenModel.fromJson(Map<String, dynamic> json) =>
-      _$$_DosenModelFromJson(json);
+  factory _$DosenModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DosenModelImplFromJson(json);
 
   @override
   final String id;
@@ -179,10 +179,10 @@ class _$_DosenModel extends _DosenModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DosenModel &&
+            other is _$DosenModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.nbm, nbm) || other.nbm == nbm) &&
             (identical(other.nama, nama) || other.nama == nama) &&
@@ -199,12 +199,12 @@ class _$_DosenModel extends _DosenModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DosenModelCopyWith<_$_DosenModel> get copyWith =>
-      __$$_DosenModelCopyWithImpl<_$_DosenModel>(this, _$identity);
+  _$$DosenModelImplCopyWith<_$DosenModelImpl> get copyWith =>
+      __$$DosenModelImplCopyWithImpl<_$DosenModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DosenModelToJson(
+    return _$$DosenModelImplToJson(
       this,
     );
   }
@@ -216,11 +216,11 @@ abstract class _DosenModel extends DosenModel {
       required final String nbm,
       required final String nama,
       final String? alamat,
-      final String? nomorTelepon}) = _$_DosenModel;
+      final String? nomorTelepon}) = _$DosenModelImpl;
   const _DosenModel._() : super._();
 
   factory _DosenModel.fromJson(Map<String, dynamic> json) =
-      _$_DosenModel.fromJson;
+      _$DosenModelImpl.fromJson;
 
   @override
   String get id;
@@ -234,6 +234,6 @@ abstract class _DosenModel extends DosenModel {
   String? get nomorTelepon;
   @override
   @JsonKey(ignore: true)
-  _$$_DosenModelCopyWith<_$_DosenModel> get copyWith =>
+  _$$DosenModelImplCopyWith<_$DosenModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

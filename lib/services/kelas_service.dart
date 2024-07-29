@@ -33,7 +33,7 @@ class KelasService with ListenableServiceMixin {
     try {
       final response = await _supabase
           .from(tableName)
-          .select<PostgrestList>()
+          .select()
           .order('tahun_angkatan')
           .order('id_program_studi')
           .order('jenis', ascending: true);

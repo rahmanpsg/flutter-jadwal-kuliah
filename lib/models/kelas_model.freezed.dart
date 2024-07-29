@@ -12,7 +12,7 @@ part of 'kelas_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 KelasModel _$KelasModelFromJson(Map<String, dynamic> json) {
   return _KelasModel.fromJson(json);
@@ -93,11 +93,11 @@ class _$KelasModelCopyWithImpl<$Res, $Val extends KelasModel>
 }
 
 /// @nodoc
-abstract class _$$_KelasModelCopyWith<$Res>
+abstract class _$$KelasModelImplCopyWith<$Res>
     implements $KelasModelCopyWith<$Res> {
-  factory _$$_KelasModelCopyWith(
-          _$_KelasModel value, $Res Function(_$_KelasModel) then) =
-      __$$_KelasModelCopyWithImpl<$Res>;
+  factory _$$KelasModelImplCopyWith(
+          _$KelasModelImpl value, $Res Function(_$KelasModelImpl) then) =
+      __$$KelasModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -110,11 +110,11 @@ abstract class _$$_KelasModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_KelasModelCopyWithImpl<$Res>
-    extends _$KelasModelCopyWithImpl<$Res, _$_KelasModel>
-    implements _$$_KelasModelCopyWith<$Res> {
-  __$$_KelasModelCopyWithImpl(
-      _$_KelasModel _value, $Res Function(_$_KelasModel) _then)
+class __$$KelasModelImplCopyWithImpl<$Res>
+    extends _$KelasModelCopyWithImpl<$Res, _$KelasModelImpl>
+    implements _$$KelasModelImplCopyWith<$Res> {
+  __$$KelasModelImplCopyWithImpl(
+      _$KelasModelImpl _value, $Res Function(_$KelasModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -126,7 +126,7 @@ class __$$_KelasModelCopyWithImpl<$Res>
     Object? jenis = null,
     Object? idProgramStudi = freezed,
   }) {
-    return _then(_$_KelasModel(
+    return _then(_$KelasModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -153,8 +153,8 @@ class __$$_KelasModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_KelasModel extends _KelasModel {
-  const _$_KelasModel(
+class _$KelasModelImpl extends _KelasModel {
+  const _$KelasModelImpl(
       {required this.id,
       required final List<String> nama,
       required this.tahunAngkatan,
@@ -164,8 +164,8 @@ class _$_KelasModel extends _KelasModel {
       : _nama = nama,
         super._();
 
-  factory _$_KelasModel.fromJson(Map<String, dynamic> json) =>
-      _$$_KelasModelFromJson(json);
+  factory _$KelasModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$KelasModelImplFromJson(json);
 
   @override
   final String id;
@@ -191,10 +191,10 @@ class _$_KelasModel extends _KelasModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_KelasModel &&
+            other is _$KelasModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality().equals(other._nama, _nama) &&
             (identical(other.tahunAngkatan, tahunAngkatan) ||
@@ -217,12 +217,12 @@ class _$_KelasModel extends _KelasModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_KelasModelCopyWith<_$_KelasModel> get copyWith =>
-      __$$_KelasModelCopyWithImpl<_$_KelasModel>(this, _$identity);
+  _$$KelasModelImplCopyWith<_$KelasModelImpl> get copyWith =>
+      __$$KelasModelImplCopyWithImpl<_$KelasModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_KelasModelToJson(
+    return _$$KelasModelImplToJson(
       this,
     );
   }
@@ -235,11 +235,11 @@ abstract class _KelasModel extends KelasModel {
       required final int tahunAngkatan,
       @JsonKey(fromJson: KelasType.fromInt, toJson: KelasType.toInt)
       required final KelasType jenis,
-      final String? idProgramStudi}) = _$_KelasModel;
+      final String? idProgramStudi}) = _$KelasModelImpl;
   const _KelasModel._() : super._();
 
   factory _KelasModel.fromJson(Map<String, dynamic> json) =
-      _$_KelasModel.fromJson;
+      _$KelasModelImpl.fromJson;
 
   @override
   String get id;
@@ -254,6 +254,6 @@ abstract class _KelasModel extends KelasModel {
   String? get idProgramStudi;
   @override
   @JsonKey(ignore: true)
-  _$$_KelasModelCopyWith<_$_KelasModel> get copyWith =>
+  _$$KelasModelImplCopyWith<_$KelasModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

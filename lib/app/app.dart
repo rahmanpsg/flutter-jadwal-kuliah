@@ -1,4 +1,4 @@
-import 'package:jadwal_kuliah/ui/bottom_sheets/notice/notice_sheet.dart';
+import 'package:jadwal_kuliah/services/periode_semester_service.dart';
 import 'package:jadwal_kuliah/ui/views/home/home_view.dart';
 import 'package:jadwal_kuliah/ui/views/startup/startup_view.dart';
 import 'package:jadwal_kuliah/ui/views/unknown/unknown_view.dart';
@@ -26,6 +26,7 @@ import 'package:jadwal_kuliah/ui/dialogs/pengampu_form/pengampu_form_dialog.dart
 import 'package:jadwal_kuliah/services/hari_service.dart';
 import 'package:jadwal_kuliah/services/jam_service.dart';
 import 'package:jadwal_kuliah/services/jadwal_service.dart';
+import 'package:jadwal_kuliah/ui/bottom_sheets/month_range_picker/month_range_picker_sheet.dart';
 // @stacked-import
 
 @StackedApp(
@@ -89,14 +90,15 @@ import 'package:jadwal_kuliah/services/jadwal_service.dart';
     LazySingleton(classType: RuanganService),
     LazySingleton(classType: KelasService),
     LazySingleton(classType: PengampuService),
+    LazySingleton(classType: PeriodeSemesterService),
     LazySingleton(classType: HariService),
     LazySingleton(classType: JamService),
     LazySingleton(classType: JadwalService),
 // @stacked-service
   ],
   bottomsheets: [
-    StackedBottomsheet(classType: NoticeSheet),
-    // @stacked-bottom-sheet
+    StackedBottomsheet(classType: MonthRangePickerSheet),
+// @stacked-bottom-sheet
   ],
   dialogs: [
     StackedDialog(classType: FormDialog),

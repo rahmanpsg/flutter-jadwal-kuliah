@@ -33,7 +33,7 @@ class HariService with ListenableServiceMixin {
     try {
       final response = await _supabase
           .from(tableName)
-          .select<PostgrestList>()
+          .select()
           .order('created_at', ascending: true);
 
       log.d("response: $response");

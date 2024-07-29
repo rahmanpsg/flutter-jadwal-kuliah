@@ -7,7 +7,6 @@ import 'package:jadwal_kuliah/app/app.bottomsheets.dart';
 import 'package:jadwal_kuliah/app/app.dialogs.dart';
 import 'package:jadwal_kuliah/app/app.locator.dart';
 import 'package:jadwal_kuliah/app/app.router.dart';
-import 'package:stacked_themes/stacked_themes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -18,7 +17,6 @@ Future<void> main() async {
   await setupLocator(stackedRouter: stackedRouter);
   setupDialogUi();
   setupBottomSheetUi();
-  await ThemeManager.initialise();
 
   await Supabase.initialize(
     url: const String.fromEnvironment('SUPABASE_URL'),
@@ -34,27 +32,19 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveApp(
-      builder: (_) => ThemeBuilder(
-        defaultThemeMode: ThemeMode.light,
-        darkTheme: AppThemes.lightTheme,
-        // darkTheme: AppThemes.darkTheme,
-        lightTheme: AppThemes.lightTheme,
-        builder: (context, regularTheme, darkTheme, themeMode) => Portal(
-          child: MaterialApp.router(
-            theme: regularTheme,
-            darkTheme: darkTheme,
-            themeMode: themeMode,
-            scrollBehavior: const MaterialScrollBehavior().copyWith(
-              dragDevices: {
-                PointerDeviceKind.mouse,
-                PointerDeviceKind.touch,
-                PointerDeviceKind.stylus,
-                PointerDeviceKind.unknown
-              },
-            ),
-            routerDelegate: stackedRouter.delegate(),
-            routeInformationParser: stackedRouter.defaultRouteParser(),
+      builder: (_) => Portal(
+        child: MaterialApp.router(
+          theme: AppThemes.lightTheme,
+          scrollBehavior: const MaterialScrollBehavior().copyWith(
+            dragDevices: {
+              PointerDeviceKind.mouse,
+              PointerDeviceKind.touch,
+              PointerDeviceKind.stylus,
+              PointerDeviceKind.unknown
+            },
           ),
+          routerDelegate: stackedRouter.delegate(),
+          routeInformationParser: stackedRouter.defaultRouteParser(),
         ),
       ),
     ).animate().fadeIn(

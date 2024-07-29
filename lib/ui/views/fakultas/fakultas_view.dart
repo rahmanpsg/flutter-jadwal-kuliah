@@ -12,7 +12,7 @@ import 'package:unicons/unicons.dart';
 import 'fakultas_viewmodel.dart';
 
 class FakultasView extends StackedView<FakultasViewModel> {
-  const FakultasView({Key? key}) : super(key: key);
+  const FakultasView({super.key});
 
   @override
   Widget builder(
@@ -21,7 +21,7 @@ class FakultasView extends StackedView<FakultasViewModel> {
     Widget? child,
   ) {
     return Card(
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -74,7 +74,7 @@ class FakultasView extends StackedView<FakultasViewModel> {
                       ResponsiveDatatable(
                         isLoading: viewModel.isBusy,
                         source: viewModel.source,
-                        selecteds: [],
+                        selecteds: const [],
                         expanded: List.filled(viewModel.items.length, false),
                         autoHeight: false,
                         headerDecoration: const BoxDecoration(

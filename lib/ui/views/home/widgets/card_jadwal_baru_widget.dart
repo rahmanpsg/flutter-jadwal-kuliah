@@ -157,7 +157,7 @@ class CardJadwalBaruWidget extends StackedHookView<HomeViewModel> {
               child: ResponsiveDatatable(
                 isLoading: viewModel.isBusy,
                 source: viewModel.source,
-                selecteds: [],
+                selecteds: const [],
                 expanded:
                     List.filled(viewModel.generateJadwalList.length, false),
                 autoHeight: false,

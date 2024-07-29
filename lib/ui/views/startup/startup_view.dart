@@ -6,7 +6,7 @@ import 'package:jadwal_kuliah/ui/common/ui_helpers.dart';
 import 'startup_viewmodel.dart';
 
 class StartupView extends StackedView<StartupViewModel> {
-  const StartupView({Key? key}) : super(key: key);
+  const StartupView({super.key});
 
   @override
   Widget builder(
@@ -20,7 +20,7 @@ class StartupView extends StackedView<StartupViewModel> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'STACKED',
+              'Jadwal Kuliah',
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
             ),
             Row(

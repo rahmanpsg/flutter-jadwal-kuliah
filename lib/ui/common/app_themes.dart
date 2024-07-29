@@ -18,7 +18,7 @@ class AppThemes {
       secondary: kcSecondaryColor,
       error: kcDangerColor,
       onError: kcDangerColor,
-      background: kcBackgroundColor,
+      surface: kcBackgroundColor,
       tertiary: kcTertiaryColor,
     ),
     scaffoldBackgroundColor: kcBackgroundColor,
@@ -91,14 +91,14 @@ class AppThemes {
       ),
     ),
     checkboxTheme: CheckboxThemeData(
-      fillColor: MaterialStateProperty.all(Colors.transparent),
-      checkColor: MaterialStateProperty.all(kcPrimaryColor),
+      fillColor: WidgetStateProperty.all(Colors.transparent),
+      checkColor: WidgetStateProperty.all(kcPrimaryColor),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),
       ),
     ),
     radioTheme: RadioThemeData(
-      fillColor: MaterialStateProperty.all(kcPrimaryColor),
+      fillColor: WidgetStateProperty.all(kcPrimaryColor),
     ),
     cardColor: kcBackgroundColor,
     cardTheme: CardTheme(
@@ -118,7 +118,7 @@ class AppThemes {
           secondary: kcSecondaryColor,
           error: kcDangerColor,
           onError: kcDangerColor,
-          background: kcBackgroundColorDark,
+          surface: kcBackgroundColorDark,
         ),
         textTheme: _defaultTheme.textTheme
             .apply(
@@ -197,8 +197,8 @@ class AppThemes {
           ),
         ),
         checkboxTheme: CheckboxThemeData(
-          fillColor: MaterialStateProperty.all(Colors.transparent),
-          checkColor: MaterialStateProperty.all(kcPrimaryColor),
+          fillColor: WidgetStateProperty.all(Colors.transparent),
+          checkColor: WidgetStateProperty.all(kcPrimaryColor),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4),
           ),

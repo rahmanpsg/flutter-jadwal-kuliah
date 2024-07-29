@@ -12,7 +12,7 @@ part of 'program_studi_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 ProgramStudiModel _$ProgramStudiModelFromJson(Map<String, dynamic> json) {
   return _ProgramStudiModel.fromJson(json);
@@ -93,11 +93,11 @@ class _$ProgramStudiModelCopyWithImpl<$Res, $Val extends ProgramStudiModel>
 }
 
 /// @nodoc
-abstract class _$$_ProgramStudiModelCopyWith<$Res>
+abstract class _$$ProgramStudiModelImplCopyWith<$Res>
     implements $ProgramStudiModelCopyWith<$Res> {
-  factory _$$_ProgramStudiModelCopyWith(_$_ProgramStudiModel value,
-          $Res Function(_$_ProgramStudiModel) then) =
-      __$$_ProgramStudiModelCopyWithImpl<$Res>;
+  factory _$$ProgramStudiModelImplCopyWith(_$ProgramStudiModelImpl value,
+          $Res Function(_$ProgramStudiModelImpl) then) =
+      __$$ProgramStudiModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -111,11 +111,11 @@ abstract class _$$_ProgramStudiModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ProgramStudiModelCopyWithImpl<$Res>
-    extends _$ProgramStudiModelCopyWithImpl<$Res, _$_ProgramStudiModel>
-    implements _$$_ProgramStudiModelCopyWith<$Res> {
-  __$$_ProgramStudiModelCopyWithImpl(
-      _$_ProgramStudiModel _value, $Res Function(_$_ProgramStudiModel) _then)
+class __$$ProgramStudiModelImplCopyWithImpl<$Res>
+    extends _$ProgramStudiModelCopyWithImpl<$Res, _$ProgramStudiModelImpl>
+    implements _$$ProgramStudiModelImplCopyWith<$Res> {
+  __$$ProgramStudiModelImplCopyWithImpl(_$ProgramStudiModelImpl _value,
+      $Res Function(_$ProgramStudiModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -125,7 +125,7 @@ class __$$_ProgramStudiModelCopyWithImpl<$Res>
     Object? nama = null,
     Object? fakultas = freezed,
   }) {
-    return _then(_$_ProgramStudiModel(
+    return _then(_$ProgramStudiModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -144,16 +144,16 @@ class __$$_ProgramStudiModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ProgramStudiModel extends _ProgramStudiModel {
-  const _$_ProgramStudiModel(
+class _$ProgramStudiModelImpl extends _ProgramStudiModel {
+  const _$ProgramStudiModelImpl(
       {required this.id,
       required this.nama,
       @JsonKey(name: 'id_fakultas', toJson: FakultasModel.toId)
       required this.fakultas})
       : super._();
 
-  factory _$_ProgramStudiModel.fromJson(Map<String, dynamic> json) =>
-      _$$_ProgramStudiModelFromJson(json);
+  factory _$ProgramStudiModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ProgramStudiModelImplFromJson(json);
 
   @override
   final String id;
@@ -169,10 +169,10 @@ class _$_ProgramStudiModel extends _ProgramStudiModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ProgramStudiModel &&
+            other is _$ProgramStudiModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.nama, nama) || other.nama == nama) &&
             (identical(other.fakultas, fakultas) ||
@@ -186,13 +186,13 @@ class _$_ProgramStudiModel extends _ProgramStudiModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ProgramStudiModelCopyWith<_$_ProgramStudiModel> get copyWith =>
-      __$$_ProgramStudiModelCopyWithImpl<_$_ProgramStudiModel>(
+  _$$ProgramStudiModelImplCopyWith<_$ProgramStudiModelImpl> get copyWith =>
+      __$$ProgramStudiModelImplCopyWithImpl<_$ProgramStudiModelImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ProgramStudiModelToJson(
+    return _$$ProgramStudiModelImplToJson(
       this,
     );
   }
@@ -203,11 +203,11 @@ abstract class _ProgramStudiModel extends ProgramStudiModel {
       {required final String id,
       required final String nama,
       @JsonKey(name: 'id_fakultas', toJson: FakultasModel.toId)
-      required final FakultasModel? fakultas}) = _$_ProgramStudiModel;
+      required final FakultasModel? fakultas}) = _$ProgramStudiModelImpl;
   const _ProgramStudiModel._() : super._();
 
   factory _ProgramStudiModel.fromJson(Map<String, dynamic> json) =
-      _$_ProgramStudiModel.fromJson;
+      _$ProgramStudiModelImpl.fromJson;
 
   @override
   String get id;
@@ -218,6 +218,6 @@ abstract class _ProgramStudiModel extends ProgramStudiModel {
   FakultasModel? get fakultas;
   @override
   @JsonKey(ignore: true)
-  _$$_ProgramStudiModelCopyWith<_$_ProgramStudiModel> get copyWith =>
+  _$$ProgramStudiModelImplCopyWith<_$ProgramStudiModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

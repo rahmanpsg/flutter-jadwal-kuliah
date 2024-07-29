@@ -49,7 +49,7 @@ class RuanganService with ListenableServiceMixin {
   /// Get all data
   Future<List<RuanganModel>> gets() async {
     try {
-      final response = await _supabase.from(tableName).select<PostgrestList>();
+      final response = await _supabase.from(tableName).select();
 
       log.d("response: $response");
 

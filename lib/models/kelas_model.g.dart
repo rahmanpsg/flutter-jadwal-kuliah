@@ -6,16 +6,16 @@ part of 'kelas_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_KelasModel _$$_KelasModelFromJson(Map<String, dynamic> json) =>
-    _$_KelasModel(
+_$KelasModelImpl _$$KelasModelImplFromJson(Map<String, dynamic> json) =>
+    _$KelasModelImpl(
       id: json['id'] as String,
       nama: (json['nama'] as List<dynamic>).map((e) => e as String).toList(),
-      tahunAngkatan: json['tahun_angkatan'] as int,
-      jenis: KelasType.fromInt(json['jenis'] as int),
+      tahunAngkatan: (json['tahun_angkatan'] as num).toInt(),
+      jenis: KelasType.fromInt((json['jenis'] as num).toInt()),
       idProgramStudi: json['id_program_studi'] as String?,
     );
 
-Map<String, dynamic> _$$_KelasModelToJson(_$_KelasModel instance) =>
+Map<String, dynamic> _$$KelasModelImplToJson(_$KelasModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'nama': instance.nama,

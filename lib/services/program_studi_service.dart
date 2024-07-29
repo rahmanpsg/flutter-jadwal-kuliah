@@ -39,7 +39,7 @@ class ProgramStudiService with ListenableServiceMixin {
     try {
       final response = await _supabase
           .from(tableName)
-          .select<PostgrestList>('*, id_fakultas:id_fakultas(*)');
+          .select('*, id_fakultas:id_fakultas(*)');
 
       log.d("response: $response");
 

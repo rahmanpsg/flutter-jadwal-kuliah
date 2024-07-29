@@ -12,7 +12,7 @@ part of 'jam_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 JamModel _$JamModelFromJson(Map<String, dynamic> json) {
   return _JamModel.fromJson(json);
@@ -100,10 +100,11 @@ class _$JamModelCopyWithImpl<$Res, $Val extends JamModel>
 }
 
 /// @nodoc
-abstract class _$$_JamModelCopyWith<$Res> implements $JamModelCopyWith<$Res> {
-  factory _$$_JamModelCopyWith(
-          _$_JamModel value, $Res Function(_$_JamModel) then) =
-      __$$_JamModelCopyWithImpl<$Res>;
+abstract class _$$JamModelImplCopyWith<$Res>
+    implements $JamModelCopyWith<$Res> {
+  factory _$$JamModelImplCopyWith(
+          _$JamModelImpl value, $Res Function(_$JamModelImpl) then) =
+      __$$JamModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -121,11 +122,11 @@ abstract class _$$_JamModelCopyWith<$Res> implements $JamModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_JamModelCopyWithImpl<$Res>
-    extends _$JamModelCopyWithImpl<$Res, _$_JamModel>
-    implements _$$_JamModelCopyWith<$Res> {
-  __$$_JamModelCopyWithImpl(
-      _$_JamModel _value, $Res Function(_$_JamModel) _then)
+class __$$JamModelImplCopyWithImpl<$Res>
+    extends _$JamModelCopyWithImpl<$Res, _$JamModelImpl>
+    implements _$$JamModelImplCopyWith<$Res> {
+  __$$JamModelImplCopyWithImpl(
+      _$JamModelImpl _value, $Res Function(_$JamModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -137,7 +138,7 @@ class __$$_JamModelCopyWithImpl<$Res>
     Object? aktif = null,
     Object? keterangan = freezed,
   }) {
-    return _then(_$_JamModel(
+    return _then(_$JamModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -164,8 +165,8 @@ class __$$_JamModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_JamModel extends _JamModel {
-  const _$_JamModel(
+class _$JamModelImpl extends _JamModel {
+  const _$JamModelImpl(
       {required this.id,
       @JsonKey(
           fromJson: TimeOfDayExtension.fromJson,
@@ -179,8 +180,8 @@ class _$_JamModel extends _JamModel {
       this.keterangan})
       : super._();
 
-  factory _$_JamModel.fromJson(Map<String, dynamic> json) =>
-      _$$_JamModelFromJson(json);
+  factory _$JamModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$JamModelImplFromJson(json);
 
   @override
   final String id;
@@ -203,10 +204,10 @@ class _$_JamModel extends _JamModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_JamModel &&
+            other is _$JamModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.mulai, mulai) || other.mulai == mulai) &&
             (identical(other.selesai, selesai) || other.selesai == selesai) &&
@@ -223,12 +224,12 @@ class _$_JamModel extends _JamModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_JamModelCopyWith<_$_JamModel> get copyWith =>
-      __$$_JamModelCopyWithImpl<_$_JamModel>(this, _$identity);
+  _$$JamModelImplCopyWith<_$JamModelImpl> get copyWith =>
+      __$$JamModelImplCopyWithImpl<_$JamModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_JamModelToJson(
+    return _$$JamModelImplToJson(
       this,
     );
   }
@@ -246,10 +247,11 @@ abstract class _JamModel extends JamModel {
           toJson: TimeOfDayExtension.toJson)
       required final TimeOfDay selesai,
       required final bool aktif,
-      final String? keterangan}) = _$_JamModel;
+      final String? keterangan}) = _$JamModelImpl;
   const _JamModel._() : super._();
 
-  factory _JamModel.fromJson(Map<String, dynamic> json) = _$_JamModel.fromJson;
+  factory _JamModel.fromJson(Map<String, dynamic> json) =
+      _$JamModelImpl.fromJson;
 
   @override
   String get id;
@@ -267,6 +269,6 @@ abstract class _JamModel extends JamModel {
   String? get keterangan;
   @override
   @JsonKey(ignore: true)
-  _$$_JamModelCopyWith<_$_JamModel> get copyWith =>
+  _$$JamModelImplCopyWith<_$JamModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
