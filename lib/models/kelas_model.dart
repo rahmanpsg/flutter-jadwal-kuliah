@@ -55,8 +55,8 @@ class KelasModel with _$KelasModel {
     // Calculate the number of years since enrollment
     int yearsSinceEnrollment = tahun - tahunAngkatan;
     
-    // Adjust for the academic year starting in September
-    if (bulan < 9) {
+    // Adjust for the academic year starting in August
+    if (bulan < 8) {
       yearsSinceEnrollment--;
     }
 
@@ -77,11 +77,11 @@ class KelasModel with _$KelasModel {
     }
 
     // Fallback logic if PeriodeSemesterService data is not available
-    if (bulan >= 9 || bulan <= 2) {
-      // Odd semester (September to February)
+    if (bulan >= 8 || bulan <= 1) {
+      // Odd semester (August to January)
       return semester;
     } else {
-      // Even semester (March to August)
+      // Even semester (February to July)
       return semester + 1;
     }
   }
