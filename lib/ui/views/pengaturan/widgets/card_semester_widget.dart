@@ -54,20 +54,20 @@ class CardSemesterWidget extends ViewModelWidget<PengaturanViewModel> {
                         const SizedBox(height: 4),
                         Row(
                           children: [
-                            Expanded(
-                              child: Text(
-                                viewModel.ganjil != null
-                                    ? '${viewModel.ganjil!.startMonthText} - ${viewModel.ganjil!.endMonthText}'
-                                    : 'Belum diatur',
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            ),
                             IconButton(
                               onPressed: () => viewModel
                                   .onSelectSemester(PeriodeSemesterType.ganjil),
                               icon: const Icon(
                                 UniconsLine.edit,
                                 color: kcTertiaryColor,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                viewModel.ganjil != null
+                                    ? '${viewModel.ganjil!.startMonthText} - ${viewModel.ganjil!.endMonthText}'
+                                    : 'Belum diatur',
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ),
                           ],
@@ -87,20 +87,20 @@ class CardSemesterWidget extends ViewModelWidget<PengaturanViewModel> {
                         const SizedBox(height: 4),
                         Row(
                           children: [
-                            Expanded(
-                              child: Text(
-                                viewModel.genap != null
-                                    ? '${viewModel.genap!.startMonthText} - ${viewModel.genap!.endMonthText}'
-                                    : 'Belum diatur',
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            ),
                             IconButton(
                               onPressed: () => viewModel
                                   .onSelectSemester(PeriodeSemesterType.genap),
                               icon: const Icon(
                                 UniconsLine.edit,
                                 color: kcTertiaryColor,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                viewModel.genap != null
+                                    ? '${viewModel.genap!.startMonthText} - ${viewModel.genap!.endMonthText}'
+                                    : 'Belum diatur',
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ),
                           ],
