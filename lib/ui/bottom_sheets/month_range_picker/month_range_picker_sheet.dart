@@ -6,14 +6,21 @@ import 'package:stacked_services/stacked_services.dart';
 
 import 'month_range_picker_sheet_model.dart';
 
+class MonthRangePickerSheetData {
+  final int startMonth;
+  final int endMonth;
+
+  MonthRangePickerSheetData({required this.startMonth, required this.endMonth});
+}
+
 class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const MonthRangePickerSheet({
     super.key,
     required this.completer,
-    required this.request,
-  });
+    SheetRequest? request,
+  }) : request = request as SheetRequest<MonthRangePickerSheetData>;
 
   @override
   Widget builder(
