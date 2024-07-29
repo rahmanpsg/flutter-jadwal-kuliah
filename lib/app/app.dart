@@ -1,3 +1,4 @@
+import 'package:jadwal_kuliah/services/periode_semester_service.dart';
 import 'package:jadwal_kuliah/ui/views/home/home_view.dart';
 import 'package:jadwal_kuliah/ui/views/startup/startup_view.dart';
 import 'package:jadwal_kuliah/ui/views/unknown/unknown_view.dart';
@@ -89,6 +90,7 @@ import 'package:jadwal_kuliah/ui/bottom_sheets/month_range_picker/month_range_pi
     LazySingleton(classType: RuanganService),
     LazySingleton(classType: KelasService),
     LazySingleton(classType: PengampuService),
+    LazySingleton(classType: PeriodeSemesterService),
     LazySingleton(classType: HariService),
     LazySingleton(classType: JamService),
     LazySingleton(classType: JadwalService),

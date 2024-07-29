@@ -19,6 +19,7 @@ import '../services/jam_service.dart';
 import '../services/kelas_service.dart';
 import '../services/matakuliah_service.dart';
 import '../services/pengampu_service.dart';
+import '../services/periode_semester_service.dart';
 import '../services/program_studi_service.dart';
 import '../services/ruangan_service.dart';
 import 'app.router.dart';
@@ -45,6 +46,7 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => RuanganService());
   locator.registerLazySingleton(() => KelasService());
   locator.registerLazySingleton(() => PengampuService());
+  locator.registerLazySingleton(() => PeriodeSemesterService());
   locator.registerLazySingleton(() => HariService());
   locator.registerLazySingleton(() => JamService());
   locator.registerLazySingleton(() => JadwalService());
