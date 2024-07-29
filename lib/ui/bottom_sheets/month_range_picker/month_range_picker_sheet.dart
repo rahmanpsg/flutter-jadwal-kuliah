@@ -35,19 +35,53 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            request.title ?? 'Hello Stacked Sheet!!',
+            request.title ?? 'Select Month Range',
             style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
           ),
-          if (request.description != null) ...[
-            verticalSpaceTiny,
-            Text(
-              request.description!,
-              style: const TextStyle(fontSize: 14, color: kcMediumGrey),
-              maxLines: 3,
-              softWrap: true,
-            ),
-          ],
+          verticalSpaceMedium,
+          Text(
+            viewModel.getFormattedDateRange(),
+            style: const TextStyle(fontSize: 16, color: kcMediumGrey),
+          ),
+          verticalSpaceMedium,
+          ElevatedButton(
+            onPressed: () async {
+              final picked = await showDateRangePicker(
+                context: context,
+                firstDate: DateTime(DateTime.now().year - 5),
+                lastDate: DateTime(DateTime.now().year + 5),
+                initialDateRange: DateTimeRange(
+                  start: viewModel.startDate ?? DateTime.now(),
+                  end: viewModel.endDate ?? DateTime.now().add(const Duration(days: 30)),
+                ),
+              );
+              if (picked != null) {
+                viewModel.setDateRange(picked.start, picked.end);
+              }
+            },
+            child: const Text('Pick Month Range'),
+          ),
           verticalSpaceLarge,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: () => completer?.call(SheetResponse(confirmed: false)),
+                child: const Text('Cancel'),
+              ),
+              horizontalSpaceSmall,
+              ElevatedButton(
+                onPressed: () => completer?.call(SheetResponse(
+                  confirmed: true,
+                  data: {
+                    'startDate': viewModel.startDate,
+                    'endDate': viewModel.endDate,
+                  },
+                )),
+                child: const Text('Confirm'),
+              ),
+            ],
+          ),
         ],
       ),
     );
