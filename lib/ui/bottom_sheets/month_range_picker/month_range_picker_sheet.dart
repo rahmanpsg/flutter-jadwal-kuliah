@@ -4,21 +4,21 @@ import 'package:jadwal_kuliah/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import 'notice_sheet_model.dart';
+import 'month_range_picker_sheet_model.dart';
 
-class NoticeSheet extends StackedView<NoticeSheetModel> {
-  final Function(SheetResponse)? completer;
+class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
+  final Function(SheetResponse response)? completer;
   final SheetRequest request;
-  const NoticeSheet({
-    super.key,
+  const MonthRangePickerSheet({
+    Key? key,
     required this.completer,
     required this.request,
-  });
+  }) : super(key: key);
 
   @override
   Widget builder(
     BuildContext context,
-    NoticeSheetModel viewModel,
+    MonthRangePickerSheetModel viewModel,
     Widget? child,
   ) {
     return Container(
@@ -35,16 +35,18 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            request.title!,
+            request.title ?? 'Hello Stacked Sheet!!',
             style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
           ),
-          verticalSpaceTiny,
-          Text(
-            request.description!,
-            style: const TextStyle(fontSize: 14, color: kcMediumGrey),
-            maxLines: 3,
-            softWrap: true,
-          ),
+          if (request.description != null) ...[
+            verticalSpaceTiny,
+            Text(
+              request.description!,
+              style: const TextStyle(fontSize: 14, color: kcMediumGrey),
+              maxLines: 3,
+              softWrap: true,
+            ),
+          ],
           verticalSpaceLarge,
         ],
       ),
@@ -52,5 +54,6 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
   }
 
   @override
-  NoticeSheetModel viewModelBuilder(BuildContext context) => NoticeSheetModel();
+  MonthRangePickerSheetModel viewModelBuilder(BuildContext context) =>
+      MonthRangePickerSheetModel();
 }
