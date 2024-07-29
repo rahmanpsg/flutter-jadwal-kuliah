@@ -26,13 +26,6 @@ class MonthRangePickerSheetModel extends BaseViewModel {
     notifyListeners();
   }
 
-  String getFormattedDateRange() {
-    return '${_formatDate(startDate)} - ${_formatDate(endDate)}';
-  }
-
-  String _formatDate(DateTime date) {
-    return '${date.year}-${date.month.toString().padLeft(2, '0')}';
-  }
 
   DateTime getFirstDayOfMonth(DateTime date) {
     return DateTime(date.year, date.month, 1);

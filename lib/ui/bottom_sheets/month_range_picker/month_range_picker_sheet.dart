@@ -41,11 +41,6 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
               style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
             ),
             verticalSpaceMedium,
-            Text(
-              viewModel.getFormattedDateRange(),
-              style: const TextStyle(fontSize: 16, color: kcMediumGrey),
-            ),
-            verticalSpaceMedium,
             SizedBox(
               height: 200, // Adjust this value as needed
               child: Row(
