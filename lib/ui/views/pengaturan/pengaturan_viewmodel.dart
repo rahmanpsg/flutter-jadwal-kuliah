@@ -13,6 +13,7 @@ import 'package:jadwal_kuliah/models/item_model.dart';
 import 'package:jadwal_kuliah/models/jam_model.dart';
 import 'package:jadwal_kuliah/services/hari_service.dart';
 import 'package:jadwal_kuliah/services/jam_service.dart';
+import 'package:jadwal_kuliah/services/periode_semester_service.dart';
 import 'package:jadwal_kuliah/ui/bottom_sheets/month_range_picker/month_range_picker_sheet.dart';
 import 'package:jadwal_kuliah/ui/dialogs/form/form_dialog.dart';
 import 'package:jadwal_kuliah/utils/datetime.dart';
@@ -24,6 +25,7 @@ class PengaturanViewModel extends ReactiveViewModel {
 
   final _dialogService = locator<DialogService>();
   final _bottomSheetService = locator<BottomSheetService>();
+  final _periodSemesterService = locator<PeriodeSemesterService>();
   final _hariService = locator<HariService>();
   final _jamService = locator<JamService>();
 
@@ -55,6 +57,7 @@ class PengaturanViewModel extends ReactiveViewModel {
 
     await Future.wait(
       [
+        _periodSemesterService.syncData(),
         _hariService.syncData(),
         _jamService.syncData(),
       ],
