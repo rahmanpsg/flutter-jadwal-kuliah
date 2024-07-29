@@ -64,13 +64,15 @@ class CardSemesterWidget extends ViewModelWidget<PengaturanViewModel> {
                     children: [
                       Flexible(
                         child: Text(
-                          'Agustus - Januari',
+                          viewModel.ganjil != null
+                              ? '${viewModel.ganjil!.startMonth} - ${viewModel.ganjil!.endMonth}'
+                              : 'Belum diatur',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
                       const SizedBox(width: 16),
                       IconButton(
-                        onPressed: viewModel.onSelectSemesterGanjil,
+                        onPressed: () => viewModel.onSelectSemester(PeriodeSemesterType.ganjil),
                         icon: const Icon(
                           UniconsLine.edit,
                           color: kcTertiaryColor,
@@ -79,13 +81,15 @@ class CardSemesterWidget extends ViewModelWidget<PengaturanViewModel> {
                       const Spacer(),
                       Flexible(
                         child: Text(
-                          'Februari - Juli',
+                          viewModel.genap != null
+                              ? '${viewModel.genap!.startMonth} - ${viewModel.genap!.endMonth}'
+                              : 'Belum diatur',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
                       const SizedBox(width: 16),
                       IconButton(
-                        onPressed: viewModel.onSelectSemesterGanjil,
+                        onPressed: () => viewModel.onSelectSemester(PeriodeSemesterType.genap),
                         icon: const Icon(
                           UniconsLine.edit,
                           color: kcTertiaryColor,

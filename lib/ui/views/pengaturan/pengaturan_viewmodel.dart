@@ -71,17 +71,26 @@ class PengaturanViewModel extends ReactiveViewModel {
     setBusyForObject('jam', false);
   }
 
-  void onSelectSemesterGanjil() async {
+  void onSelectSemester(PeriodeSemesterType type) async {
+    final currentModel = type == PeriodeSemesterType.ganjil ? ganjil : genap;
     final response = await _bottomSheetService.showCustomSheet(
         variant: BottomSheetType.monthRangePicker,
         data: MonthRangePickerSheetData(
-          startMonth: 2,
-          endMonth: 7,
+          startMonth: currentModel?.startMonth ?? (type == PeriodeSemesterType.ganjil ? 8 : 2),
+          endMonth: currentModel?.endMonth ?? (type == PeriodeSemesterType.ganjil ? 1 : 7),
         ));
 
     if (response?.confirmed == false) return;
 
     log.i(response?.data);
+
+    final newModel = PeriodeSemesterModel(
+      type: type,
+      startMonth: response?.data['startMonth'],
+      endMonth: response?.data['endMonth'],
+    );
+
+    await _periodSemesterService.save(newModel);
   }
 
   void onAddHari() async {
