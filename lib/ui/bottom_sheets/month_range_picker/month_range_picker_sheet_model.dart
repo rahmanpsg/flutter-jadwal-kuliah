@@ -29,11 +29,11 @@ class MonthRangePickerSheetModel extends BaseViewModel {
     return '${date.year}-${date.month.toString().padLeft(2, '0')}';
   }
 
-  DateTime _getFirstDayOfMonth(DateTime date) {
+  DateTime getFirstDayOfMonth(DateTime date) {
     return DateTime(date.year, date.month, 1);
   }
 
-  DateTime _getLastDayOfMonth(DateTime date) {
+  DateTime getLastDayOfMonth(DateTime date) {
     return DateTime(date.year, date.month + 1, 0);
   }
 }
