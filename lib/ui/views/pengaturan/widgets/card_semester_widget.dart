@@ -41,46 +41,59 @@ class CardSemesterWidget extends ViewModelWidget<PengaturanViewModel> {
             if (viewModel.busy('hari')) const LinearProgressIndicator(),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
+              child: Row(
                 children: [
-                  ListTile(
-                    title: Text(
-                      'Semester Ganjil',
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    subtitle: Text(
-                      viewModel.ganjil != null
-                          ? '${viewModel.ganjil!.startMonthText} - ${viewModel.ganjil!.endMonthText}'
-                          : 'Belum diatur',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    trailing: IconButton(
-                      onPressed: () => viewModel
-                          .onSelectSemester(PeriodeSemesterType.ganjil),
-                      icon: const Icon(
-                        UniconsLine.edit,
-                        color: kcTertiaryColor,
-                      ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Semester Ganjil',
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          viewModel.ganjil != null
+                              ? '${viewModel.ganjil!.startMonthText} - ${viewModel.ganjil!.endMonthText}'
+                              : 'Belum diatur',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
                     ),
                   ),
-                  ListTile(
-                    title: Text(
-                      'Semester Genap',
-                      style: Theme.of(context).textTheme.headlineSmall,
+                  IconButton(
+                    onPressed: () => viewModel
+                        .onSelectSemester(PeriodeSemesterType.ganjil),
+                    icon: const Icon(
+                      UniconsLine.edit,
+                      color: kcTertiaryColor,
                     ),
-                    subtitle: Text(
-                      viewModel.genap != null
-                          ? '${viewModel.genap!.startMonthText} - ${viewModel.genap!.endMonthText}'
-                          : 'Belum diatur',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Semester Genap',
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          viewModel.genap != null
+                              ? '${viewModel.genap!.startMonthText} - ${viewModel.genap!.endMonthText}'
+                              : 'Belum diatur',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
                     ),
-                    trailing: IconButton(
-                      onPressed: () => viewModel
-                          .onSelectSemester(PeriodeSemesterType.genap),
-                      icon: const Icon(
-                        UniconsLine.edit,
-                        color: kcTertiaryColor,
-                      ),
+                  ),
+                  IconButton(
+                    onPressed: () => viewModel
+                        .onSelectSemester(PeriodeSemesterType.genap),
+                    icon: const Icon(
+                      UniconsLine.edit,
+                      color: kcTertiaryColor,
                     ),
                   ),
                 ],
