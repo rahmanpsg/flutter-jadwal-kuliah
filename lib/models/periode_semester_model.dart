@@ -1,5 +1,7 @@
+import 'package:jadwal_kuliah/enums/periode_semester_type.dart';
+
 class PeriodeSemesterModel {
-  final String type;
+  final PeriodeSemesterType type;
   final int startMonth;
   final int endMonth;
 
@@ -11,7 +13,7 @@ class PeriodeSemesterModel {
 
   factory PeriodeSemesterModel.fromJson(Map<String, dynamic> json) {
     return PeriodeSemesterModel(
-      type: json['type'],
+      type: PeriodeSemesterTypeExtension.fromString(json['type']),
       startMonth: json['start_month'],
       endMonth: json['end_month'],
     );
@@ -19,7 +21,7 @@ class PeriodeSemesterModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'type': type,
+      'type': type.toString().split('.').last,
       'start_month': startMonth,
       'end_month': endMonth,
     };

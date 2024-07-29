@@ -1,4 +1,5 @@
 import 'package:jadwal_kuliah/app/app.logger.dart';
+import 'package:jadwal_kuliah/enums/periode_semester_type.dart';
 import 'package:jadwal_kuliah/models/periode_semester_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
