@@ -54,7 +54,12 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
                     child: CupertinoDatePicker(
                       mode: CupertinoDatePickerMode.date,
                       initialDateTime: viewModel.startDate,
-                      onDateTimeChanged: viewModel.setStartDate,
+                      onDateTimeChanged: (DateTime newDate) {
+                        viewModel.setStartDate(viewModel._getFirstDayOfMonth(newDate));
+                      },
+                      minimumYear: 2000,
+                      maximumYear: 2100,
+                      dateOrder: DatePickerDateOrder.ymd,
                     ),
                   ),
                   horizontalSpaceSmall,
@@ -62,7 +67,12 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
                     child: CupertinoDatePicker(
                       mode: CupertinoDatePickerMode.date,
                       initialDateTime: viewModel.endDate,
-                      onDateTimeChanged: viewModel.setEndDate,
+                      onDateTimeChanged: (DateTime newDate) {
+                        viewModel.setEndDate(viewModel._getLastDayOfMonth(newDate));
+                      },
+                      minimumYear: 2000,
+                      maximumYear: 2100,
+                      dateOrder: DatePickerDateOrder.ymd,
                     ),
                   ),
                 ],
