@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class MonthRangePickerSheetModel extends BaseViewModel {
+  final List<String> months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(const Duration(days: 30));
 
