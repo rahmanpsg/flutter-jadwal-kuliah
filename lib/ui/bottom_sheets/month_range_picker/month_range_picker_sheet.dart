@@ -51,30 +51,40 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
               child: Row(
                 children: [
                   Expanded(
-                    child: CupertinoDatePicker(
-                      mode: CupertinoDatePickerMode.date,
-                      initialDateTime: viewModel.startDate,
-                      onDateTimeChanged: (DateTime newDate) {
-                        viewModel.setStartDate(
-                            viewModel.getFirstDayOfMonth(newDate));
+                    child: CupertinoPicker(
+                      itemExtent: 32.0,
+                      scrollController: FixedExtentScrollController(
+                        initialItem: viewModel.startDate.month - 1,
+                      ),
+                      onSelectedItemChanged: (int index) {
+                        viewModel.setStartDate(DateTime(
+                          viewModel.startDate.year,
+                          index + 1,
+                          1,
+                        ));
                       },
-                      minimumYear: 2000,
-                      maximumYear: 2100,
-                      dateOrder: DatePickerDateOrder.ymd,
+                      children: viewModel.months
+                          .map((month) => Center(child: Text(month)))
+                          .toList(),
                     ),
                   ),
                   horizontalSpaceSmall,
                   Expanded(
-                    child: CupertinoDatePicker(
-                      mode: CupertinoDatePickerMode.date,
-                      initialDateTime: viewModel.endDate,
-                      onDateTimeChanged: (DateTime newDate) {
-                        viewModel
-                            .setEndDate(viewModel.getLastDayOfMonth(newDate));
+                    child: CupertinoPicker(
+                      itemExtent: 32.0,
+                      scrollController: FixedExtentScrollController(
+                        initialItem: viewModel.endDate.month - 1,
+                      ),
+                      onSelectedItemChanged: (int index) {
+                        viewModel.setEndDate(DateTime(
+                          viewModel.endDate.year,
+                          index + 1,
+                          viewModel.getLastDayOfMonth(DateTime(viewModel.endDate.year, index + 1)).day,
+                        ));
                       },
-                      minimumYear: 2000,
-                      maximumYear: 2100,
-                      dateOrder: DatePickerDateOrder.ymd,
+                      children: viewModel.months
+                          .map((month) => Center(child: Text(month)))
+                          .toList(),
                     ),
                   ),
                 ],
