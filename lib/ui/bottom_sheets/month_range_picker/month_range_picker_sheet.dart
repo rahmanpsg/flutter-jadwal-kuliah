@@ -36,61 +36,62 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-          Text(
-            request.title ?? 'Select Month Range',
-            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
-          ),
-          verticalSpaceMedium,
-          Text(
-            viewModel.getFormattedDateRange(),
-            style: const TextStyle(fontSize: 16, color: kcMediumGrey),
-          ),
-          verticalSpaceMedium,
-          SizedBox(
-            height: 200, // Adjust this value as needed
-            child: Row(
-              children: [
-                Expanded(
-                  child: CupertinoDatePicker(
-                    mode: CupertinoDatePickerMode.date,
-                    initialDateTime: viewModel.startDate,
-                    onDateTimeChanged: viewModel.setStartDate,
+            Text(
+              request.title ?? 'Select Month Range',
+              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
+            ),
+            verticalSpaceMedium,
+            Text(
+              viewModel.getFormattedDateRange(),
+              style: const TextStyle(fontSize: 16, color: kcMediumGrey),
+            ),
+            verticalSpaceMedium,
+            SizedBox(
+              height: 200, // Adjust this value as needed
+              child: Row(
+                children: [
+                  Expanded(
+                    child: CupertinoDatePicker(
+                      mode: CupertinoDatePickerMode.date,
+                      initialDateTime: viewModel.startDate,
+                      onDateTimeChanged: viewModel.setStartDate,
+                    ),
                   ),
+                  horizontalSpaceSmall,
+                  Expanded(
+                    child: CupertinoDatePicker(
+                      mode: CupertinoDatePickerMode.date,
+                      initialDateTime: viewModel.endDate,
+                      onDateTimeChanged: viewModel.setEndDate,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            verticalSpaceLarge,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () =>
+                      completer?.call(SheetResponse(confirmed: false)),
+                  child: const Text('Cancel'),
                 ),
                 horizontalSpaceSmall,
-                Expanded(
-                  child: CupertinoDatePicker(
-                    mode: CupertinoDatePickerMode.date,
-                    initialDateTime: viewModel.endDate,
-                    onDateTimeChanged: viewModel.setEndDate,
-                  ),
+                ElevatedButton(
+                  onPressed: () => completer?.call(SheetResponse(
+                    confirmed: true,
+                    data: {
+                      'startDate': viewModel.startDate,
+                      'endDate': viewModel.endDate,
+                    },
+                  )),
+                  child: const Text('Confirm'),
                 ),
               ],
             ),
-          ),
-          verticalSpaceLarge,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                onPressed: () =>
-                    completer?.call(SheetResponse(confirmed: false)),
-                child: const Text('Cancel'),
-              ),
-              horizontalSpaceSmall,
-              ElevatedButton(
-                onPressed: () => completer?.call(SheetResponse(
-                  confirmed: true,
-                  data: {
-                    'startDate': viewModel.startDate,
-                    'endDate': viewModel.endDate,
-                  },
-                )),
-                child: const Text('Confirm'),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
