@@ -67,6 +67,10 @@ class PengaturanViewModel extends ReactiveViewModel {
     final response = await _bottomSheetService.showCustomSheet(
       variant: BottomSheetType.monthRangePicker,
     );
+
+    if (response?.confirmed == false) return;
+
+    log.i(response?.data);
   }
 
   void onAddHari() async {
