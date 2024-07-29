@@ -31,10 +31,11 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
           topRight: Radius.circular(10),
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
           Text(
             request.title ?? 'Select Month Range',
             style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
@@ -45,24 +46,27 @@ class MonthRangePickerSheet extends StackedView<MonthRangePickerSheetModel> {
             style: const TextStyle(fontSize: 16, color: kcMediumGrey),
           ),
           verticalSpaceMedium,
-          Row(
-            children: [
-              Expanded(
-                child: CupertinoDatePicker(
-                  mode: CupertinoDatePickerMode.date,
-                  initialDateTime: viewModel.startDate,
-                  onDateTimeChanged: viewModel.setStartDate,
+          SizedBox(
+            height: 200, // Adjust this value as needed
+            child: Row(
+              children: [
+                Expanded(
+                  child: CupertinoDatePicker(
+                    mode: CupertinoDatePickerMode.date,
+                    initialDateTime: viewModel.startDate,
+                    onDateTimeChanged: viewModel.setStartDate,
+                  ),
                 ),
-              ),
-              horizontalSpaceSmall,
-              Expanded(
-                child: CupertinoDatePicker(
-                  mode: CupertinoDatePickerMode.date,
-                  initialDateTime: viewModel.endDate,
-                  onDateTimeChanged: viewModel.setEndDate,
+                horizontalSpaceSmall,
+                Expanded(
+                  child: CupertinoDatePicker(
+                    mode: CupertinoDatePickerMode.date,
+                    initialDateTime: viewModel.endDate,
+                    onDateTimeChanged: viewModel.setEndDate,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           verticalSpaceLarge,
           Row(
